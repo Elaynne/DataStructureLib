@@ -1,0 +1,9 @@
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\SortLib\obj\Debug\netcoreapp2.1\SortLib.csprojAssemblyReference.cache
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\SortLib\obj\Debug\netcoreapp2.1\SortLib.csproj.CoreCompileInputs.cache
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\SortLib\obj\Debug\netcoreapp2.1\SortLib.AssemblyInfoInputs.cache
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\SortLib\obj\Debug\netcoreapp2.1\SortLib.AssemblyInfo.cs
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\SortLib\bin\Debug\netcoreapp2.1\SortLib.deps.json
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\SortLib\bin\Debug\netcoreapp2.1\SortLib.dll
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\SortLib\bin\Debug\netcoreapp2.1\SortLib.pdb
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\SortLib\obj\Debug\netcoreapp2.1\SortLib.dll
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\SortLib\obj\Debug\netcoreapp2.1\SortLib.pdb

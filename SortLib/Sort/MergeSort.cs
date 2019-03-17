@@ -6,7 +6,7 @@ using System.Text;
 namespace SortLib.Sort
 {
     
-    public class EstruturaCodigo
+    /*public class EstruturaCodigo
     {
         public Int16 Priori { get; set; }
         public string LoadCod { get; set; }
@@ -28,70 +28,57 @@ namespace SortLib.Sort
         {
             return OwnerCod + LoadCod;
         }
-    }
+    }*/
 
     public class MergeSort
     {
         static int cont = 0;
-        static string file;
 
-        public static void Mergesort(EstruturaCodigo[] inputArgs, EstruturaCodigo[] outputArgs, int init, int end)
+        public void Mergesort(int[] inputArgs, int init, int end)
         {
-            string myStr = string.Empty;
 
+            string steps = string.Empty;
+            
             if (init < end)
             {
                 int mid = init + ((end - init) / 2);
 
-                Mergesort(inputArgs, outputArgs, init, mid);
-                Mergesort(inputArgs, outputArgs, mid + 1, end);
-                Interpolate(inputArgs, outputArgs, init, end);
-                try
-                {
-                    myStr = cont + ": ";
+                Mergesort(inputArgs, init, mid);
+                Mergesort(inputArgs, mid + 1, end);
+                Interpolate(inputArgs, init, mid, end);
+                // try
+                // {
+                steps = cont + ": ";
 
+                //STEPS
                     for (int i = 0; i < inputArgs.Length; i++)
-                    {
-                        myStr += i != (inputArgs.Length - 1) ? inputArgs[i].GetString() + " " : inputArgs[i].GetString();
-                        myStr += Environment.NewLine;
-                    }
-                    cont++;
+                    steps += i != (inputArgs.Length - 1) ? inputArgs[i].ToString() + " " : inputArgs[i].ToString();
 
-                    File.WriteAllText(@"C:\Users\Elaynne\Documents\SortFiles\MergeSort.txt", myStr);
-                }
-                catch (IOException e) { }
+                steps += Environment.NewLine;
+                cont++;
+                Console.WriteLine(steps);
+                
+               
+                //File.WriteAllText(@"C:\Users\Elaynne\Documents\SortFiles\MergeSort.txt", myStr);
+               // }
+               // catch (IOException e) { }
             }
         }
 
-        public static void Interpolate(EstruturaCodigo[] inputArgs, EstruturaCodigo[] outputArgs, int init, int end)
+        public static void Interpolate(int[] inputArgs, int init, int mid, int end)
         {
             int i = init;
-            int mid = init + ((end - init) / 2);
             int j = mid + 1;
             int k = init;
+            int[] outputArgs = new int[inputArgs.Length];
+
             while (i <= mid && j <= end)
             {
-                if (string.Compare(inputArgs[i].OwnerCod, inputArgs[j].OwnerCod) < 0)
+                if (inputArgs[i] <= inputArgs[j])
                 {
                     outputArgs[k] = inputArgs[i];
                     k++;
                     i++;
-                }
-                else if (string.Compare(inputArgs[i].OwnerCod, inputArgs[j].OwnerCod) == 0)
-                {
-                    if (inputArgs[i].Priori >= inputArgs[j].Priori)
-                    {
-                        outputArgs[k] = inputArgs[i];
-                        k++;
-                        i++;
-                    }
-                    else
-                    {
-                        outputArgs[k] = inputArgs[j];
-                        k++;
-                        j++;
-                    }
-
                 }
                 else
                 {
@@ -102,7 +89,6 @@ namespace SortLib.Sort
             }
 
             if (i <= mid)
-
                 for (int i2 = i; i2 <= mid; i2++)
                 {
                     outputArgs[k] = inputArgs[i2];
@@ -118,7 +104,6 @@ namespace SortLib.Sort
 
             for (int ij = init; ij <= end; ij++)
                 inputArgs[ij] = outputArgs[ij];
-
         }
     }   
 }

@@ -1,0 +1,14 @@
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\Application\bin\Debug\netcoreapp2.1\Application.deps.json
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\Application\bin\Debug\netcoreapp2.1\Application.runtimeconfig.json
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\Application\bin\Debug\netcoreapp2.1\Application.runtimeconfig.dev.json
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\Application\bin\Debug\netcoreapp2.1\Application.dll
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\Application\bin\Debug\netcoreapp2.1\Application.pdb
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\Application\bin\Debug\netcoreapp2.1\SortLib.dll
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\Application\bin\Debug\netcoreapp2.1\SortLib.pdb
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\Application\obj\Debug\netcoreapp2.1\Application.csprojAssemblyReference.cache
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\Application\obj\Debug\netcoreapp2.1\Application.csproj.CoreCompileInputs.cache
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\Application\obj\Debug\netcoreapp2.1\Application.AssemblyInfoInputs.cache
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\Application\obj\Debug\netcoreapp2.1\Application.AssemblyInfo.cs
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\Application\obj\Debug\netcoreapp2.1\Application.csproj.CopyComplete
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\Application\obj\Debug\netcoreapp2.1\Application.dll
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\Application\obj\Debug\netcoreapp2.1\Application.pdb

@@ -207,6 +207,16 @@
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
+      },
+      "SortLib/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "compile": {
+          "bin/placeholder/SortLib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SortLib.dll": {}
+        }
       }
     }
   },
@@ -680,11 +690,17 @@
         "netstandard.library.2.0.3.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
+    },
+    "SortLib/1.0.0": {
+      "type": "project",
+      "path": "../SortLib/SortLib.csproj",
+      "msbuildProject": "../SortLib/SortLib.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
-      "Microsoft.NETCore.App >= 2.1.0"
+      "Microsoft.NETCore.App >= 2.1.0",
+      "SortLib >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -694,11 +710,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Elaynne\\source\\repos\\SortLib\\DataStructureLib\\SortLib\\SortLib.csproj",
-      "projectName": "SortLib",
-      "projectPath": "C:\\Users\\Elaynne\\source\\repos\\SortLib\\DataStructureLib\\SortLib\\SortLib.csproj",
+      "projectUniqueName": "C:\\Users\\Elaynne\\source\\repos\\SortLib\\DataStructureLib\\Application\\Application.csproj",
+      "projectName": "Application",
+      "projectPath": "C:\\Users\\Elaynne\\source\\repos\\SortLib\\DataStructureLib\\Application\\Application.csproj",
       "packagesPath": "C:\\Users\\Elaynne\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Elaynne\\source\\repos\\SortLib\\DataStructureLib\\SortLib\\obj\\",
+      "outputPath": "C:\\Users\\Elaynne\\source\\repos\\SortLib\\DataStructureLib\\Application\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -716,7 +732,11 @@
       },
       "frameworks": {
         "netcoreapp2.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Elaynne\\source\\repos\\SortLib\\DataStructureLib\\SortLib\\SortLib.csproj": {
+              "projectPath": "C:\\Users\\Elaynne\\source\\repos\\SortLib\\DataStructureLib\\SortLib\\SortLib.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -729,7 +749,6 @@
       "netcoreapp2.1": {
         "dependencies": {
           "Microsoft.NETCore.App": {
-            "suppressParent": "All",
             "target": "Package",
             "version": "[2.1.0, )",
             "autoReferenced": true
