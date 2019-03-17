@@ -5,12 +5,7 @@ using System.Linq;
 namespace Application
 {
     class Program
-    { /*
-    entrada um arquivo, ou uma lista, retorna um arquivo ou uma lista ordenada.
-    Exiba as opções de algoritmo
-    Exiba as opções de entrada: lista ou arquivo
-    fazer uma web api que importa essa dll e recebe requisições http para os métodos de ordenação
-    */
+    { 
         static void Main(string[] args)
         {
             Console.WriteLine("Choose the sort algorithm below:");

@@ -5,31 +5,6 @@ using System.Text;
 
 namespace SortLib.Sort
 {
-    
-    /*public class EstruturaCodigo
-    {
-        public Int16 Priori { get; set; }
-        public string LoadCod { get; set; }
-        public string Input { get; set; }
-        public string OwnerCod { get; set; }
-
-        public EstruturaCodigo(string input)
-        {
-            Priori = Convert.ToInt16(input.Substring(input.Length - 1, input.Length));
-            //Console.Writeline(Priori);
-            LoadCod = input.Substring(5, 10);
-            //Console.WriteLine(LoadCod);
-            OwnerCod = input.Substring(2, 5);
-            //Console.WriteLine(Priori);
-            Input = input;
-        }
-
-        public string GetString()
-        {
-            return OwnerCod + LoadCod;
-        }
-    }*/
-
     public class MergeSort
     {
         static int cont = 0;
@@ -57,8 +32,7 @@ namespace SortLib.Sort
                 steps += Environment.NewLine;
                 cont++;
                 Console.WriteLine(steps);
-                
-               
+ 
                 //File.WriteAllText(@"C:\Users\Elaynne\Documents\SortFiles\MergeSort.txt", myStr);
                // }
                // catch (IOException e) { }
