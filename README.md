@@ -6,8 +6,7 @@ Structures:
 - queue, list, and stack
 
 Search algorithms:
-FIXING BUG
-- Mergesort,
+- Mergesort (FIXING BUG)
 TO-DO
 - Heapsort, Quicksort, AVLtree and BinarySearch.
 
