@@ -10,7 +10,6 @@ Structures:
 
 Search algorithms:
 * [x] Mergesort
-TO-DO
 * [ ] Heapsort
 * [ ] Quicksort
 * [ ] AVLtree
