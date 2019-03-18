@@ -1,8 +1,5 @@
-﻿using SortLib.TreeSearch;
-using System;
+﻿using SortLib.Tree;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
 namespace SortLib.Interface
 {
@@ -21,22 +18,22 @@ namespace SortLib.Interface
         /// </summary>
         /// <param name="tree"></param>
         /// <returns></returns>
-        int GetLeafCapacity(Tree tree);
+        int GetLeafCapacity(int[] tree);
 
         /// <summary>
         /// Get the leafs's node from the tree
         /// </summary>
         /// <param name="tree"></param>
         /// <returns></returns>
-        List<Node> GetLeafs(Tree tree);
+        List<Node> GetLeafs(int[] tree);
 
         /// <summary>
-        /// Get all nodes of a given heght
+        /// Get all nodes of a given heght, the max number of node in a height 'h' is 2^h
         /// </summary>
         /// <param name="tree"></param>
         /// <param name="height"></param>
         /// <returns></returns>
-        List<Node> GetNodesAtHeight(Tree tree, int height);//validate heigth
+        List<Node> GetNodesAtHeight(int[] tree, int height);//validate heigth
 
         /// <summary>
         /// 
@@ -44,14 +41,14 @@ namespace SortLib.Interface
         /// <param name="tree"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        List<Node> GetNodesAtIndexHeight(Tree tree, int index);
+        List<Node> GetNodesAtIndexHeight(int[] tree, int index);
 
         /// <summary>
         /// Get the Node data at tree index 
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        Node GetNode(int index, Tree tree);
+        Node GetNode(int index, int[] tree);
 
         /// <summary>
         /// Build a new tree where the root is your index and call recursively the leafs of the leafs
@@ -65,7 +62,7 @@ namespace SortLib.Interface
         /// </summary>
         /// <param name="tree"></param>
         /// <returns></returns>
-        int GetSubTreeCapacity(int height);
+        int GetTreeCapacity(int height);
 
         void InOrder();
         void PreOrder();

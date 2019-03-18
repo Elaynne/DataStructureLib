@@ -3,20 +3,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SortLib.TreeSearch
+namespace SortLib.Tree
 {
     public class BinaryTree : Tree, ITree
     {
-        public BinaryTree BinaryTreeBuilder(int[] tree)
+       /* public BinaryTree BinaryTreeBuilder(int[] tree)
         {
             BinaryTree bt = new BinaryTree();
 
             return bt;
-        }
+        }*/
 
         public int GetHeight(int[] tree, int? index)
         {
             if (index != null)
+                //altura da árvore
                 return 0;
 
             return (int)Math.Log(tree.Count() - 1, 2);
@@ -28,46 +29,22 @@ namespace SortLib.TreeSearch
             return (int)Math.Pow(2, height - 1);
         }
 
-        public int GetLeafCapacity(Tree tree)
+        public List<Node> GetLeafs(int[] tree)
         {
             throw new NotImplementedException();
         }
-        public List<Node> GetLeafs(Tree tree)
-        {
-            throw new NotImplementedException();
-        }
+
         public Node GetNode(int index, int[] tree)
         {
-
-            int height = GetHeight(tree, index);
-            Node node = new Node();
-            node.value = tree[index];
-            node.index = index;
-
-            // node.father.index = Searh();
-            node.father.value = tree[node.father.index];
-
-            node.leftLeaf.index = height % 2 == 0 ? (index * 2) + 1 : (index * 2);
-            node.leftLeaf.value = tree[node.leftLeaf.index];
-
-            node.rightLeaft.index = height % 2 == 0 ? (index * 2) + 2 : (index * 1);
-            node.rightLeaft.value = tree[node.rightLeaft.index];
-
-            return node;
-
+            throw new NotImplementedException();
         }
 
-        public Node GetNode(int index, Tree tree)
+        public List<Node> GetNodesAtHeight(int[] tree, int height)
         {
             throw new NotImplementedException();
         }
 
-        public List<Node> GetNodesAtHeight(Tree tree, int height)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Node> GetNodesAtIndexHeight(Tree tree, int index)
+        public List<Node> GetNodesAtIndexHeight(int[] tree, int index)
         {
             throw new NotImplementedException();
         }
@@ -77,7 +54,30 @@ namespace SortLib.TreeSearch
             throw new NotImplementedException();
         }
 
-        public int GetSubTreeCapacity(int height)
+
+        /* public Node GetNode(int index, int[] tree)
+         {
+
+             int height = GetHeight(tree, index);
+             Node node = new Node(,,, tree[index], index);
+
+
+             // node.father.index = Searh();
+             node.Father.value = tree[node.Father.Index];
+
+             node.LeftLeaf.Index = height % 2 == 0 ? (index * 2) + 1 : (index * 2);
+             node.LeftLeaf.Value = tree[node.LeftLeaf.Index];
+
+             node.RightLeaft.Index = height % 2 == 0 ? (index * 2) + 2 : (index * 1);
+             node.RightLeaft.Value = tree[node.RightLeaft.Index];
+
+             return node;
+
+         }*/
+
+
+
+        public int GetTreeCapacity(int height)
         {
             return (int)Math.Pow(2, (height + 1)) - 1;
         }
@@ -97,20 +97,6 @@ namespace SortLib.TreeSearch
         {
             throw new NotImplementedException();
         }
-
-        List<Node> ITree.GetSubTree(int indexOfNewRoot)
-        {
-            throw new NotImplementedException();
-        }
     }
-
-
-    //TO-DO
-    public class AVLTree
-    {
-    }
-    public class HeapTree
-    {
-
-    }
+    
 }
