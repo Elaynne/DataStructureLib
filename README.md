@@ -1,13 +1,20 @@
 # DataStructureLib
 This library has my implementations of basic data structures using C# and .net core for studies purposes.
 
-#TO-DO
+TO-DO
+
 Structures:
-- queue, list, and stack
+* [ ] queue
+* [ ] list
+* [ ] stack
 
 Search algorithms:
-- Mergesort
-#TO-DO
-- Heapsort, Quicksort, AVLtree and BinarySearch.
+* [x] Mergesort
+TO-DO
+* [ ] Heapsort
+* [ ] Quicksort
+* [ ] AVLtree
+* [ ] BinaryTree (in progress)
+* [ ] BinarySearch.
 
 
