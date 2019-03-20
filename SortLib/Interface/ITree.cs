@@ -64,6 +64,11 @@ namespace SortLib.Interface
         /// <returns></returns>
         int GetTreeCapacity(int height);
 
+
+        void Insert(int value);
+        void Remove(int value);
+        void Search(int value, Node node);
+
         void InOrder();
         void PreOrder();
         void PosOrder();

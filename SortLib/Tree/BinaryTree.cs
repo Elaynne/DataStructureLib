@@ -5,20 +5,93 @@ using System.Linq;
 
 namespace SortLib.Tree
 {
-    public class BinaryTree : Tree, ITree
+    public class BinaryTree : Tree
     {
-       /* public BinaryTree BinaryTreeBuilder(int[] tree)
+        public void Insert(int value)
         {
-            BinaryTree bt = new BinaryTree();
+            Node thisNode = new Node(Index, value, null);
+            Index++;
+            if (Root == null)
+            {
+                Root = thisNode;
+            }
+            else
+            {
+                Node current = Root;
+                Node currentFather = null;
+                while (current != null)
+                {
+                    if (value < current.Value)
+                    {
+                        currentFather = current;
+                        current = current.Left;
+                    }
+                    else
+                    {
+                        currentFather = current;
+                        current = current.Right;
+                    }
+                }
+                if (currentFather.Value < value)
+                {
+                    currentFather.Right = thisNode;
+                    thisNode.Father = currentFather;
+                }
+                else
+                {
+                    currentFather.Left = thisNode;
+                    thisNode.Father = currentFather;
+                }
+            }
+        }
 
-            return bt;
-        }*/
+        public int Search(int targetValue, Node current)
+        {
 
-        public int GetHeight(int[] tree, int? index)
+            if (current == null)
+                return -1;
+
+            if (targetValue == current.Value)
+                return Index;
+
+            current = targetValue < current.Value ? current.Left : current.Right;
+
+            if (current != null)
+            {
+                Index = current.Index;
+                int idx = Search(targetValue, current);
+                return (idx > 0) ? Index : idx;
+            }
+            return -1;
+        }
+
+        public void Remove(int value)
+        {
+
+        }
+
+        //Path
+        public void InOrder()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PosOrder()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PreOrder()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        //árvores balanceadas
+      /*  public int GetHeight(int[] tree, int? index)
         {
             if (index != null)
-                //altura da árvore
-                return 0;
+                //to-do
 
             return (int)Math.Log(tree.Count() - 1, 2);
         }
@@ -53,9 +126,9 @@ namespace SortLib.Tree
         {
             throw new NotImplementedException();
         }
+        
 
-
-        /* public Node GetNode(int index, int[] tree)
+        public Node GetNode(int index, int[] tree)
          {
 
              int height = GetHeight(tree, index);
@@ -73,30 +146,16 @@ namespace SortLib.Tree
 
              return node;
 
-         }*/
+         }
 
 
 
         public int GetTreeCapacity(int height)
         {
             return (int)Math.Pow(2, (height + 1)) - 1;
-        }
+        }*/
 
-        //Search
-        public void InOrder()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void PosOrder()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void PreOrder()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
     
 }

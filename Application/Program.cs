@@ -46,30 +46,22 @@ namespace Application
                     break;
                 case ConsoleKey.D:
                     //Complexity O(nLog(n))
-                    Tree bt = new Tree();
+                    BinaryTree bt = new BinaryTree();
                     int[] smallArray = new int[] { 15, 18, 2, 14, 12, 63, 58, 66, 26, 6, 65, 46, 11, 7 };
                     for (int i = 0; i < smallArray.Length; i++)
                     {
                         bt.Insert(smallArray[i]);
                     }
+
+                    Console.WriteLine("Posição do elemento 20: " + bt.Search(20, bt.GetRoot()));
+                    Console.WriteLine("Posição do elemento 26: " + bt.Search(26, bt.GetRoot()));
+                    Console.WriteLine("Press any key to finish.");
+                    Console.ReadKey();
                     break;
                 case ConsoleKey.Escape:
                     break;
 
             }
-
-            /* Dictionary<int, int> treeInput = new Dictionary<int, int>()
-             {
-                 {2,97},{5, 8},{1, 16},{3, 76},{4, 89},{0, 22}
-             };
-             //22,16,97,76,89,8
-             treeInput.Add(2,97);
-             treeInput.Add(5, 8);
-             treeInput.Add(1, 16);
-             treeInput.Add(3, 76);
-             treeInput.Add(4, 89);
-             treeInput.Add(0, 22);*/
-            
             
         }
     }
