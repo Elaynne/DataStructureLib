@@ -14,6 +14,8 @@ This library has my implementations of basic data structures using C# and .net c
 * [ ] Quicksort
 * [ ] AVLtree
 * [ ] BinaryTree (in progress)
-* [ ] BinarySearch.
+** [x] Insert
+** [x] Search
+** [ ] Remove
 
 
