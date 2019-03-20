@@ -45,7 +45,10 @@ namespace Application
                     //Complexity O(nLog(n))
                     break;
                 case ConsoleKey.D:
-                    //Complexity O(nLog(n))
+                    Console.WriteLine("\nTime complexity: best O(Log(n)), worst O(n) " +
+                        "and binary tree O(log n <= h <= n), where 'h' is height" +
+                        "\nSpace complexity O(n)\n\nSteps:\n");
+                    //Complexity O(Log(n))
                     BinaryTree bt = new BinaryTree();
                     int[] smallArray = new int[] { 15, 18, 2, 14, 12, 63, 58, 66, 26, 6, 65, 46, 11, 7 };
                     for (int i = 0; i < smallArray.Length; i++)
