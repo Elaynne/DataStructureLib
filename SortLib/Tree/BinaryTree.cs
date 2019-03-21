@@ -45,28 +45,47 @@ namespace SortLib.Tree
             }
         }
 
-        public int Search(int targetValue, Node current)
+        public Node Search(int targetValue, Node current)
         {
+            if (current == null) return null;
 
-            if (current == null)
-                return -1;
-
-            if (targetValue == current.Value)
-                return Index;
+            if (targetValue == current.Value) return current;
 
             current = targetValue < current.Value ? current.Left : current.Right;
 
-            if (current != null)
-            {
-                Index = current.Index;
-                int idx = Search(targetValue, current);
-                return (idx > 0) ? Index : idx;
-            }
-            return -1;
+            if (current != null) return Search(targetValue, current);
+            
+            return null;
         }
 
-        public void Remove(int value)
+        public bool Remove(int targetValue, Node current)
         {
+            Node targetNode = Search(targetValue, current);
+            if (targetNode != null)
+            {
+                //the target is a LEAF
+                if (targetNode.Left == null && targetNode.Right == null)
+                {
+
+                  //  targetNode.Father 
+                    //targetNode = null;
+                }
+                return true;
+            }
+            else
+                return false;
+            //é folha (current.Left == null && current.Right == null)? => sua ref vira null
+            //possui UMA sub árvore? (current.Left != null && current.Right == null) || (current.Left == null && current.Right != null)
+            /* Node nextFather = targetNode.Father;
+                    targetNode
+                    targetNode = null;*/
+            //  => current.Left.Father = current.Father => current.Right.Father = current.Father
+            //possui DUAS sub árvores? (current.Left != null && current.Right != null)
+            //pega a maior folha do lado esquerdo e o pai dele será o pai do nó que será removido;
+            //o filhos dele serão os filhos do que será removido
+            //antigo pai dele irá apontar para nulo;
+            //repete para o outro lado se escolher "sucessor"
+
 
         }
 
