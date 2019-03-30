@@ -1,122 +1,152 @@
-﻿using SortLib.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SortLib.Tree
 {
     public class BinaryTree : Tree
     {
+
+
         public void Insert(int value)
         {
-            Node thisNode = new Node(Index, value, null);
-            Index++;
+            Node thisNode = new Node(0, value, null);
 
-            if (Root == null) Root = thisNode;
-            
-            else
+            if (Root == null)
             {
-                Node current = Root;
-                Node currentFather = null;
-                while (current != null)
-                {
-                    if (value < current.Value)
-                    {
-                        currentFather = current;
-                        current = current.Left;
-                    }
-                    else
-                    {
-                        currentFather = current;
-                        current = current.Right;
-                    }
-                }
-                if (currentFather.Value < value)
-                {
-                    currentFather.Right = thisNode;
-                    thisNode.Father = currentFather;
-                }
-                else
-                {
-                    currentFather.Left = thisNode;
-                    thisNode.Father = currentFather;
-                }
+                Root = thisNode;
+                return;
             }
+            
+            Node current = Root;
+            Node auxFather = null;
+             
+            while (current != null)
+            {
+                auxFather = current;
+                current = (value < current.Value) ? current.Left : current.Right;
+            }
+
+            if (auxFather.Value < value) auxFather.Right = thisNode;
+            
+            else auxFather.Left = thisNode;
+            
+            thisNode.Father = auxFather;
         }
 
-        public Node Search(int targetValue, Node current)
+        public Node Search(int targetValue, Node current, bool remove)
         {
             if (current == null) return null;
 
-            if (targetValue == current.Value) return current;
+            if (targetValue == current.Value)
+            {
+                if (remove) {
+                    current = Remove(targetValue, current);
+                    return current ?? null;
+                }
+                else
+                    return current;
+            }
 
             current = targetValue < current.Value ? current.Left : current.Right;
 
-            if (current != null) return Search(targetValue, current);
-            
+            if (current != null) return Search(targetValue, current, remove);
+
             return null;
         }
 
-
-        #region TO-DO
-        public bool Remove(int targetValue, Node current)
+        #region REMOVE
+        private Node Remove(int targetValue, Node current)
         {
-            Node targetNode = Search(targetValue, current);
-            if (targetNode != null)
-            {
-                //the target is a LEAF
-                if (targetNode.Left == null && targetNode.Right == null)
-                {
-                    //the target is father's left node
-                    if (targetNode.Value < targetNode.Father.Value)
-                        targetNode.Father.Left = null;                  
-                    else 
-                        targetNode.Father.Right = null;            
-                    targetNode = null;
-                }
-                //target has 1 subtree
-                else if ((targetNode.Left != null && targetNode.Right == null) || (targetNode.Left == null && targetNode.Right != null))
-                {
-                    //left subtree
-                    if (targetNode.Left != null)
-                    {
-                        //the target is father's left node
-                        if (targetNode.Value < targetNode.Father.Value)
-                            targetNode.Father.Left = targetNode.Left;
-                        else
-                            targetNode.Father.Right = targetNode.Left;             
-                        targetNode = null;
-                    }
-                    else
-                    {
-                        //the target is father's right node
-                        if (targetNode.Value < targetNode.Father.Value)
-                            targetNode.Father.Left = targetNode.Right;
-                        else
-                            targetNode.Father.Right = targetNode.Right;
-                        targetNode = null;
-                    }
-                }
-                //target has 2 subtress
-                else if (current.Left != null && current.Right != null)
-                {
-                    //pega a maior folha do lado esquerdo e o pai dele será o pai do nó que será removido;
-                    //o filhos dele serão os filhos do que será removido
-                    //antigo pai dele irá apontar para nulo;
-                    //repete para o outro lado se escolher "sucessor"
-                }
-
-                return true;
-            }
-            else
-                return false;
-            
            
-            
+            #region the target is a LEAF
+            if (current.Left == null && current.Right == null)
+            {
+                //the target is left node
+                if (current.Value < current.Father.Value)
+                    current.Father.Left = null;                  
+                else
+                    current.Father.Right = null;
+                current = null;
+                return current;
+            }
+            #endregion
 
+            #region target has 1 subtree
+            else if ((current.Left != null && current.Right == null) || (current.Left == null && current.Right != null))
+            {
+                //left subtree
+                if (current.Left != null)
+                {
+                    //the target is left node
+                    if (current.Value < current.Father.Value)
+                        current.Father.Left = current.Left;
+                    else
+                        current.Father.Right = current.Left;
+                    current = null;
+                }
+                else
+                {
+                    //the target is right node
+                    if (current.Value < current.Father.Value)
+                    {
+                        current.Father.Left = current.Right;
+                        current.Right.Father = current.Father;
+                    }
+                    else {
+                        current.Father.Right = current.Right;
+                        current.Right.Father = current.Father;
+                    }
+                    current = null;
+                }
+                return current;
+            }
+            #endregion
 
+            #region target has 2 subtress
+            //Select Successor or Predecessor to replace the removed Node.
+            //Successor = smallest value from the right subtree; (MY CHOICE)
+            //Predecessor = biggest value from the left subtree
+            else if (current.Left != null && current.Right != null)
+            {
+                //Search smallest element from the right
+                Node successor = GetSuccessor(current.Right);
+                successor.Left = current.Left;
+                successor.Right = current.Right;
+                successor.Father  = current.Father;
+                current = successor;
+                return current;
+            }
+            return current;
+            #endregion
+        }
+        //public List<int> DisplayTreeArray()
+        //{
+        //    List<int> myTree = new List<int>();
+        //    int idx = 0;
+
+        //    while (idx >= 0)
+        //    {
+        //        myTree.Add(Root.Value);
+        //        idx = Root.Index;
+        //        R
+        //    }
+        //    return myTree;
+        //}
+        //return de minimun element from the targetNode's right children
+        private Node GetSuccessor(Node successor)
+        {
+            if (successor.Left != null)
+                successor = GetSuccessor(successor.Left);
+            return successor;
         }
 
+        //return de maximun element from the targetNode's left children
+        private Node GetPredecessor(Node predecessor)
+        {
+            if (predecessor.Right != null)
+                predecessor = GetPredecessor(predecessor.Right);
+            return predecessor;
+        }
         //Path
         public void InOrder()
         {

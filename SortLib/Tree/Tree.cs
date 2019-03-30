@@ -32,29 +32,16 @@ namespace SortLib.Tree
     public class Tree
     {
         protected Node Root { get; set; }
-        protected int Index { get; set; }
 
         public Tree()
         {
             Root = null;
-            Index = 0;
         }
         public Node GetRoot()
         {
             return Root;
         }
        
-
-       
-       /* public void Display(Node n)
-        {
-            if (n == null)
-                return;
-
-            Display(n.Left);
-            Console.Write(" " + n.Value);
-            Display(n.Right);
-        }*/
     }
     
 
