@@ -5,11 +5,17 @@ namespace SortLib.Tree
 {
     public class BinaryTree : Tree
     {
+        private int Index { get; set; }
 
+        public BinaryTree()
+        {
+            Index = 0;
+        }
 
         public void Insert(int value)
         {
-            Node thisNode = new Node(0, value, null);
+            Node thisNode = new Node(Index, value, null);
+            Index++;
 
             if (Root == null)
             {
@@ -32,7 +38,7 @@ namespace SortLib.Tree
             
             thisNode.Father = auxFather;
         }
-
+        
         public Node Search(int targetValue, Node current, bool remove)
         {
             if (current == null) return null;
@@ -40,8 +46,8 @@ namespace SortLib.Tree
             if (targetValue == current.Value)
             {
                 if (remove) {
-                    current = Remove(targetValue, current);
-                    return current ?? null;
+                    bool removed = Remove(targetValue, current);
+                    return removed ? null : current;
                 }
                 else
                     return current;
@@ -55,19 +61,18 @@ namespace SortLib.Tree
         }
 
         #region REMOVE
-        private Node Remove(int targetValue, Node current)
+        private bool Remove(int targetValue, Node current)
         {
-           
+
             #region the target is a LEAF
-            if (current.Left == null && current.Right == null)
-            {
-                //the target is left node
+            if (current.IsLeaf())
+            {//the target is left node
                 if (current.Value < current.Father.Value)
-                    current.Father.Left = null;                  
+                    current.Father.Left = null;
                 else
                     current.Father.Right = null;
                 current = null;
-                return current;
+                return true;
             }
             #endregion
 
@@ -82,23 +87,22 @@ namespace SortLib.Tree
                         current.Father.Left = current.Left;
                     else
                         current.Father.Right = current.Left;
+
+                    current.Left.Father = current.Father;
                     current = null;
                 }
                 else
                 {
                     //the target is right node
                     if (current.Value < current.Father.Value)
-                    {
                         current.Father.Left = current.Right;
-                        current.Right.Father = current.Father;
-                    }
-                    else {
+                    else 
                         current.Father.Right = current.Right;
-                        current.Right.Father = current.Father;
-                    }
+                    
+                    current.Right.Father = current.Father;
                     current = null;
                 }
-                return current;
+                return true;
             }
             #endregion
 
@@ -113,10 +117,15 @@ namespace SortLib.Tree
                 successor.Left = current.Left;
                 successor.Right = current.Right;
                 successor.Father  = current.Father;
-                current = successor;
-                return current;
+                if (current.Father.Value < current.Value)
+                    current.Father.Right = successor;
+                else
+                    current.Father.Left = successor;
+                current.Left.Father = current.Right.Father = successor;
+               // current = successor;
+                return true;
             }
-            return current;
+            return false;
             #endregion
         }
         //public List<int> DisplayTreeArray()

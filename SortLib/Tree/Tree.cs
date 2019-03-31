@@ -41,7 +41,10 @@ namespace SortLib.Tree
         {
             return Root;
         }
-       
+        public void UpdateTree(Node newTree)
+        {
+            Root = newTree;
+        }
     }
     
 

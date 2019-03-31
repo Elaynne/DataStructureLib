@@ -89,12 +89,12 @@ namespace Application
             else
                 Console.WriteLine("It was not possible to find the 12 element in the dataset.\n");
             
-            if (bt.Search(63, bt.GetRoot(), true /*REMOVE*/) != null)
+            if (bt.Search(63, bt.GetRoot(), true /*REMOVE*/) == null)
                 Console.WriteLine("Element 63 was successfully removed.");
             else
                 Console.WriteLine("Element 63 was not found.");
 
-            if (bt.Search(63, bt.GetRoot(), false) != null)
+            if ((node = bt.Search(63, bt.GetRoot(), false)) != null)
                 Console.WriteLine("The index of 63 element: " + node.Index + " your remove has failed.");
             else
                 Console.WriteLine("It was not possible to find the 63 element in the dataset. Did you remove it?\n");
