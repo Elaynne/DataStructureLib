@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
 
 namespace SortLib.Sort
 {
@@ -11,7 +8,6 @@ namespace SortLib.Sort
 
         public void Mergesort(int[] inputArgs, int init, int end)
         {
-
             string steps = string.Empty;
 
             if (init < end)
@@ -39,7 +35,7 @@ namespace SortLib.Sort
             }
         }
 
-        public static void Merge(int[] inputArgs, int init, int mid, int end)
+        private static void Merge(int[] inputArgs, int init, int mid, int end)
         {
             //left side of the array
             int i = init;

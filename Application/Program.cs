@@ -29,15 +29,19 @@ namespace Application
             //string path = Console.ReadLine();
 
             string[] inputStr = input.Split("-");
-            int[] inputArray = inputStr.Select(int.Parse).ToArray();
+            int[] bigArray = inputStr.Select(int.Parse).ToArray();
+            
+            int[] smallArray = new int[] { 15, 18, 2, 14, 12, 12, 63, 58, 66, 26, 6, 65, 46, 11, 7 };
 
             switch (algorith.Key)
             {
                 case ConsoleKey.A:
-                    Console.WriteLine("\n======Excelent! Divide to conquer! Time complexity O(nLog(n)) - Space complexity O(n)" +
+                    Console.WriteLine("\n====== Excelent! Divide to conquer! ======" +
+                        "\nTime complexity Ω(nLog(n)) and O(nLog(n))" +
+                        "\nSpace complexity O(n)" +
                         "\n\n======Steps:\n");
-                    MergeSort sort = new MergeSort();
-                    sort.Mergesort(inputArray, 0, inputArray.Length - 1);
+                    MergeSort mergesort = new MergeSort();
+                    mergesort.Mergesort(bigArray, 0, bigArray.Length - 1);
 
                     Console.WriteLine("Press any key to finish.");
                     Console.ReadKey();
@@ -47,11 +51,27 @@ namespace Application
 
                     break;
                 case ConsoleKey.C:
-                    //Complexity O(nLog(n))
+                    Console.WriteLine("\n====== Excelent! Divide to conquer! ======" +
+                        "\nTime complexity Ω(nLog(n)) and O(n²)" +
+                        "\nSpace complexity O(Log(n))" +
+                       "\n\n");
+                    QuickSort quicksort = new QuickSort();
+                    quicksort.Quicksort(smallArray, 0, smallArray.Length - 1);
+
+                    string result = string.Empty;
+                    foreach (int item in smallArray)
+                    {
+                        result += item.ToString() + " ";
+                    }
+                    Console.WriteLine(result);
+
+                    Console.WriteLine("Press any key to finish.");
+                    Console.ReadKey();
+
                     break;
                 case ConsoleKey.D:
 
-                    ExecuteBinaryTree(inputArray);
+                    ExecuteBinaryTree(bigArray, smallArray);
 
                     Console.WriteLine("Press any key to finish.");
                     Console.ReadKey();
@@ -65,14 +85,14 @@ namespace Application
             
         }
 
-        private static void ExecuteBinaryTree(int[] inputArray)
+        private static void ExecuteBinaryTree(int[] bigArray, int[] smallArray)
         {
             Console.WriteLine("\n====Time complexity: \n   * best O(Log(n)) \n   * worst O(n) " +
-                       "\n   * binary tree O(log n <= h <= n), where 'h' is height" +
+                       "\n   * binary tree O(log h), where 'h' is height and n <= h <= n" +
                        "\n====Space complexity O(n)\n\nSteps:\n");
             //Complexity O(Log(n))
             BinaryTree bt = new BinaryTree();
-            int[] smallArray = new int[] { 15, 18, 2, 14, 12, 12, 63, 58, 66, 26, 6, 65, 46, 11, 7 };
+           
 
             for (int i = 0; i < smallArray.Length; i++)
                 bt.Insert(smallArray[i]);
@@ -80,25 +100,50 @@ namespace Application
             //DUMMY TEST
             Node node = null;
             if ((node = bt.Search(2911, bt.GetRoot(), false /*NOT REMOVE*/)) != null)
-                Console.WriteLine("The index of 2911 element: " + node.Index);
+                Console.WriteLine("The key of 2911 element: " + node.Index);
             else
                 Console.WriteLine("It was not possible to find the 2911 element in the dataset.");
 
             if ((node = bt.Search(12, bt.GetRoot(), false /*NOT REMOVE*/)) != null)
-                Console.WriteLine("The index of 12 element: " + node.Index);
+                Console.WriteLine("The key of 12 element: " + node.Index);
             else
                 Console.WriteLine("It was not possible to find the 12 element in the dataset.\n");
-            
+
+            //NODE HAS 2 SUBTREE
             if (bt.Search(63, bt.GetRoot(), true /*REMOVE*/) == null)
                 Console.WriteLine("Element 63 was successfully removed.");
             else
                 Console.WriteLine("Element 63 was not found.");
-
             if ((node = bt.Search(63, bt.GetRoot(), false)) != null)
-                Console.WriteLine("The index of 63 element: " + node.Index + " your remove has failed.");
+                Console.WriteLine("The key of 63 element: " + node.Index + " your remove has failed.");
             else
                 Console.WriteLine("It was not possible to find the 63 element in the dataset. Did you remove it?\n");
-            
+
+            //NODE IS A LEAF
+            if (bt.Search(46, bt.GetRoot(), true /*REMOVE*/) == null)
+                Console.WriteLine("Element 46 was successfully removed.");
+            else
+                Console.WriteLine("Element 46 was not found.");
+            if ((node = bt.Search(46, bt.GetRoot(), false)) != null)
+                Console.WriteLine("The key of 46 element: " + node.Index + " your remove has failed.");
+            else
+                Console.WriteLine("It was not possible to find the 46 element in the dataset. Did you remove it?\n");
+
+            //NODE HAS 1 SUBTREE
+            if (bt.Search(26, bt.GetRoot(), true /*REMOVE*/) == null)
+                Console.WriteLine("Element 26 was successfully removed.");
+            else
+                Console.WriteLine("Element 26 was not found.");
+            if ((node = bt.Search(26, bt.GetRoot(), false)) != null)
+                Console.WriteLine("The key of 26 element: " + node.Index + " your remove has failed.");
+            else
+                Console.WriteLine("It was not possible to find the 26 element in the dataset. Did you remove it?\n");
+
+            bt.Insert(63);
+            if ((node = bt.Search(63, bt.GetRoot(), false /*NOT REMOVE*/)) != null)
+                Console.WriteLine("The key of 63 element: " + node.Index);
+            else
+                Console.WriteLine("It was not possible to find the 63 element in the dataset.\n");
         }
     }
 }

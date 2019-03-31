@@ -5,17 +5,18 @@ namespace SortLib.Tree
 {
     public class BinaryTree : Tree
     {
-        private int Index { get; set; }
+        private int Key { get; set; }
 
         public BinaryTree()
         {
-            Index = 0;
+            Key = 0;
         }
 
+        #region INSERT
         public void Insert(int value)
         {
-            Node thisNode = new Node(Index, value, null);
-            Index++;
+            Node thisNode = new Node(Key, value, null);
+            Key++;
 
             if (Root == null)
             {
@@ -38,7 +39,9 @@ namespace SortLib.Tree
             
             thisNode.Father = auxFather;
         }
-        
+        #endregion
+
+        #region SEARCH
         public Node Search(int targetValue, Node current, bool remove)
         {
             if (current == null) return null;
@@ -59,11 +62,11 @@ namespace SortLib.Tree
 
             return null;
         }
+        #endregion
 
         #region REMOVE
         private bool Remove(int targetValue, Node current)
         {
-
             #region the target is a LEAF
             if (current.IsLeaf())
             {//the target is left node
@@ -128,19 +131,7 @@ namespace SortLib.Tree
             return false;
             #endregion
         }
-        //public List<int> DisplayTreeArray()
-        //{
-        //    List<int> myTree = new List<int>();
-        //    int idx = 0;
-
-        //    while (idx >= 0)
-        //    {
-        //        myTree.Add(Root.Value);
-        //        idx = Root.Index;
-        //        R
-        //    }
-        //    return myTree;
-        //}
+      
         //return de minimun element from the targetNode's right children
         private Node GetSuccessor(Node successor)
         {
@@ -187,40 +178,12 @@ namespace SortLib.Tree
               int height = GetHeight(tree, null);
               return (int)Math.Pow(2, height - 1);
           }
-
-          public List<Node> GetLeafs(int[] tree)
-          {
-              throw new NotImplementedException();
-          }
-
-          public Node GetNode(int index, int[] tree)
-          {
-              throw new NotImplementedException();
-          }
-
-          public List<Node> GetNodesAtHeight(int[] tree, int height)
-          {
-              throw new NotImplementedException();
-          }
-
-          public List<Node> GetNodesAtIndexHeight(int[] tree, int index)
-          {
-              throw new NotImplementedException();
-          }
-
-          public List<Node> GetSubTree(int indexOfNewRoot)
-          {
-              throw new NotImplementedException();
-          }
-
-
+          
           public Node GetNode(int index, int[] tree)
            {
-
                int height = GetHeight(tree, index);
                Node node = new Node(,,, tree[index], index);
-
-
+               
                // node.father.index = Searh();
                node.Father.value = tree[node.Father.Index];
 
@@ -231,17 +194,12 @@ namespace SortLib.Tree
                node.RightLeaft.Value = tree[node.RightLeaft.Index];
 
                return node;
-
            }
-
-
 
           public int GetTreeCapacity(int height)
           {
               return (int)Math.Pow(2, (height + 1)) - 1;
           }*/
-
-
     }
 
 }

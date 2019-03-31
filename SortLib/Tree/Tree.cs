@@ -11,7 +11,7 @@ namespace SortLib.Tree
         public Node Left { get; set; }
         public Node Right { get; set; }
         public int Value { get; set; }
-        public int Index { get; set; }
+        public int Index { get; set; }//KEY
 
         public Node(int index, int value, Node father)
         {
@@ -26,7 +26,6 @@ namespace SortLib.Tree
         {
             return (Right == null && Left== null);
         }
-       
     }
 
     public class Tree
