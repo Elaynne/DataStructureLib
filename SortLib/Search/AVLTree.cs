@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SortLib.Tree
+namespace SortLib.Search
 {
     public class AVLTree : Tree
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-namespace SortLib.Tree
+namespace SortLib.Search
 {
 
     public class Node

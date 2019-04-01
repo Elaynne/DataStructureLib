@@ -1,7 +1,6 @@
 ﻿using SortLib.Sort;
-using SortLib.Tree;
+using SortLib.Search;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Application
@@ -56,10 +55,10 @@ namespace Application
                         "\nSpace complexity O(Log(n))" +
                        "\n\n");
                     QuickSort quicksort = new QuickSort();
-                    quicksort.Quicksort(smallArray, 0, smallArray.Length - 1);
+                    quicksort.Quicksort(bigArray, 0, bigArray.Length - 1);
 
                     string result = string.Empty;
-                    foreach (int item in smallArray)
+                    foreach (int item in bigArray)
                     {
                         result += item.ToString() + " ";
                     }

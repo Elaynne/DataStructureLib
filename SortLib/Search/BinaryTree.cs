@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SortLib.Tree
+namespace SortLib.Search
 {
     public class BinaryTree : Tree
     {
@@ -147,6 +147,7 @@ namespace SortLib.Tree
                 predecessor = GetPredecessor(predecessor.Right);
             return predecessor;
         }
+        #endregion
         //Path
         public void InOrder()
         {
@@ -162,8 +163,7 @@ namespace SortLib.Tree
         {
             throw new NotImplementedException();
         }
-        #endregion
-
+        
         //árvores balanceadas
         /*  public int GetHeight(int[] tree, int? index)
           {
