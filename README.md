@@ -8,14 +8,13 @@ This library has my implementations of basic data structures using C# and .net c
 * [ ] list
 * [ ] stack
 
-## Search algorithms:
+## Sort:
 * [x] Mergesort
 * [ ] Heapsort
-* [ ] Quicksort
-* [ ] AVLtree
-* [ ] BinaryTree (in progress)
-  * [x] Insert
-  * [x] Search
-  * [ ] Remove
+* [x] Quicksort
 
+## Tree:
+* [ ] AVLtree
+* [x] BinaryTree: [x] Insert, [x] Search, [x] Remove
+* [ ] HeapTree: [ ] Insert, [ ] Search, [ ] Remove [WIP]
 
