@@ -17,7 +17,8 @@ namespace Application
             Console.WriteLine("[B] - HeapSort");
             Console.WriteLine("[C] - QuickSort");
             Console.WriteLine("[D] - BinaryTree");
-            Console.WriteLine("[E] - AVLtree");
+            Console.WriteLine("[E] - HeapTree");
+            Console.WriteLine("[F] - AVLtree");
             Console.WriteLine("[Esc] - Close\n");
             var algorith = Console.ReadKey();
 
@@ -76,12 +77,17 @@ namespace Application
                     Console.ReadKey();
                     break;
                 case ConsoleKey.E:
+                    ExecuteHeapTree(bigArray, smallArray);
+
+                    Console.WriteLine("Press any key to finish.");
+                    Console.ReadKey();
+                    break;
+                case ConsoleKey.F:
                     break;
                 case ConsoleKey.Escape:
                     break;
 
             }
-            
         }
 
         private static void ExecuteBinaryTree(int[] bigArray, int[] smallArray)
@@ -143,6 +149,11 @@ namespace Application
                 Console.WriteLine("The key of 63 element: " + node.Index);
             else
                 Console.WriteLine("It was not possible to find the 63 element in the dataset.\n");
+        }
+
+        private static void ExecuteHeapTree(int[] bigArray, int[] smallArray)
+        {
+
         }
     }
 }

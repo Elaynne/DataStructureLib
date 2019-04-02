@@ -9,7 +9,7 @@ namespace SortLib.Search
     {
         private readonly Node[] Heap;
         private readonly int Size;
-        public int posix = 0;
+        private int posix = 0;
 
         public HeapTree(int size)
         {
@@ -17,17 +17,6 @@ namespace SortLib.Search
             Heap = new Node[size];
         }
 
-        private int Father(int i) => (i - 1) / 2;
-        private int Left(int i) => i * 2 + 1;
-        private int Right(int i) => i * 2 + 2;
-
-        private void Swap(int P, int i)
-        {
-            Node aux = Heap[i];
-            Heap[i] = Heap[P];
-            Heap[P] = aux;
-        }
-  
         //insert node into end of array
         //aply heapify on his father, then aply on his father..until aply on root
         public void Insert(int key, int value)
@@ -55,10 +44,20 @@ namespace SortLib.Search
             return aux;
         }
 
-        //aply on last index with children, 
-        //Heapify on i = (data.Lenght - 1)/2
+        private int Father(int i) => (i - 1) / 2;
+        private int Left(int i) => i * 2 + 1;
+        private int Right(int i) => i * 2 + 2;
+
+        private void Swap(int P, int i)
+        {
+            Node aux = Heap[i];
+            Heap[i] = Heap[P];
+            Heap[P] = aux;
+        }
+
+        //aply on last index with children => Heapify on i = (data.Lenght - 1)/2
         //then decrement 1 on index and aply
-        public void Heapify(int i, bool remove)
+        private void Heapify(int i, bool remove)
         {
             int P = i;
             int E = Left(i);
