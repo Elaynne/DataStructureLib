@@ -40,10 +40,6 @@ namespace SortLib.Search
         {
             return Root;
         }
-        public void UpdateTree(Node newTree)
-        {
-            Root = newTree;
-        }
     }
     
 
