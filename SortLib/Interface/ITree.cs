@@ -1,4 +1,4 @@
-﻿using SortLib.Tree;
+﻿using SortLib.Search;
 using System.Collections.Generic;
 
 namespace SortLib.Interface
