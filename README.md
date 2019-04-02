@@ -16,5 +16,5 @@ This library has my implementations of basic data structures using C# and .net c
 ## Tree:
 * [ ] AVLtree
 * [x] BinaryTree: [x] Insert, [x] Search, [x] Remove
-* [ ] HeapTree: [ ] Insert, [ ] Search, [ ] Remove [WIP]
+* [ ] HeapTree: [ ] Insert, [ ] Remove, [ ] GetHeap [WIP]
 
