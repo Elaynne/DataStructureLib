@@ -2,10 +2,11 @@
 using SortLib.Search;
 using System;
 using System.Linq;
+using System.Text;
 
 namespace Application
 {
-    class Program
+    static class Program
     { 
         static void Main(string[] args)
         {
@@ -30,8 +31,8 @@ namespace Application
 
             string[] inputStr = input.Split("-");
             int[] bigArray = inputStr.Select(int.Parse).ToArray();
-            
-            int[] smallArray = new int[] { 15, 18, 2, 14, 12, 12, 63, 58, 66, 26, 6, 65, 46, 11, 7 };
+
+            int[] smallArray = new int[] { 15, 18, 2, 14, 12, 12, 63 };// 58, 66, 26, 6, 65, 46, 11, 7 };
 
             switch (algorith.Key)
             {
@@ -58,10 +59,10 @@ namespace Application
                     QuickSort quicksort = new QuickSort();
                     quicksort.Quicksort(bigArray, 0, bigArray.Length - 1);
 
-                    string result = string.Empty;
+                    StringBuilder result = new StringBuilder();
                     foreach (int item in bigArray)
                     {
-                        result += item.ToString() + " ";
+                        result.Append(item.ToString() + " ");
                     }
                     Console.WriteLine(result);
 
@@ -98,7 +99,6 @@ namespace Application
             //Complexity O(Log(n))
             BinaryTree bt = new BinaryTree();
            
-
             for (int i = 0; i < smallArray.Length; i++)
                 bt.Insert(smallArray[i]);
 
@@ -153,7 +153,23 @@ namespace Application
 
         private static void ExecuteHeapTree(int[] bigArray, int[] smallArray)
         {
+            Console.WriteLine("\n====Time complexity: \n   Time O(n)" +
+                      "\n====Space complexity Espace O(1)\n\nSteps:\n");
 
+            StringBuilder result = new StringBuilder("My heap result: ");
+
+            HeapTree ht = new HeapTree(smallArray.Length);
+            Random rnd = new Random();
+
+            for (int i = 0; i < smallArray.Length; i++) { 
+                ht.Insert(rnd.Next(1, smallArray.Length), smallArray[i]);
+                Console.WriteLine("Inserting value " + smallArray[i] + "\n");
+            }
+            for (int i = 0; i < smallArray.Length; i++)
+            {
+                result.Append(ht.Heap[i].Value + " ");
+            }
+            Console.WriteLine(result);
         }
     }
 }

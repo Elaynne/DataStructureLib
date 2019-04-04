@@ -33,10 +33,12 @@ namespace SortLib.Search
                 current = (value < current.Value) ? current.Left : current.Right;
             }
 
-            if (auxFather.Value < value) auxFather.Right = thisNode;
-            
-            else auxFather.Left = thisNode;
-            
+            if (auxFather != null)
+            {
+                if (auxFather.Value < value) auxFather.Right = thisNode;
+
+                else auxFather.Left = thisNode;
+            }
             thisNode.Father = auxFather;
         }
         #endregion
@@ -49,7 +51,7 @@ namespace SortLib.Search
             if (targetValue == current.Value)
             {
                 if (remove) {
-                    bool removed = Remove(targetValue, current);
+                    bool removed = Remove(current);
                     return removed ? null : current;
                 }
                 else
@@ -65,16 +67,16 @@ namespace SortLib.Search
         #endregion
 
         #region REMOVE
-        private bool Remove(int targetValue, Node current)
+        private bool Remove(Node current)
         {
             #region the target is a LEAF
             if (current.IsLeaf())
-            {//the target is left node
+            {
+                //the target is left node
                 if (current.Value < current.Father.Value)
                     current.Father.Left = null;
                 else
                     current.Father.Right = null;
-                current = null;
                 return true;
             }
             #endregion
@@ -92,7 +94,6 @@ namespace SortLib.Search
                         current.Father.Right = current.Left;
 
                     current.Left.Father = current.Father;
-                    current = null;
                 }
                 else
                 {
@@ -103,7 +104,6 @@ namespace SortLib.Search
                         current.Father.Right = current.Right;
                     
                     current.Right.Father = current.Father;
-                    current = null;
                 }
                 return true;
             }
@@ -125,7 +125,7 @@ namespace SortLib.Search
                 else
                     current.Father.Left = successor;
                 current.Left.Father = current.Right.Father = successor;
-               // current = successor;
+              
                 return true;
             }
             return false;
@@ -169,7 +169,6 @@ namespace SortLib.Search
           {
               if (index != null)
                   //to-do
-
               return (int)Math.Log(tree.Count() - 1, 2);
           }
 

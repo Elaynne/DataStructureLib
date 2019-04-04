@@ -22,10 +22,8 @@ namespace SortLib.Search
             Father = father;
         }
 
-        public bool IsLeaf()
-        {
-            return (Right == null && Left== null);
-        }
+        public bool IsLeaf() => (Right == null && Left== null);
+        
     }
 
     public class Tree
@@ -36,10 +34,7 @@ namespace SortLib.Search
         {
             Root = null;
         }
-        public Node GetRoot()
-        {
-            return Root;
-        }
+        public Node GetRoot() => Root; 
     }
     
 

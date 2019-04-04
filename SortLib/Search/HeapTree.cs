@@ -4,10 +4,9 @@ using System.Text;
 
 namespace SortLib.Search
 {
-    //Espace O(1) Time O(n)
-    class HeapTree 
+    public class HeapTree 
     {
-        private readonly Node[] Heap;
+        public readonly Node[] Heap;
         private readonly int Size;
         private int posix = 0;
 
@@ -25,7 +24,8 @@ namespace SortLib.Search
             {
                 Node node = new Node(key, value, null);
                 Heap[posix] = node;
-                if ((posix - 1) / 2 > 0)
+                double aux = (double)(posix - 1) / (double)2;
+                if (aux > 0)
                     Heapify((posix - 1) / 2, false);
                 posix++;
             }
@@ -44,46 +44,42 @@ namespace SortLib.Search
             return aux;
         }
 
-        private int Father(int i) => (i - 1) / 2;
         private int Left(int i) => i * 2 + 1;
         private int Right(int i) => i * 2 + 2;
 
-        private void Swap(int P, int i)
+        private void Swap(int fatherIdx, int i)
         {
             Node aux = Heap[i];
-            Heap[i] = Heap[P];
-            Heap[P] = aux;
+            Heap[i] = Heap[fatherIdx];
+            Heap[fatherIdx] = aux;
         }
 
-        //aply on last index with children => Heapify on i = (data.Lenght - 1)/2
-        //then decrement 1 on index and aply
+        /// <summary>
+        /// aply on last index with children => Heapify on i = (data.Lenght - 1)/2
+        /// then decrement 1 on index and aply
+        /// </summary>
+        /// <param name="i">index</param>
+        /// <param name="remove">condition to change the index where to aply Heapify</param>
         private void Heapify(int i, bool remove)
         {
-            int P = i;
-            int E = Left(i);
-            int D = Right(i);
-            if (E < Size && Heap[E] != null)
+            int fatherIdx = i;
+            int leftIdx = Left(i);
+            int rightIdx = Right(i);
+
+            if (leftIdx < Size && Heap[leftIdx] != null && Heap[leftIdx].Value > Heap[fatherIdx].Value)
             {
-                if (Heap[E].Index > Heap[P].Index)
-                    P = E;
+                fatherIdx = leftIdx;
             }
-            if (D < Size && Heap[D] != null)
+            if (rightIdx < Size && Heap[rightIdx] != null && (Heap[rightIdx].Value > Heap[fatherIdx].Value))
             {
-                if (Heap[D].Index > Heap[P].Index)
-                    P = D;
+                fatherIdx = rightIdx;
             }
-            if (P != i)
+            
+            if (fatherIdx != i)
             {
-                Swap(P, i);
-                int aux = P;
-                if (!remove && ((P - 1) / 2 > 0))
-                {
-                    aux = (i - 1) / 2;
-                    Heapify(aux, false);
-                }
-                else {
-                    Heapify(aux, true);
-                }
+                Swap(fatherIdx, i);
+                int aux = !remove && ((double)(fatherIdx - 1) / (double)2 > 0) ? (i - 1) / 2 : fatherIdx;
+                Heapify(aux, false);
             }
         }
     }
