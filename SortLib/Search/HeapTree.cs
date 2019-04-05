@@ -16,8 +16,11 @@ namespace SortLib.Search
             Heap = new Node[size];
         }
 
-        //insert node into end of array
-        //aply heapify on his father, then aply on his father..until aply on root
+        /// <summary>
+        /// Insert node into end of array and aply heapify on his father, then aply on his father..until aply on root
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
         public void Insert(int key, int value)
         {
             if (posix < Size)
@@ -31,8 +34,7 @@ namespace SortLib.Search
             }
         }
 
-        //always remove root,
-        //the new root will be the last index of array
+        //Always remove root, the new root will be the value of the last index of array
         //aply heapify on last node with children
         public Node Remove()
         {

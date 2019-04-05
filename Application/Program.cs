@@ -11,7 +11,7 @@ namespace Application
         static void Main(string[] args)
         {
             Console.WriteLine("=======================================================");
-            Console.WriteLine("======= Executing test at " + DateTime.Now + " ========");
+            Console.WriteLine("======= Executing test at " + DateTime.Now + " =========");
             Console.WriteLine("======= Choose the sort algorithm below:       ========");
             Console.WriteLine("=======================================================\n");
             Console.WriteLine("[A] - MergeSort");
@@ -72,13 +72,13 @@ namespace Application
                     break;
                 case ConsoleKey.D:
 
-                    ExecuteBinaryTree(bigArray, smallArray);
+                    TesteBinaryTree(smallArray);
 
                     Console.WriteLine("Press any key to finish.");
                     Console.ReadKey();
                     break;
                 case ConsoleKey.E:
-                    ExecuteHeapTree(bigArray, smallArray);
+                    TesteHeapTree(bigArray);
 
                     Console.WriteLine("Press any key to finish.");
                     Console.ReadKey();
@@ -91,85 +91,94 @@ namespace Application
             }
         }
 
-        private static void ExecuteBinaryTree(int[] bigArray, int[] smallArray)
+        private static void TesteBinaryTree(int[] smallArray)
         {
             Console.WriteLine("\n====Time complexity: \n   * best O(Log(n)) \n   * worst O(n) " +
                        "\n   * binary tree O(log h), where 'h' is height and n <= h <= n" +
                        "\n====Space complexity O(n)\n\nSteps:\n");
             //Complexity O(Log(n))
-            BinaryTree bt = new BinaryTree();
+            BinaryTree tree = new BinaryTree();
            
             for (int i = 0; i < smallArray.Length; i++)
-                bt.Insert(smallArray[i]);
+                tree.Insert(smallArray[i]);
 
             //DUMMY TEST
             Node node = null;
-            if ((node = bt.Search(2911, bt.GetRoot(), false /*NOT REMOVE*/)) != null)
+            if ((node = tree.Search(2911, tree.GetRoot(), false /*NOT REMOVE*/)) != null)
                 Console.WriteLine("The key of 2911 element: " + node.Index);
             else
                 Console.WriteLine("It was not possible to find the 2911 element in the dataset.");
 
-            if ((node = bt.Search(12, bt.GetRoot(), false /*NOT REMOVE*/)) != null)
+            if ((node = tree.Search(12, tree.GetRoot(), false /*NOT REMOVE*/)) != null)
                 Console.WriteLine("The key of 12 element: " + node.Index);
             else
                 Console.WriteLine("It was not possible to find the 12 element in the dataset.\n");
 
             //NODE HAS 2 SUBTREE
-            if (bt.Search(63, bt.GetRoot(), true /*REMOVE*/) == null)
+            if (tree.Search(63, tree.GetRoot(), true /*REMOVE*/) == null)
                 Console.WriteLine("Element 63 was successfully removed.");
             else
                 Console.WriteLine("Element 63 was not found.");
-            if ((node = bt.Search(63, bt.GetRoot(), false)) != null)
+            if ((node = tree.Search(63, tree.GetRoot(), false)) != null)
                 Console.WriteLine("The key of 63 element: " + node.Index + " your remove has failed.");
             else
                 Console.WriteLine("It was not possible to find the 63 element in the dataset. Did you remove it?\n");
 
             //NODE IS A LEAF
-            if (bt.Search(46, bt.GetRoot(), true /*REMOVE*/) == null)
+            if (tree.Search(46, tree.GetRoot(), true /*REMOVE*/) == null)
                 Console.WriteLine("Element 46 was successfully removed.");
             else
                 Console.WriteLine("Element 46 was not found.");
-            if ((node = bt.Search(46, bt.GetRoot(), false)) != null)
+            if ((node = tree.Search(46, tree.GetRoot(), false)) != null)
                 Console.WriteLine("The key of 46 element: " + node.Index + " your remove has failed.");
             else
                 Console.WriteLine("It was not possible to find the 46 element in the dataset. Did you remove it?\n");
 
             //NODE HAS 1 SUBTREE
-            if (bt.Search(26, bt.GetRoot(), true /*REMOVE*/) == null)
+            if (tree.Search(26, tree.GetRoot(), true /*REMOVE*/) == null)
                 Console.WriteLine("Element 26 was successfully removed.");
             else
                 Console.WriteLine("Element 26 was not found.");
-            if ((node = bt.Search(26, bt.GetRoot(), false)) != null)
+            if ((node = tree.Search(26, tree.GetRoot(), false)) != null)
                 Console.WriteLine("The key of 26 element: " + node.Index + " your remove has failed.");
             else
                 Console.WriteLine("It was not possible to find the 26 element in the dataset. Did you remove it?\n");
 
-            bt.Insert(63);
-            if ((node = bt.Search(63, bt.GetRoot(), false /*NOT REMOVE*/)) != null)
+            tree.Insert(63);
+            if ((node = tree.Search(63, tree.GetRoot(), false /*NOT REMOVE*/)) != null)
                 Console.WriteLine("The key of 63 element: " + node.Index);
             else
                 Console.WriteLine("It was not possible to find the 63 element in the dataset.\n");
         }
 
-        private static void ExecuteHeapTree(int[] bigArray, int[] smallArray)
+        private static void TesteHeapTree(int[] myArray)
         {
-            Console.WriteLine("\n====Time complexity: \n   Time O(n)" +
-                      "\n====Space complexity Espace O(1)\n\nSteps:\n");
+            Console.WriteLine("\n======== H-E-A-P-T-R-E-E ==================" +
+                "\n======== Complexity: Time O(n) Espace O(1)\nSteps:\n");
 
-            StringBuilder result = new StringBuilder("My heap result: ");
+            StringBuilder result = new StringBuilder("Inserting value ");
 
-            HeapTree ht = new HeapTree(smallArray.Length);
+            HeapTree tree = new HeapTree(myArray.Length);
             Random rnd = new Random();
 
-            for (int i = 0; i < smallArray.Length; i++) { 
-                ht.Insert(rnd.Next(1, smallArray.Length), smallArray[i]);
-                Console.WriteLine("Inserting value " + smallArray[i] + "\n");
+            for (int i = 0; i < myArray.Length; i++) {
+                tree.Insert(rnd.Next(1, myArray.Length), myArray[i]);
+                result.Append(myArray[i] + " ");
             }
-            for (int i = 0; i < smallArray.Length; i++)
+
+            result.Append("\n\nMy heap result: ");
+            for (int i = 0; i < myArray.Length; i++)
             {
-                result.Append(ht.Heap[i].Value + " ");
+                result.Append(tree.Heap[i].Value + " ");
             }
-            Console.WriteLine(result);
+
+            result.Append("\n\nRemoved nodes: ");
+
+            for (int i = 0; i < myArray.Length; i++)
+            {
+                result.Append(tree.Remove().Value + " ");
+            }
+            Console.WriteLine("\n\n" + result + "\n");
         }
     }
 }
