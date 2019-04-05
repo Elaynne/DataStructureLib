@@ -1,6 +1,8 @@
 # DataStructureLib
 This library has my implementations of basic data structures using C# and .net core for studies purposes.
 
+I promise that I will write appropriate test cases.
+
 ## TO-DO
 
 ## Structures:
@@ -10,11 +12,11 @@ This library has my implementations of basic data structures using C# and .net c
 
 ## Sort:
 * [x] Mergesort
-* [ ] Heapsort
+* [ ] Heapsort [WIP]
 * [x] Quicksort
 
 ## Tree:
 * [ ] AVLtree
 * [x] BinaryTree: [x] Insert, [x] Search, [x] Remove
-* [ ] HeapTree: [ ] Insert, [ ] Remove, [ ] GetHeap [WIP]
+* [x] HeapTree: [x] Insert, [x] Remove
 
