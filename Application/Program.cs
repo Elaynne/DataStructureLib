@@ -14,11 +14,11 @@ namespace Application
             Console.WriteLine("======= Executing test at " + DateTime.Now + " =========");
             Console.WriteLine("======= Choose the sort algorithm below:       ========");
             Console.WriteLine("=======================================================\n");
-            Console.WriteLine("[A] - MergeSort");//
+            Console.WriteLine("[A] - MergeSort");
             Console.WriteLine("[B] - HeapSort");
-            Console.WriteLine("[C] - QuickSort");//
-            Console.WriteLine("[D] - BinaryTree");//
-            Console.WriteLine("[E] - HeapTree");//
+            Console.WriteLine("[C] - QuickSort");
+            Console.WriteLine("[D] - BinaryTree");
+            Console.WriteLine("[E] - HeapTree");
             Console.WriteLine("[F] - AVLtree");
             Console.WriteLine("[Esc] - Close\n");
             var algorith = Console.ReadKey();
@@ -55,12 +55,12 @@ namespace Application
                     break;
                 case ConsoleKey.Escape:
                     break;
-
             }
             Console.WriteLine("Press any key to finish.");
             Console.ReadKey();
         }
 
+        #region DUMMY LAZY TEST
         private static void TestMergeSort(int[] myArray)
         {
             Console.WriteLine("\n====== STABILITY! Divide to conquer! ======" +
@@ -185,6 +185,9 @@ namespace Application
             Console.WriteLine("\n\n" + result + "\n");
         }
 
-       
+        //queue
+        //Enfileiramento O(1) Desenfileiramento O(1)
+        #endregion
+
     }
 }
