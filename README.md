@@ -12,7 +12,7 @@ I promise that I will write appropriate test cases.
 
 ## Sort:
 * [x] Mergesort
-* [ ] Heapsort [WIP]
+* [x] Heapsort 
 * [x] Quicksort
 
 ## Tree:
