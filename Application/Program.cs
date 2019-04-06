@@ -14,11 +14,11 @@ namespace Application
             Console.WriteLine("======= Executing test at " + DateTime.Now + " =========");
             Console.WriteLine("======= Choose the sort algorithm below:       ========");
             Console.WriteLine("=======================================================\n");
-            Console.WriteLine("[A] - MergeSort");
+            Console.WriteLine("[A] - MergeSort");//
             Console.WriteLine("[B] - HeapSort");
-            Console.WriteLine("[C] - QuickSort");
-            Console.WriteLine("[D] - BinaryTree");
-            Console.WriteLine("[E] - HeapTree");
+            Console.WriteLine("[C] - QuickSort");//
+            Console.WriteLine("[D] - BinaryTree");//
+            Console.WriteLine("[E] - HeapTree");//
             Console.WriteLine("[F] - AVLtree");
             Console.WriteLine("[Esc] - Close\n");
             var algorith = Console.ReadKey();
@@ -32,56 +32,24 @@ namespace Application
             string[] inputStr = input.Split("-");
             int[] bigArray = inputStr.Select(int.Parse).ToArray();
 
-            int[] smallArray = new int[] { 15, 18, 2, 14, 12, 12, 63 };// 58, 66, 26, 6, 65, 46, 11, 7 };
+            int[] smallArray = new int[] { 15, 18, 2, 14, 12, 12, 63, 58, 66, 26, 6, 65, 46, 11, 7 };
 
             switch (algorith.Key)
             {
                 case ConsoleKey.A:
-                    Console.WriteLine("\n====== Excelent! Divide to conquer! ======" +
-                        "\nTime complexity Ω(nLog(n)) and O(nLog(n))" +
-                        "\nSpace complexity O(n)" +
-                        "\n\n======Steps:\n");
-                    MergeSort mergesort = new MergeSort();
-                    mergesort.Mergesort(bigArray, 0, bigArray.Length - 1);
-
-                    Console.WriteLine("Press any key to finish.");
-                    Console.ReadKey();
+                    TestMergeSort(bigArray);
                     break;
                 case ConsoleKey.B:
-                    //Complexity O(nLog(n))
-
+                    TestHeapSort(smallArray);
                     break;
                 case ConsoleKey.C:
-                    Console.WriteLine("\n====== Excelent! Divide to conquer! ======" +
-                        "\nTime complexity Ω(nLog(n)) and O(n²)" +
-                        "\nSpace complexity O(Log(n))" +
-                       "\n\n");
-                    QuickSort quicksort = new QuickSort();
-                    quicksort.Quicksort(bigArray, 0, bigArray.Length - 1);
-
-                    StringBuilder result = new StringBuilder();
-                    foreach (int item in bigArray)
-                    {
-                        result.Append(item.ToString() + " ");
-                    }
-                    Console.WriteLine(result);
-
-                    Console.WriteLine("Press any key to finish.");
-                    Console.ReadKey();
-
+                    TestQuickSort(bigArray);
                     break;
                 case ConsoleKey.D:
-
-                    TesteBinaryTree(smallArray);
-
-                    Console.WriteLine("Press any key to finish.");
-                    Console.ReadKey();
+                    TestBinaryTree(smallArray);
                     break;
                 case ConsoleKey.E:
-                    TesteHeapTree(bigArray);
-
-                    Console.WriteLine("Press any key to finish.");
-                    Console.ReadKey();
+                    TestHeapTree(bigArray);
                     break;
                 case ConsoleKey.F:
                     break;
@@ -89,9 +57,45 @@ namespace Application
                     break;
 
             }
+            Console.WriteLine("Press any key to finish.");
+            Console.ReadKey();
         }
 
-        private static void TesteBinaryTree(int[] smallArray)
+        private static void TestMergeSort(int[] myArray)
+        {
+            Console.WriteLine("\n====== STABILITY! Divide to conquer! ======" +
+                          "\nTime complexity Ω(nLog(n)) and O(nLog(n)) - Space complexity O(n)" +
+                          "\n\n======Steps:\n");
+            MergeSort mergesort = new MergeSort();
+            mergesort.Mergesort(myArray, 0, myArray.Length - 1);
+        }
+
+        private static void TestHeapSort(int[] myArray)
+        {
+            Console.WriteLine("\n====== SURVIVOR! Transform in-place to conquer! Choice for real-time! ======" +
+                          "\nComplexity Time O(nLog(n)) and Space O(n)" +
+                          "\n\n======Steps:\n");
+            HeapSort sort = new HeapSort();
+            sort.Heapsort(myArray);
+        }
+
+        private static void TestQuickSort(int[] myArray)
+        {
+            Console.WriteLine("\n====== ECONOMIC (space), but beware...time is money too! Divide to conquer! ======" +
+                        "\nTime complexity Ω(nLog(n)) and O(n²) - Space complexity O(Log(n))" +
+                       "\n\n");
+            QuickSort quicksort = new QuickSort();
+            quicksort.Quicksort(myArray, 0, myArray.Length - 1);
+
+            StringBuilder result = new StringBuilder();
+            foreach (int item in myArray)
+            {
+                result.Append(item.ToString() + " ");
+            }
+            Console.WriteLine(result);
+        }
+
+        private static void TestBinaryTree(int[] smallArray)
         {
             Console.WriteLine("\n====Time complexity: \n   * best O(Log(n)) \n   * worst O(n) " +
                        "\n   * binary tree O(log h), where 'h' is height and n <= h <= n" +
@@ -151,7 +155,7 @@ namespace Application
                 Console.WriteLine("It was not possible to find the 63 element in the dataset.\n");
         }
 
-        private static void TesteHeapTree(int[] myArray)
+        private static void TestHeapTree(int[] myArray)
         {
             Console.WriteLine("\n======== H-E-A-P-T-R-E-E ==================" +
                 "\n======== Complexity: Time O(n) Espace O(1)\nSteps:\n");
@@ -180,5 +184,7 @@ namespace Application
             }
             Console.WriteLine("\n\n" + result + "\n");
         }
+
+       
     }
 }

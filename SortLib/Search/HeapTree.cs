@@ -29,7 +29,7 @@ namespace SortLib.Search
                 Heap[posix] = node;
                 double aux = (double)(posix - 1) / (double)2;
                 if (aux > 0)
-                    Heapify((posix - 1) / 2, false);
+                    Heapify((posix - 1) / 2, false, false, Size);
                 posix++;
             }
         }
@@ -40,10 +40,19 @@ namespace SortLib.Search
         {
             Node aux = Heap[0];
             Heap[0] = Heap[posix - 1];
-            Heapify(0, true);
+            Heapify(0, true, false , Size);
             Heap[posix - 1] = null;
             posix--;
             return aux;
+        }
+
+        public void Sort()
+        {
+            for (int i = Heap.Length - 1; i > 0; i--)
+            {
+                Swap(0, i);
+                Heapify(0, false, true, i);
+            }
         }
 
         private int Left(int i) => i * 2 + 1;
@@ -62,17 +71,17 @@ namespace SortLib.Search
         /// </summary>
         /// <param name="i">index</param>
         /// <param name="remove">condition to change the index where to aply Heapify</param>
-        private void Heapify(int i, bool remove)
+        private void Heapify(int i, bool remove, bool sorting, int myLenght)
         {
             int fatherIdx = i;
             int leftIdx = Left(i);
             int rightIdx = Right(i);
-
-            if (leftIdx < Size && Heap[leftIdx] != null && Heap[leftIdx].Value > Heap[fatherIdx].Value)
+            
+            if (leftIdx < myLenght && Heap[leftIdx] != null && Heap[leftIdx].Value > Heap[fatherIdx].Value)
             {
                 fatherIdx = leftIdx;
             }
-            if (rightIdx < Size && Heap[rightIdx] != null && (Heap[rightIdx].Value > Heap[fatherIdx].Value))
+            if (rightIdx < myLenght && Heap[rightIdx] != null && (Heap[rightIdx].Value > Heap[fatherIdx].Value))
             {
                 fatherIdx = rightIdx;
             }
@@ -80,9 +89,19 @@ namespace SortLib.Search
             if (fatherIdx != i)
             {
                 Swap(fatherIdx, i);
-                int aux = !remove && ((double)(fatherIdx - 1) / (double)2 > 0) ? (i - 1) / 2 : fatherIdx;
-                Heapify(aux, false);
-            }
+                if (sorting)
+                {
+                    if (Left(fatherIdx) < Size && Heap[Left(fatherIdx)] != null)
+                    {
+                        Heapify(fatherIdx, false, sorting, myLenght);
+                    }
+                }
+                else
+                {
+                    int aux = !remove && ((double)(fatherIdx - 1) / (double)2 > 0) ? (i - 1) / 2 : fatherIdx;
+                    Heapify(aux, false, sorting, myLenght);
+                }
+            } 
         }
     }
 }

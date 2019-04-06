@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Text;
 
 namespace SortLib.Sort
 {
     public class MergeSort
     {
-        static int cont = 0;
+        int cont = 0;
 
         public void Mergesort(int[] inputArgs, int init, int end)
         {
-            string steps = string.Empty;
+            StringBuilder steps = new StringBuilder("");
 
             if (init < end)
             {
@@ -17,21 +18,16 @@ namespace SortLib.Sort
                 Mergesort(inputArgs, init, mid);
                 Mergesort(inputArgs, mid + 1, end);
                 Merge(inputArgs, init, mid, end);
-                // try
-                // {
-                steps = cont + ": ";
+                
+                steps.Append(cont + ": ");
 
                 //STEPS
-                for (int i = 0; i < inputArgs.Length; i++) { 
-                    steps += i != (inputArgs.Length - 1) ? inputArgs[i].ToString() + " " : inputArgs[i].ToString();
+                for (int i = 0; i < inputArgs.Length; i++) {
+                    steps.Append(value: i != (inputArgs.Length - 1) ? inputArgs[i].ToString() + " " : inputArgs[i].ToString());
                 }
 
                 cont++;
                 Console.WriteLine(steps);
- 
-                //File.WriteAllText(@"C:\Users\Elaynne\Documents\SortFiles\MergeSort.txt", myStr);
-               // }
-               // catch (IOException e) { }
             }
         }
 
