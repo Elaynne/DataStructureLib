@@ -5,8 +5,8 @@ I promise that I will write appropriate test cases.
 
 ## TO-DO
 
-## Structures:
-* [ ] queue
+## Collections:
+* [ ] queue [WIP]
 * [ ] list
 * [ ] stack
 
