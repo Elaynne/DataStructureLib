@@ -6,7 +6,7 @@ I promise that I will write appropriate test cases.
 ## TO-DO
 
 ## Collections:
-* [ ] queue [WIP]
+* [x] queue 
 * [ ] list
 * [ ] stack
 
