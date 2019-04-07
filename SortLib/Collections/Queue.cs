@@ -1,61 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using SortLib.Interface;
 
 namespace SortLib.Collections
 {
-    public interface IQueue
-    {
-        void Enqueue(int[] data);
-        void Dequeue(int itensAmount);
-        int GetFirst();
-        int GetLast();
-        bool IsEmpty();
-    }
     public class Queue : IQueue
     {
         private int Capacity { get; set; }
-        private int StartIdx { get; set; }
-        private int DataLenght { get; set; }
-        public int?[] QueueData { get; set; }
+        private int Start { get; set; }
+        private int Lenght { get; set; }
+        private int[] QueueData { get; set; }
 
         public Queue(int capacity)
         {
             Capacity = capacity;
-            StartIdx = 0;
-            DataLenght = 0;
+            Start = 0;
+            Lenght = 0;
+            QueueData = new int[capacity];
         }
 
-        public void Enqueue(int[] data)
+        public void Enqueue(int data)
         {
-            for (int i = 0; i < data.Length; i++)
-            {
-                DataLenght++;
-                int index = (StartIdx + DataLenght) % Capacity;
-                if (index <= Capacity)
-                    QueueData[index] = data[i];
 
-                StartIdx++;
-            }
+            int index = (Start + Lenght) % Capacity;
+            if (index <= Capacity - 1)
+                QueueData[index] = data;
+            Lenght++;
         }
-
-        public void Dequeue(int itensAmount)
-        {
-            while(itensAmount > 0)
-            {
-                QueueData[StartIdx] = null;
-                StartIdx = (StartIdx + 1) % Capacity;
-                DataLenght--;
-                itensAmount--;
-            }
-            StartIdx = 0;
-        }
-
-        public int GetFirst() => QueueData[StartIdx].Value;
-
-        public int GetLast() => QueueData[DataLenght].Value;
-
-        public bool IsEmpty() => DataLenght == StartIdx && StartIdx == 0;
         
+        public int Dequeue()
+        {
+            if (IsEmpty())
+                throw new System.ArgumentException("The queue is empty and has nothing to dequeue.");
+           
+            int aux = QueueData[Start];
+            Start = (Start + 1) % Capacity;
+            Lenght--;
+            return aux;
+        }
+
+        public int GetFirst() => QueueData[Start];
+
+        public int GetLast() => QueueData[Lenght-1];
+
+        public bool IsEmpty() => Lenght == 0;
+
+        public int GetLenght() => Lenght;
+
+        public int GetStartIdx() => Start;
+        
+        public int[] GetQueue()
+        {
+            return QueueData;
+        }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
 
 namespace SortLib.Search
 {
@@ -34,8 +32,11 @@ namespace SortLib.Search
             }
         }
 
-        //Always remove root, the new root will be the value of the last index of array
-        //aply heapify on last node with children
+        /// <summary>
+        /// Always remove root, the new root will be the value of the last index of array
+        /// aply heapify on last node with children
+        /// </summary>
+        /// <returns></returns>
         public Node Remove()
         {
             Node aux = Heap[0];
