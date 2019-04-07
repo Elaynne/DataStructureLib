@@ -188,19 +188,15 @@ namespace Application
             Console.WriteLine("\n\n" + result + "\n");
         }
 
-        //queue
-        //Queue O(1) Dequeue O(1)
         private static void TestQueue(int[] myArray)
         {
             Console.WriteLine("\n======== Q-U-E-U-E ==================" +
-               "\n======== Complexity: Time O(n) Espace O(1)\nSteps:\n");
+               "\n======== Complexity: Queue O(1) Dequeue O(1)\nSteps:\n");
 
             StringBuilder result = new StringBuilder("Inserting value ");
             StringBuilder aux = new StringBuilder();
 
             Queue myQueue = new Queue(myArray.Length);
-
-          
 
             for (int i = 0; i < myArray.Length; i++)
             {
