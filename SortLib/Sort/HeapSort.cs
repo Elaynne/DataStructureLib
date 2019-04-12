@@ -1,5 +1,6 @@
 ﻿using SortLib.Search;
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace SortLib.Sort
@@ -7,29 +8,32 @@ namespace SortLib.Sort
     public class HeapSort
     {
         private HeapTree Tree { get; set; }
+        private List<Node> Sorted { get; set; }
 
-        public void Heapsort(int[] myInput)
+        public HeapSort()
+        {
+            Sorted = new List<Node>();
+        }
+
+        public List<Node> Heapsort(Node[] myInput)
         {
             BuildHeapTree(myInput);
             Tree.Sort();
-
-            StringBuilder result = new StringBuilder("Sorted array by heapsort ");
-
+            
             foreach (Node node in Tree.Heap)
             {
-                result.Append(node.Value + " ");
+                Sorted.Add(node);
             }
-            Console.WriteLine(result);
+            return Sorted;
         }
 
-        private void BuildHeapTree(int[] myInput)
+        private void BuildHeapTree(Node[] myInput)
         {
             Tree = new HeapTree(myInput.Length);
-            Random rnd = new Random();
 
             for (int i = 0; i < myInput.Length; i++)
             {
-                Tree.Insert(rnd.Next(1, myInput.Length), myInput[i]);
+                Tree.Insert(myInput[i].Index, myInput[i].Value);
             }
         }
         

@@ -11,13 +11,16 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("SortLib")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("ElaynneT")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyCopyrightAttribute("Elaynnet - 07/04/2019")]
+[assembly: System.Reflection.AssemblyDescriptionAttribute("Collection of data structure algorithms: Sort, Tree Search and collections.")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("SortLib")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SortLib")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
+[assembly: System.Resources.NeutralResourcesLanguageAttribute("en")]
 
 // Gerado pela classe WriteCodeFragment do MSBuild.
 

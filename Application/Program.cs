@@ -4,6 +4,7 @@ using System.Text;
 using SortLib.Sort;
 using SortLib.Search;
 using SortLib.Collections;
+using System.Collections.Generic;
 
 namespace Application
 {
@@ -39,7 +40,7 @@ namespace Application
                     TestMergeSort(bigArray);
                     break;
                 case ConsoleKey.B:
-                    TestHeapSort(smallArray);
+                    TestHeapSort(BuildNodeArray(smallArray));
                     break;
                 case ConsoleKey.C:
                     TestQuickSort(bigArray);
@@ -62,6 +63,18 @@ namespace Application
             Console.ReadKey();
         }
 
+
+        private static Node[] BuildNodeArray(int[] myArray)
+        {
+            int index = 0;
+            Node[] nodes = new Node[myArray.Length];
+            foreach (int item in myArray)
+            {
+                nodes[index] = new Node(index, myArray[index], null);
+                index++;
+            }
+            return nodes;
+        }
         #region DUMMY LAZY TEST
         private static void TestMergeSort(int[] myArray)
         {
@@ -72,13 +85,20 @@ namespace Application
             mergesort.Mergesort(myArray, 0, myArray.Length - 1);
         }
 
-        private static void TestHeapSort(int[] myArray)
+        private static void TestHeapSort(Node[] myArray)
         {
             Console.WriteLine("\n====== SURVIVOR! Transform in-place to conquer! Choice for real-time! ======" +
                           "\nComplexity Time O(nLog(n)) and Space O(n)" +
                           "\n\n======Steps:\n");
             HeapSort sort = new HeapSort();
-            sort.Heapsort(myArray);
+
+            StringBuilder result = new StringBuilder("Sorted array by heapsort ");
+
+            foreach (Node node in sort.Heapsort(myArray))
+            {
+                result.Append(node.Value + " ");
+            }
+            Console.WriteLine(result);   
         }
 
         private static void TestQuickSort(int[] myArray)

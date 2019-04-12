@@ -2,6 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Authors>ElaynneT</Authors>
+    <Description>Collection of data structure algorithms: Sort, Tree Search and collections.</Description>
+    <Copyright>Elaynnet - 07/04/2019</Copyright>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Elaynne/DataStructureLib</RepositoryUrl>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageReleaseNotes>First test</PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageLicenseUrl>https://spdx.org/licenses/GPL-3.0-or-later.html</PackageLicenseUrl>
+    <ApplicationIcon />
+    <Win32Resource />
   </PropertyGroup>
 
 </Project>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>SortLib</id>
+    <version>1.0.0</version>
+    <authors>ElaynneT</authors>
+    <owners>ElaynneT</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://spdx.org/licenses/GPL-3.0-or-later.html</licenseUrl>
+    <description>Collection of data structure algorithms: Sort, Tree Search and collections.</description>
+    <releaseNotes>First test</releaseNotes>
+    <copyright>Elaynnet - 07/04/2019</copyright>
+    <repository url="https://github.com/Elaynne/DataStructureLib" />
+    <dependencies>
+      <group targetFramework=".NETCoreApp2.1" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\SortLib\bin\Release\netcoreapp2.1\SortLib.dll" target="lib\netcoreapp2.1\SortLib.dll" />
+  </files>
+</package>
