@@ -5,18 +5,14 @@ namespace SortLib.Search
 {
     public class BinaryTree : Tree
     {
-        private int Key { get; set; }
-
         public BinaryTree()
         {
-            Key = 0;
         }
 
         #region INSERT
-        public void Insert(int value)
+        public override void Insert(int key, int value)
         {
-            Node thisNode = new Node(Key, value, null);
-            Key++;
+            Node thisNode = new Node(key.ToString(), value.ToString(), null);
 
             if (Root == null)
             {
@@ -30,12 +26,13 @@ namespace SortLib.Search
             while (current != null)
             {
                 auxFather = current;
-                current = (value < current.Value) ? current.Left : current.Right;
+                current = (Convert.ToInt32(value) < Convert.ToInt32(current.Value)) ? current.Left : current.Right;
             }
 
             if (auxFather != null)
             {
-                if (auxFather.Value < value) auxFather.Right = thisNode;
+                if (Convert.ToInt32(auxFather.Value) < value)
+                    auxFather.Right = thisNode;
 
                 else auxFather.Left = thisNode;
             }
@@ -44,23 +41,41 @@ namespace SortLib.Search
         #endregion
 
         #region SEARCH
-        public Node Search(int targetValue, Node current, bool remove)
+        public override Node Search(int value)
+        {
+            return Search(value, Root);
+        }
+
+        private Node Search(int targetValue, Node current)
         {
             if (current == null) return null;
 
-            if (targetValue == current.Value)
+            if (targetValue == Convert.ToInt32(current.Value)) return current;
+            
+            current = targetValue < Convert.ToInt32(current.Value) ? current.Left : current.Right;
+
+            if (current != null) return Search(targetValue, current);
+
+            return null;
+        }
+
+        public override bool Remove(int value)
+        {
+            return SearchRemove(value, Root) != null;
+        }
+        private Node SearchRemove(int targetValue, Node current)
+        {
+            if (current == null) return null;
+
+            if (targetValue == Convert.ToInt32(current.Value))
             {
-                if (remove) {
-                    bool removed = Remove(current);
-                    return removed ? null : current;
-                }
-                else
-                    return current;
+                bool removed = Remove(current);
+                return removed ? null : current;
             }
 
-            current = targetValue < current.Value ? current.Left : current.Right;
+            current = targetValue < Convert.ToInt32(current.Value) ? current.Left : current.Right;
 
-            if (current != null) return Search(targetValue, current, remove);
+            if (current != null) return SearchRemove(targetValue, current);
 
             return null;
         }
@@ -73,7 +88,7 @@ namespace SortLib.Search
             if (current.IsLeaf())
             {
                 //the target is left node
-                if (current.Value < current.Father.Value)
+                if (Convert.ToInt32(current.Value) < Convert.ToInt32(current.Father.Value))
                     current.Father.Left = null;
                 else
                     current.Father.Right = null;
@@ -88,7 +103,7 @@ namespace SortLib.Search
                 if (current.Left != null)
                 {
                     //the target is left node
-                    if (current.Value < current.Father.Value)
+                    if (Convert.ToInt32(current.Value) < Convert.ToInt32(current.Father.Value))
                         current.Father.Left = current.Left;
                     else
                         current.Father.Right = current.Left;
@@ -98,7 +113,7 @@ namespace SortLib.Search
                 else
                 {
                     //the target is right node
-                    if (current.Value < current.Father.Value)
+                    if (Convert.ToInt32(current.Value) < Convert.ToInt32(current.Father.Value))
                         current.Father.Left = current.Right;
                     else 
                         current.Father.Right = current.Right;
@@ -120,7 +135,7 @@ namespace SortLib.Search
                 successor.Left = current.Left;
                 successor.Right = current.Right;
                 successor.Father  = current.Father;
-                if (current.Father.Value < current.Value)
+                if (Convert.ToInt32(current.Father.Value) < Convert.ToInt32(current.Value))
                     current.Father.Right = successor;
                 else
                     current.Father.Left = successor;
@@ -148,57 +163,34 @@ namespace SortLib.Search
             return predecessor;
         }
         #endregion
-        //Path
-        public void InOrder()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void PosOrder()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void PreOrder()
-        {
-            throw new NotImplementedException();
-        }
         
-        //árvores balanceadas
-        /*  public int GetHeight(int[] tree, int? index)
-          {
-              if (index != null)
-                  //to-do
-              return (int)Math.Log(tree.Count() - 1, 2);
-          }
+        public override void InOrder()
+        {
+            InOrder(Root);
+        }
+        public override void PosOrder()
+        {
+            PosOrder(Root);
+        }
+        public override void PreOrder()
+        {
+            PreOrder(Root);
+        }
 
-          public int GetLeafCapacity(int[] tree)
-          {
-              int height = GetHeight(tree, null);
-              return (int)Math.Pow(2, height - 1);
-          }
-          
-          public Node GetNode(int index, int[] tree)
-           {
-               int height = GetHeight(tree, index);
-               Node node = new Node(,,, tree[index], index);
-               
-               // node.father.index = Searh();
-               node.Father.value = tree[node.Father.Index];
+        public override void Insert(string key, string value)
+        {
+            throw new NotImplementedException();
+        }
 
-               node.LeftLeaf.Index = height % 2 == 0 ? (index * 2) + 1 : (index * 2);
-               node.LeftLeaf.Value = tree[node.LeftLeaf.Index];
+        public override bool Remove(string value)
+        {
+            throw new NotImplementedException();
+        }
 
-               node.RightLeaft.Index = height % 2 == 0 ? (index * 2) + 2 : (index * 1);
-               node.RightLeaft.Value = tree[node.RightLeaft.Index];
-
-               return node;
-           }
-
-          public int GetTreeCapacity(int height)
-          {
-              return (int)Math.Pow(2, (height + 1)) - 1;
-          }*/
+        public override Node Search(string key)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

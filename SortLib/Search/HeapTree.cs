@@ -1,5 +1,7 @@
 ﻿
 
+using System;
+
 namespace SortLib.Search
 {
     public class HeapTree 
@@ -23,7 +25,7 @@ namespace SortLib.Search
         {
             if (posix < Size)
             {
-                Node node = new Node(key, value, null);
+                Node node = new Node(key.ToString(), value.ToString(), null);
                 Heap[posix] = node;
                 double aux = (double)(posix - 1) / (double)2;
                 if (aux > 0)
@@ -78,11 +80,11 @@ namespace SortLib.Search
             int leftIdx = Left(i);
             int rightIdx = Right(i);
             
-            if (leftIdx < myLenght && Heap[leftIdx] != null && Heap[leftIdx].Value > Heap[fatherIdx].Value)
+            if (leftIdx < myLenght && Heap[leftIdx] != null && Convert.ToInt32(Heap[leftIdx].Value) > Convert.ToInt32(Heap[fatherIdx].Value))
             {
                 fatherIdx = leftIdx;
             }
-            if (rightIdx < myLenght && Heap[rightIdx] != null && (Heap[rightIdx].Value > Heap[fatherIdx].Value))
+            if (rightIdx < myLenght && Heap[rightIdx] != null && (Convert.ToInt32(Heap[rightIdx].Value) > Convert.ToInt32(Heap[fatherIdx].Value)))
             {
                 fatherIdx = rightIdx;
             }
@@ -104,5 +106,39 @@ namespace SortLib.Search
                 }
             } 
         }
+
+        //custom for vector aproach
+        private void InOrder(Node node)
+        {
+            if (node != null)
+            {
+                InOrder(Heap[Left(Convert.ToInt32(node.Key))]);
+                node.PrintNode();
+                InOrder(Heap[Right(Convert.ToInt32(node.Key))]);
+            }
+        }
+        private void PosOrder(Node node)
+        {
+            if (node != null)
+            {
+                PosOrder(Heap[Left(Convert.ToInt32(node.Key))]);
+                PosOrder(Heap[Right(Convert.ToInt32(node.Key))]);
+                node.PrintNode();
+            }
+        }
+        private void PreOrder(Node node)
+        {
+            if (node != null)
+            {
+                node.PrintNode();
+                PreOrder(Heap[Left(Convert.ToInt32(node.Key))]);
+                PreOrder(Heap[Right(Convert.ToInt32(node.Key))]);
+            }
+        }
+
+        public void InOrder() => InOrder(Heap[0]);
+        public void PosOrder() => PosOrder(Heap[0]);
+        public void PreOrder() => PreOrder(Heap[0]);
+
     }
 }

@@ -33,7 +33,7 @@ namespace SortLib.Sort
 
             for (int i = 0; i < myInput.Length; i++)
             {
-                Tree.Insert(myInput[i].Index, myInput[i].Value);
+                Tree.Insert(Convert.ToInt32(myInput[i].Key), Convert.ToInt32(myInput[i].Value));
             }
         }
         

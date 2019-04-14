@@ -6,44 +6,58 @@ namespace SortLib.Interface
     public interface ITree
     {
         /// <summary>
-        /// Get the height of the node or the tree if index is null
+        /// Insert a value and salve the key for search
         /// </summary>
-        /// <param name="tree">The array of the tree</param>
-        /// <param name="index">index of the node to evaluate height, if its null, it'll be 0 (the tree root)</param>
-        /// <returns></returns>
-        int GetHeight(int[] tree, int? index);
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        void Insert(int key, int value);
 
         /// <summary>
-        /// Get the capacity of the tree's leafs  2^h
+        /// Search the given value to remove
         /// </summary>
-        /// <param name="tree"></param>
-        /// <returns></returns>
-        int GetLeafCapacity(int[] tree);
+        /// <param name="value"></param>
+        bool Remove(int value);
 
         /// <summary>
-        /// Get all nodes of a given heght, the max number of node in a height 'h' is 2^h
-        /// To Get all leafs, get the leafs from max(h)
+        /// Search the value on a given key
         /// </summary>
-        /// <param name="tree"></param>
-        /// <param name="height"></param>
+        /// <param name="key"></param>
         /// <returns></returns>
-        List<Node> GetNodesAtHeight(int[] tree, int height);//validate heigth
-        
-        /// <summary>
-        /// Capacity of a tree with a given height
-        /// </summary>
-        /// <param name="tree"></param>
-        /// <returns></returns>
-        int GetTreeCapacity(int height);
-        
-        void Insert(int value);
-        void Remove(int value);
-        void Search(int value);
+        Node Search(int key);
 
+        /// <summary>
+        /// Insert a value and salve the key for search
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        void Insert(string key, string value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        bool Remove(string value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        Node Search(string key);
+
+        /// <summary>
+        /// Display the route in order
+        /// </summary>
         void InOrder();
+
+        /// <summary>
+        /// Display the route pre order
+        /// </summary>
         void PreOrder();
+
+        /// <summary>
+        /// Display the route pos order
+        /// </summary>
         void PosOrder();
     }
-   
-
 }

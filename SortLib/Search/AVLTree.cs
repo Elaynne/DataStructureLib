@@ -1,35 +1,32 @@
-﻿
+﻿using SortLib.Interface;
 using System;
 
 namespace SortLib.Search
 {
 
-    public class AvlTree
+    public class AvlTree : Tree 
     {
-        public AvlNode Root { get; set; }
-
-        public AvlTree()
+        public AvlTree() : base()
         {
-            Root = null;
         }
         
         /// <summary>
-        /// Inserts a Key/word into the tree and keeps it balanced
+        /// Inserts a Key/key into the tree and keeps it balanced
         /// </summary>
-        /// <param name="word">The Key of AVLNode</param>
+        /// <param name="key">The Key of AVLNode</param>
         /// <param name="synonymous"></param>
-        public void Insert(string word, string synonymous)
+        public override void Insert(string key, string value)
         {
-            AvlNode node = new AvlNode(word, synonymous, null, null, null);
+            Node node = new Node(key, value, null);
             if (Root == null)
                 Root = node;
             else
             {
-                AvlNode current = Root;
-                AvlNode currentFather = null;
+                Node current = Root;
+                Node currentFather = null;
                 while (current != null)
                 {
-                    if (string.Compare(word, current.Key) < 0)
+                    if (string.Compare(key, current.Key) < 0)
                     {
                         currentFather = current;
                         current = current.Left;
@@ -42,7 +39,7 @@ namespace SortLib.Search
                 }
                 if (currentFather != null)
                 {
-                    if (string.Compare(currentFather.Key, word) < 0)
+                    if (string.Compare(currentFather.Key, key) < 0)
                     {
                         currentFather.Right = node;
                         node.Father = currentFather;
@@ -54,7 +51,7 @@ namespace SortLib.Search
                     }
                 }
             }
-            AvlNode aux = node;
+            Node aux = node;
             Console.WriteLine("\nbalancing for insertion of: " + node.Key);
             while (aux != null)
             {
@@ -88,18 +85,18 @@ namespace SortLib.Search
             }
         }
 
-        public AvlNode Search(string word)
+        public override Node Search(string key)
         {
-            AvlNode aux = Root;
+            Node aux = Root;
             while (aux != null)
             {
                 Console.WriteLine(aux.Key + "->");
-                if (string.Compare(aux.Key, word) == 0)
+                if (string.Compare(aux.Key, key) == 0)
                 {
-                    Console.WriteLine(":\n" + aux.Synonymous);
+                    Console.WriteLine(":\n" + aux.Value);
                     return aux;
                 }
-                else if (string.Compare(aux.Key, word) < 0)
+                else if (string.Compare(aux.Key, key) < 0)
                 {
                     Console.WriteLine(" \nright: " + (aux.Right == null ? "null": aux.Right.Key));
                     aux = aux.Right;
@@ -113,9 +110,14 @@ namespace SortLib.Search
             return null;
         }
 
-        public void LRotation(AvlNode node)
+        public override bool Remove(string value)
         {
-            AvlNode axis = node.Right;
+            throw new NotImplementedException();
+        }
+
+        private void LRotation(Node node)
+        {
+            Node axis = node.Right;
             if (node.Father == null)
             {
                 Root = axis;
@@ -131,9 +133,9 @@ namespace SortLib.Search
             node.Right = null;
         }
 
-        public void RRotation(AvlNode node)
+        private void RRotation(Node node)
         {
-            AvlNode axis = node.Left;
+            Node axis = node.Left;
             if (node.Father == null)
             {
                 Root = axis;
@@ -149,57 +151,46 @@ namespace SortLib.Search
             node.Left = null;
         }
 
-        public void LRRotation(AvlNode node)
+        private void LRRotation(Node node)
         {
             LRotation(node.Left);
             RRotation(node);
         }
 
-        public void RLRotation(AvlNode node)
+        private void RLRotation(Node node)
         {
             RRotation(node.Right);
             LRotation(node);
         }
-
-        private void PreOrder(AvlNode node)
-        {
-            if (node != null)
-            {
-                node.PrintAvlNode();
-                PreOrder(node.Left);
-                PreOrder(node.Right);
-            }
-        }
-        private void InOrder(AvlNode node)
-        {
-            if (node != null)
-            {
-                InOrder(node.Left);
-                node.PrintAvlNode();
-                InOrder(node.Right);
-            }
-        }
-        private void PosOrder(AvlNode node)
-        {
-            if (node != null)
-            {
-                PosOrder(node.Left);
-                PosOrder(node.Right);
-                node.PrintAvlNode();
-            }
-        }
-        public void PreOrder()
-        {
-            PreOrder(Root);
-        }
-        public void InOrder()
+        
+        public override void InOrder()
         {
             InOrder(Root);
         }
-        public void PosOrder()
+        public override void PosOrder()
         {
             PosOrder(Root);
         }
+        public override void PreOrder()
+        {
+            PreOrder(Root);
+        }
 
+        /*TO-DO*/
+        public override void Insert(int key, int value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Remove(int value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Node Search(int key)
+        {
+            throw new NotImplementedException();
+        }
+        
     }
 }
