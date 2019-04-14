@@ -4,21 +4,24 @@ using System.Text;
 
 namespace SortLib.Search
 {
+    public class TKey<T>
+    {
+        public T Value { get; set; }
+    }
     public class AvlNode
     {
-
         public AvlNode Father { get; set; }
         public AvlNode Left { get; set; }
         public AvlNode Right { get; set; }
-        public int Value { get; set; }
-        public int Index { get; set; }
-
-        public AvlNode(int key, int value, AvlNode right, AvlNode left, AvlNode father)
+        public string Synonymous { get; set; }
+        public string Key { get; set; }
+        
+        public AvlNode (string key, string synonymous, AvlNode right, AvlNode left, AvlNode father)
         {
-            Index = key;
+            Key = key;
             Left = null;
             Right = null;
-            Value = value;
+            Synonymous = synonymous;
             Father = father;
         }
 
@@ -61,9 +64,9 @@ namespace SortLib.Search
             return (hRight - hLeft);
         }
 
-        /* public void PrintAvlNode()
-         {
-             Console.Write("palavra: " + "sinonimos: ");
-         }*/
+        public void PrintAvlNode()
+        {
+            Console.WriteLine("WORD: " + Key + " SYNONYMOUS: " + Synonymous);
+        }
     }
 }

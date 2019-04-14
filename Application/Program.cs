@@ -52,6 +52,7 @@ namespace Application
                     TestHeapTree(bigArray);
                     break;
                 case ConsoleKey.F:
+                    TestAVLTree();
                     break;
                 case ConsoleKey.G:
                     TestQueue(smallArray);
@@ -63,6 +64,19 @@ namespace Application
             Console.ReadKey();
         }
 
+        private static void TestAVLTree()
+        {
+            AvlTree avl = new AvlTree();
+            avl.Insert("mamão", "fruta comida ");
+            avl.Insert("muito", "bastante numeroso abundante");
+            avl.Insert("simples", "natural descomplicado");
+            avl.Insert("nada","zero vazio");
+            avl.Insert("trabalho", "tarefa");
+
+            avl.InOrder();
+
+            Console.WriteLine("Time O(log n) Space O(n)");
+        }
 
         private static Node[] BuildNodeArray(int[] myArray)
         {
@@ -79,7 +93,7 @@ namespace Application
         private static void TestMergeSort(int[] myArray)
         {
             Console.WriteLine("\n====== STABILITY! Divide to conquer! ======" +
-                          "\nTime complexity Ω(nLog(n)) and O(nLog(n)) - Space complexity O(n)" +
+                          "\nTime complexity Ω(nLog n) and O(nLog n) - Space complexity O(n)" +
                           "\n\n======Steps:\n");
             MergeSort mergesort = new MergeSort();
             mergesort.Mergesort(myArray, 0, myArray.Length - 1);
@@ -88,7 +102,7 @@ namespace Application
         private static void TestHeapSort(Node[] myArray)
         {
             Console.WriteLine("\n====== SURVIVOR! Transform in-place to conquer! Choice for real-time! ======" +
-                          "\nComplexity Time O(nLog(n)) and Space O(n)" +
+                          "\nComplexity Time O(nLog n) and Space O(n)" +
                           "\n\n======Steps:\n");
             HeapSort sort = new HeapSort();
 
@@ -104,7 +118,7 @@ namespace Application
         private static void TestQuickSort(int[] myArray)
         {
             Console.WriteLine("\n====== ECONOMIC (space), but beware...time is money too! Divide to conquer! ======" +
-                        "\nTime complexity Ω(nLog(n)) and O(n²) - Space complexity O(Log(n))" +
+                        "\nTime complexity Ω(nLog n) and O(n²) - Space complexity O(Log n)" +
                        "\n\n");
             QuickSort quicksort = new QuickSort();
             quicksort.Quicksort(myArray, 0, myArray.Length - 1);
@@ -120,7 +134,7 @@ namespace Application
         private static void TestBinaryTree(int[] smallArray)
         {
             Console.WriteLine("\n ======== B-I-N-A-R-Y-T-R-E-E ================== " +
-                "\n====Time complexity: \n   * best O(Log(n)) \n   * worst O(n) " +
+                "\n====Time complexity: \n   * best O(Log n) \n   * worst O(n) " +
                        "\n   * binary tree O(log h), where 'h' is height and n <= h <= n" +
                        "\n====Space complexity O(n)\n\nSteps:\n");
             //Complexity O(Log(n))
