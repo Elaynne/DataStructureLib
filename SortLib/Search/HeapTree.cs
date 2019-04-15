@@ -9,11 +9,13 @@ namespace SortLib.Search
         public readonly Node[] Heap;
         private readonly int Size;
         private int posix = 0;
+        private int Index { get; set; }
 
         public HeapTree(int size)
         {
             Size = size;
             Heap = new Node[size];
+            Index = 0;
         }
 
         /// <summary>
@@ -25,7 +27,9 @@ namespace SortLib.Search
         {
             if (posix < Size)
             {
-                Node node = new Node(key.ToString(), value.ToString(), null);
+                Node node = new Node(Index, key.ToString(), value.ToString(), null);
+                Index++;
+
                 Heap[posix] = node;
                 double aux = (double)(posix - 1) / (double)2;
                 if (aux > 0)
@@ -64,8 +68,15 @@ namespace SortLib.Search
         private void Swap(int fatherIdx, int i)
         {
             Node aux = Heap[i];
+            //atualization of index to display in order, pos order and pre order
+            int fIdx = Heap[fatherIdx].Index;
+            int auxIdx = aux.Index;
+
             Heap[i] = Heap[fatherIdx];
+            Heap[i].Index = auxIdx;
+
             Heap[fatherIdx] = aux;
+            Heap[fatherIdx].Index = fIdx;
         }
 
         /// <summary>
@@ -80,11 +91,11 @@ namespace SortLib.Search
             int leftIdx = Left(i);
             int rightIdx = Right(i);
             
-            if (leftIdx < myLenght && Heap[leftIdx] != null && Convert.ToInt32(Heap[leftIdx].Value) > Convert.ToInt32(Heap[fatherIdx].Value))
+            if (leftIdx < myLenght && Heap[leftIdx] != null && Convert.ToInt32(Heap[leftIdx].Key) > Convert.ToInt32(Heap[fatherIdx].Key))
             {
                 fatherIdx = leftIdx;
             }
-            if (rightIdx < myLenght && Heap[rightIdx] != null && (Convert.ToInt32(Heap[rightIdx].Value) > Convert.ToInt32(Heap[fatherIdx].Value)))
+            if (rightIdx < myLenght && Heap[rightIdx] != null && Convert.ToInt32(Heap[rightIdx].Key) > Convert.ToInt32(Heap[fatherIdx].Key))
             {
                 fatherIdx = rightIdx;
             }
@@ -112,17 +123,21 @@ namespace SortLib.Search
         {
             if (node != null)
             {
-                InOrder(Heap[Left(Convert.ToInt32(node.Key))]);
+                if(Left(node.Index) < Size)
+                    InOrder(Heap[Left(node.Index)]);
                 node.PrintNode();
-                InOrder(Heap[Right(Convert.ToInt32(node.Key))]);
+                if(Right(node.Index) < Size)
+                    InOrder(Heap[Right(node.Index)]);
             }
         }
         private void PosOrder(Node node)
         {
             if (node != null)
             {
-                PosOrder(Heap[Left(Convert.ToInt32(node.Key))]);
-                PosOrder(Heap[Right(Convert.ToInt32(node.Key))]);
+                if (Left(node.Index) < Size)
+                    PosOrder(Heap[Left(node.Index)]);
+                if (Right(node.Index) < Size)
+                    PosOrder(Heap[Right(node.Index)]);
                 node.PrintNode();
             }
         }
@@ -131,8 +146,10 @@ namespace SortLib.Search
             if (node != null)
             {
                 node.PrintNode();
-                PreOrder(Heap[Left(Convert.ToInt32(node.Key))]);
-                PreOrder(Heap[Right(Convert.ToInt32(node.Key))]);
+                if (Left(node.Index) < Size)
+                    PreOrder(Heap[Left(node.Index)]);
+                if (Right(node.Index) < Size)
+                    PreOrder(Heap[Right(node.Index)]);
             }
         }
 

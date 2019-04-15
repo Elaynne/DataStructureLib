@@ -33,7 +33,7 @@ namespace Application
             string[] inputStr = input.Split("-");
             int[] bigArray = inputStr.Select(int.Parse).ToArray();
 
-            int[] smallArray = new int[] { 15, 18, 2, 14, 12, 12, 63, 58, 66, 26, 6, 65, 46, 11, 7 };
+            int[] smallArray = new int[] { 15, 18, 16, 14, 12, 12, 63, 58, 66, 26, 6, 65, 46, 11, 7 };
 
             switch (algorith.Key)
             {
@@ -92,28 +92,16 @@ namespace Application
             Console.WriteLine("Press any key to finish.");
             Console.ReadKey();
         }
-
-        private static void TestAVLTree()
-        {
-            AvlTree avl = new AvlTree();
-            avl.Insert("mamão", "fruta comida ");
-            avl.Insert("muito", "bastante numeroso abundante");
-            avl.Insert("simples", "natural descomplicado");
-            avl.Insert("nada","zero vazio");
-            avl.Insert("trabalho", "tarefa");
-
-            avl.InOrder();
-
-            Console.WriteLine("Time O(log n) Space O(n)");
-        }
-
+        
         private static Node[] BuildNodeArray(int[] myArray)
         {
             int index = 0;
             Node[] nodes = new Node[myArray.Length];
+            Random value = new Random();
+
             foreach (int item in myArray)
             {
-                nodes[index] = new Node(index.ToString(), myArray[index].ToString(), null);
+                nodes[index] = new Node(index, myArray[index].ToString(), (index * value.Next(1,100)).ToString(), null);
                 index++;
             }
             return nodes;
@@ -139,7 +127,7 @@ namespace Application
 
             foreach (Node node in sort.Heapsort(myArray))
             {
-                result.Append(node.Value + " ");
+                result.Append(node.Key + " ");
             }
             Console.WriteLine(result);   
         }
@@ -160,17 +148,17 @@ namespace Application
             Console.WriteLine(result);
         }
 
-        private static void TestBinaryTree(int[] smallArray)
+        private static void TestBinaryTree(int[] myArray)
         {
             Console.WriteLine("\n ======== B-I-N-A-R-Y-T-R-E-E ================== " +
                 "\n====Time complexity: \n   * best O(Log n) \n   * worst O(n) " +
-                       "\n   * binary tree O(log h), where 'h' is height and n <= h <= n" +
+                       "\n   * binary tree O(log h), where 'h' is height and logn <= h <= n" +
                        "\n====Space complexity O(n)\n\nSteps:\n");
             //Complexity O(Log(n))
             BinaryTree tree = new BinaryTree();
            
-            for (int i = 0; i < smallArray.Length; i++)
-                tree.Insert(i, smallArray[i]);
+            for (int i = 0; i < myArray.Length; i++)
+                tree.Insert(myArray[i], i);
 
             //DUMMY TEST
             Node node = null;
@@ -219,6 +207,15 @@ namespace Application
                 Console.WriteLine("The key of 63 element: " + node.Key);
             else
                 Console.WriteLine("It was not possible to find the 63 element in the dataset.\n");
+
+            Console.WriteLine("\nIn Order:\n");
+            tree.InOrder();
+
+            Console.WriteLine("\nPos Order:\n");
+            tree.PosOrder();
+
+            Console.WriteLine("\nPre Order:\n");
+            tree.PreOrder();
         }
 
         private static void TestHeapTree(int[] myArray)
@@ -226,29 +223,62 @@ namespace Application
             Console.WriteLine("\n======== H-E-A-P-T-R-E-E ==================" +
                 "\n======== Complexity: Time O(n) Espace O(1)\nSteps:\n");
 
-            StringBuilder result = new StringBuilder("Inserting value ");
+            StringBuilder result = new StringBuilder("Inserting keys ");
 
             HeapTree tree = new HeapTree(myArray.Length);
             Random rnd = new Random();
 
             for (int i = 0; i < myArray.Length; i++) {
-                tree.Insert(rnd.Next(1, myArray.Length * 1000), myArray[i]);
+                tree.Insert(myArray[i], rnd.Next(1, myArray.Length * 100));
                 result.Append(myArray[i] + " ");
             }
 
-            result.Append("\n\nMy heap result: ");
+            result.Append("\nMy heap result: ");
             for (int i = 0; i < myArray.Length; i++)
             {
-                result.Append(tree.Heap[i].Value + " ");
+                result.Append(tree.Heap[i].Key + " ");
             }
+            
+            Console.WriteLine("\n" + result);
 
-            result.Append("\n\nRemoved nodes: ");
+            Console.WriteLine("\nIn Order:\n");
+            tree.InOrder();
 
+            Console.WriteLine("\nPos Order:\n");
+            tree.PosOrder();
+
+            Console.WriteLine("\nPre Order:\n");
+            tree.PreOrder();
+
+            result.Clear();
             for (int i = 0; i < myArray.Length; i++)
             {
-                result.Append(tree.Remove().Value + " ");
+                result.Append(tree.Remove().Key + " ");
             }
-            Console.WriteLine("\n\n" + result + "\n");
+            Console.WriteLine("\nRemoved nodes:" + result + "\n");
+        }
+
+        private static void TestAVLTree()
+        {
+            AvlTree avl = new AvlTree();
+
+            Console.WriteLine("\nBALANCED! Time O(log n) Space O(n)");
+
+            avl.Insert("mamão", "fruta comida ");
+            avl.Insert("muito", "bastante numeroso abundante");
+            avl.Insert("simples", "natural descomplicado");
+            avl.Insert("nada", "zero vazio");
+            avl.Insert("trabalho", "tarefa");
+
+            Console.WriteLine("\nIn Order:\n");
+            avl.InOrder();
+
+            Console.WriteLine("\nPos Order:\n");
+            avl.PosOrder();
+
+            Console.WriteLine("\nPre Order:\n");
+            avl.PreOrder();
+
         }
 
         private static void TestQueue(int[] myArray)

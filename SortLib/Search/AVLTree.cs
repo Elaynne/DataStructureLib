@@ -17,7 +17,8 @@ namespace SortLib.Search
         /// <param name="synonymous"></param>
         public override void Insert(string key, string value)
         {
-            Node node = new Node(key, value, null);
+            Node node = new Node(Index, key, value, null);
+            Index++;
             if (Root == null)
                 Root = node;
             else

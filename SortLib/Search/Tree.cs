@@ -13,9 +13,11 @@ namespace SortLib.Search
         public Node Right { get; set; }
         public string Value { get; set; }
         public string Key { get; set; }
+        public int Index { get; set; }
 
-        public Node(string key, string value, Node father)
+        public Node(int index ,string key, string value, Node father)
         {
+            Index = index;
             Key = key;
             Left= null;
             Right = null;
@@ -27,7 +29,7 @@ namespace SortLib.Search
 
         public void PrintNode()
         {
-            Console.WriteLine("Key: " + Key + " Value: " + Value);
+            Console.WriteLine("Index: " + Index + " key: " + Key);
         }
 
         /*AVL NODE PROPERTY*/
@@ -74,10 +76,12 @@ namespace SortLib.Search
     public abstract class Tree : ITree
     {
         protected Node Root { get; set; }
+        protected int Index { get; set; }
 
         protected Tree()
         {
             Root = null;
+            Index = 0;
         }
         public Node GetRoot() => Root;
 

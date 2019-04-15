@@ -12,8 +12,8 @@ namespace SortLib.Search
         #region INSERT
         public override void Insert(int key, int value)
         {
-            Node thisNode = new Node(key.ToString(), value.ToString(), null);
-
+            Node thisNode = new Node(Index, key.ToString(), value.ToString(), null);
+            Index++;
             if (Root == null)
             {
                 Root = thisNode;
@@ -26,12 +26,12 @@ namespace SortLib.Search
             while (current != null)
             {
                 auxFather = current;
-                current = (Convert.ToInt32(value) < Convert.ToInt32(current.Value)) ? current.Left : current.Right;
+                current = (Convert.ToInt32(key) < Convert.ToInt32(current.Key)) ? current.Left : current.Right;
             }
 
             if (auxFather != null)
             {
-                if (Convert.ToInt32(auxFather.Value) < value)
+                if (Convert.ToInt32(auxFather.Key) < key)
                     auxFather.Right = thisNode;
 
                 else auxFather.Left = thisNode;
@@ -58,7 +58,9 @@ namespace SortLib.Search
 
             return null;
         }
+        #endregion
 
+        #region REMOVE
         public override bool Remove(int value)
         {
             return SearchRemove(value, Root) != null;
@@ -72,16 +74,12 @@ namespace SortLib.Search
                 bool removed = Remove(current);
                 return removed ? null : current;
             }
-
             current = targetValue < Convert.ToInt32(current.Value) ? current.Left : current.Right;
 
             if (current != null) return SearchRemove(targetValue, current);
 
             return null;
         }
-        #endregion
-
-        #region REMOVE
         private bool Remove(Node current)
         {
             #region the target is a LEAF
