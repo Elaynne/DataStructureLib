@@ -19,16 +19,13 @@ namespace SortLib.Search
                 Root = thisNode;
                 return;
             }
-            
             Node current = Root;
             Node auxFather = null;
-             
             while (current != null)
             {
                 auxFather = current;
                 current = (Convert.ToInt32(key) < Convert.ToInt32(current.Key)) ? current.Left : current.Right;
             }
-
             if (auxFather != null)
             {
                 if (Convert.ToInt32(auxFather.Key) < key)
@@ -61,10 +58,8 @@ namespace SortLib.Search
         #endregion
 
         #region REMOVE
-        public override bool Remove(int value)
-        {
-            return SearchRemove(value, Root) != null;
-        }
+        public override bool Remove(int value) => SearchRemove(value, Root) != null;
+        
         private Node SearchRemove(int targetValue, Node current)
         {
             if (current == null) return null;
@@ -145,7 +140,7 @@ namespace SortLib.Search
             #endregion
         }
       
-        //return de minimun element from the targetNode's right children
+       /* //return de minimun element from the targetNode's right children
         private Node GetSuccessor(Node successor)
         {
             if (successor.Left != null)
@@ -159,7 +154,7 @@ namespace SortLib.Search
             if (predecessor.Right != null)
                 predecessor = GetPredecessor(predecessor.Right);
             return predecessor;
-        }
+        }*/
         #endregion
         
         public override string InOrder()

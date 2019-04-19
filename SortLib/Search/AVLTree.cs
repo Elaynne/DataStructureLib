@@ -1,121 +1,201 @@
-﻿using SortLib.Interface;
-using System;
+﻿using System;
+using System.Text;
 
 namespace SortLib.Search
 {
 
     public class AvlTree : Tree 
     {
+        private StringBuilder log = new StringBuilder();
+        public StringBuilder Log { get => log; }
+
         public AvlTree() : base()
         {
         }
-        
+
+        #region INSERT
         /// <summary>
         /// Inserts a Key/key into the tree and keeps it balanced
         /// </summary>
         /// <param name="key">The Key of AVLNode</param>
-        /// <param name="synonymous"></param>
+        /// <param name="value"></param>
         public override void Insert(string key, string value)
         {
-            Node node = new Node(Index, key, value, null);
+            Node thisNode = new Node(Index, key, value, null);
             Index++;
             if (Root == null)
-                Root = node;
-            else
             {
-                Node current = Root;
-                Node currentFather = null;
-                while (current != null)
-                {
-                    if (string.Compare(key, current.Key) < 0)
-                    {
-                        currentFather = current;
-                        current = current.Left;
-                    }
-                    else
-                    {
-                        currentFather = current;
-                        current = current.Right;
-                    }
-                }
-                if (currentFather != null)
-                {
-                    if (string.Compare(currentFather.Key, key) < 0)
-                    {
-                        currentFather.Right = node;
-                        node.Father = currentFather;
-                    }
-                    else
-                    {
-                        currentFather.Left = node;
-                        node.Father = currentFather;
-                    }
-                }
+                Root = thisNode;
+                return;
             }
-            Node aux = node;
-            Console.WriteLine("\nbalancing for insertion of: " + node.Key);
-            while (aux != null)
+            Node current = Root;
+            Node currentFather = null;
+            while (current != null)
             {
-                int balancing = aux.BalancingFactor();
-                Console.WriteLine("\nStarting balancing: " + aux.Key + " balancing factor = " + balancing);
+                currentFather = current;
+                current = string.Compare(key, current.Key) < 0 ? current.Left : current.Right;
+            }
+            if (currentFather != null)
+            {
+                if (string.Compare(currentFather.Key, key) < 0)
+                    currentFather.Right = thisNode;
+                
+                else currentFather.Left = thisNode;
+            }
+            thisNode.Father = currentFather;
+
+            Node aux = thisNode;
+            log.Append("\nbalancing for insertion of: " + thisNode.Key);
+            BalancingSubtree(aux);
+        }
+        #endregion
+
+        private void BalancingSubtree(Node node)
+        {
+            while (node != null)
+            {
+                int balancing = node.BalancingFactor();
+                log.Append("\nStarting balancing: " + node.Key + " balancing factor = " + balancing);
                 if (balancing == 2)
                 {
-                    Console.WriteLine("\nbalancing at: " + aux.Key);
-                    if (aux.Right != null && aux.Right.BalancingFactor() == 1)
+                    log.Append("\nbalancing at: " + node.Key);
+                    if (node.Right != null && node.Right.BalancingFactor() == 1)
                     {
-                        LRotation(aux);
+                        LRotation(node);
                     }
-                    if (aux.Right != null && aux.Right.BalancingFactor() == -1)
+                    if (node.Right != null && node.Right.BalancingFactor() == -1)
                     {
-                        RLRotation(aux);
+                        RLRotation(node);
                     }
                 }
                 else if (balancing == -2)
                 {
-                    Console.WriteLine("\nbalancing at: " + aux.Key);
-                    if (aux.Left.BalancingFactor() == 1)
+                    log.Append("\nbalancing at: " + node.Key);
+                    if (node.Left.BalancingFactor() == 1)
                     {
-                        LRRotation(aux);
+                        LRRotation(node);
                     }
-                    if (aux.Left.BalancingFactor() == -1)
+                    if (node.Left.BalancingFactor() == -1)
                     {
-                        RRotation(aux);
+                        RRotation(node);
                     }
                 }
-                aux = aux.Father;
+                node = node.Father;
             }
         }
-
+        #region SEARCH
         public override Node Search(string key)
         {
-            Node aux = Root;
-            while (aux != null)
+            return Search(key, Root);
+        }
+
+        private Node Search(string targetValue, Node current)
+        {
+            if (current == null) return null;
+
+            if (string.Compare(targetValue, current.Key) == 0) return current;
+
+            current = string.Compare(targetValue, current.Key) < 0 ? current.Left : current.Right;
+
+            if (current != null) return Search(targetValue, current);
+
+            return null;
+        }
+        #endregion
+
+        #region REMOVE
+        /// <summary>
+        /// Search the element, if the element was found: remove then performs balancing on the element's parent.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public override bool Remove(string value) => SearchRemove(value, Root) != null;
+        
+        private Node SearchRemove(string targetValue, Node current)
+        {
+            if (current == null) return null;
+
+            if (targetValue == current.Key)
             {
-                Console.WriteLine(aux.Key + "->");
-                if (string.Compare(aux.Key, key) == 0)
+                bool removed = Remove(current);
+                return removed ? null : current;
+            }
+            current =  string.Compare(targetValue, current.Key) < 0 ? current.Left : current.Right;
+
+            if (current != null) return SearchRemove(targetValue, current);
+
+            return null;
+        }
+        private bool Remove(Node current)
+        {
+            #region the target is a LEAF
+            if (current.IsLeaf())
+            {
+                //the target is left node
+                if (string.Compare(current.Key, current.Father.Key) < 0)
+                    current.Father.Left = null;
+                else
+                    current.Father.Right = null;
+
+                BalancingSubtree(current.Father);
+                return true;
+            }
+            #endregion
+
+            #region target has 1 subtree
+            else if ((current.Left != null && current.Right == null) || (current.Left == null && current.Right != null))
+            {
+                //left subtree
+                if (current.Left != null)
                 {
-                    Console.WriteLine(":\n" + aux.Value);
-                    return aux;
-                }
-                else if (string.Compare(aux.Key, key) < 0)
-                {
-                    Console.WriteLine(" \nright: " + (aux.Right == null ? "null": aux.Right.Key));
-                    aux = aux.Right;
+                    //the target is left node
+                    if (string.Compare(current.Key, current.Father.Key) < 0)
+                        current.Father.Left = current.Left;
+                    else
+                        current.Father.Right = current.Left;
+                    current.Left.Father = current.Father;
                 }
                 else
                 {
-                    Console.WriteLine(" \nleft: " + (aux.Left == null ? "null": aux.Left.Key));
-                    aux = aux.Left;
+                    //the target is right node
+                    if (string.Compare(current.Key, current.Father.Key) < 0)
+                        current.Father.Left = current.Right;
+                    else
+                        current.Father.Right = current.Right;
+                    current.Right.Father = current.Father;
                 }
+
+                BalancingSubtree(current.Father);
+                return true;
             }
-            return null;
-        }
+            #endregion
 
-        public override bool Remove(string value)
-        {
-            throw new NotImplementedException();
-        }
+            #region target has 2 subtress
+            //Select Successor or Predecessor to replace the removed Node.
+            //Successor = smallest value from the right subtree; (MY CHOICE)
+            //Predecessor = biggest value from the left subtree
+            else if (current.Left != null && current.Right != null)
+            {
+                //Search smallest element from the right
+                Node successor = GetSuccessor(current.Right);
+                successor.Left = current.Left;
+                successor.Right = current.Right;
+                successor.Father = current.Father;
+                if (string.Compare(current.Father.Key, current.Key) < 0)
+                    current.Father.Right = successor;
+                else
+                    current.Father.Left = successor;
+                current.Left.Father = current.Right.Father = successor;
 
+                BalancingSubtree(current.Father);
+                return true;
+            }
+            return false;
+            #endregion
+        }
+        #endregion
+
+        #region ROTATIONS
         private void LRotation(Node node)
         {
             Node axis = node.Right;
@@ -163,7 +243,8 @@ namespace SortLib.Search
             RRotation(node.Right);
             LRotation(node);
         }
-        
+        #endregion
+
         public override string InOrder()
         {
             InOrder(Root);

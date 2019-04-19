@@ -1,6 +1,4 @@
 ﻿using SortLib.Interface;
-using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace SortLib.Search
@@ -112,6 +110,21 @@ namespace SortLib.Search
                 PreOrder(node.Left);
                 PreOrder(node.Right);
             }
+        }
+        //return de minimun element from the targetNode's right children
+        protected Node GetSuccessor(Node successor)
+        {
+            if (successor.Left != null)
+                successor = GetSuccessor(successor.Left);
+            return successor;
+        }
+
+        //return de maximun element from the targetNode's left children
+        protected Node GetPredecessor(Node predecessor)
+        {
+            if (predecessor.Right != null)
+                predecessor = GetPredecessor(predecessor.Right);
+            return predecessor;
         }
 
         public abstract void Insert(int key, int value);

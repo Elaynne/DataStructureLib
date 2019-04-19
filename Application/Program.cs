@@ -260,10 +260,19 @@ namespace Application
             avl.Insert("nada", "zero vazio");
             avl.Insert("trabalho", "tarefa");
 
+            Console.WriteLine(avl.Log.ToString());
+
             Console.WriteLine("\nIn Order:\n" + avl.InOrder());
             Console.WriteLine("\nPos Order:\n" + avl.PosOrder());
             Console.WriteLine("\nPre Order:\n" + avl.PreOrder());
 
+            Node node = null;
+            if ((node = avl.Search("nada")) != null)
+                Console.WriteLine("The key of nada element: " + node.Key + " synonymous of nada: " + node.Value
+                    + " index: " + node.Index);
+            else
+                Console.WriteLine("It was not possible to find the mamão element in the dataset.");
+            
         }
 
         private static void TestQueue(int[] myArray)
