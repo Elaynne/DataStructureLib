@@ -162,17 +162,26 @@ namespace SortLib.Search
         }
         #endregion
         
-        public override void InOrder()
+        public override string InOrder()
         {
             InOrder(Root);
+            string aux = OrderPath.ToString();
+            OrderPath.Clear();
+            return aux;
         }
-        public override void PosOrder()
+        public override string PosOrder()
         {
             PosOrder(Root);
+            string aux = OrderPath.ToString();
+            OrderPath.Clear();
+            return aux;
         }
-        public override void PreOrder()
+        public override string PreOrder()
         {
             PreOrder(Root);
+            string aux = OrderPath.ToString();
+            OrderPath.Clear();
+            return aux;
         }
 
         public override void Insert(string key, string value)

@@ -48,16 +48,16 @@ namespace SortLib.Interface
         /// <summary>
         /// Display the route in order
         /// </summary>
-        void InOrder();
+        string InOrder();
 
         /// <summary>
         /// Display the route pre order
         /// </summary>
-        void PreOrder();
+        string PreOrder();
 
         /// <summary>
         /// Display the route pos order
         /// </summary>
-        void PosOrder();
+        string PosOrder();
     }
 }

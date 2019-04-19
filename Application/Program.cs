@@ -208,14 +208,9 @@ namespace Application
             else
                 Console.WriteLine("It was not possible to find the 63 element in the dataset.\n");
 
-            Console.WriteLine("\nIn Order:\n");
-            tree.InOrder();
-
-            Console.WriteLine("\nPos Order:\n");
-            tree.PosOrder();
-
-            Console.WriteLine("\nPre Order:\n");
-            tree.PreOrder();
+            Console.WriteLine("\nIn Order:\n" + tree.InOrder());
+            Console.WriteLine("\nPos Order:\n" + tree.PosOrder());
+            Console.WriteLine("\nPre Order:\n" + tree.PreOrder());
         }
 
         private static void TestHeapTree(int[] myArray)
@@ -241,14 +236,9 @@ namespace Application
             
             Console.WriteLine("\n" + result);
 
-            Console.WriteLine("\nIn Order:\n");
-            tree.InOrder();
-
-            Console.WriteLine("\nPos Order:\n");
-            tree.PosOrder();
-
-            Console.WriteLine("\nPre Order:\n");
-            tree.PreOrder();
+            Console.WriteLine("\nIn Order:\n" + tree.InOrder());
+            Console.WriteLine("\nPos Order:\n"+ tree.PosOrder());
+            Console.WriteLine("\nPre Order:\n"+ tree.PreOrder());
 
             result.Clear();
             for (int i = 0; i < myArray.Length; i++)
@@ -270,14 +260,9 @@ namespace Application
             avl.Insert("nada", "zero vazio");
             avl.Insert("trabalho", "tarefa");
 
-            Console.WriteLine("\nIn Order:\n");
-            avl.InOrder();
-
-            Console.WriteLine("\nPos Order:\n");
-            avl.PosOrder();
-
-            Console.WriteLine("\nPre Order:\n");
-            avl.PreOrder();
+            Console.WriteLine("\nIn Order:\n" + avl.InOrder());
+            Console.WriteLine("\nPos Order:\n" + avl.PosOrder());
+            Console.WriteLine("\nPre Order:\n" + avl.PreOrder());
 
         }
 

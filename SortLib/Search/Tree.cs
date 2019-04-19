@@ -1,7 +1,7 @@
 ﻿using SortLib.Interface;
 using System;
 using System.Collections.Generic;
-
+using System.Text;
 
 namespace SortLib.Search
 {
@@ -27,9 +27,9 @@ namespace SortLib.Search
 
         public bool IsLeaf() => (Right == null && Left== null);
 
-        public void PrintNode()
+        public string PrintNode()
         {
-            Console.WriteLine("Index: " + Index + " key: " + Key);
+            return "Index: " + Index + " key: " + Key + "\n";
         }
 
         /*AVL NODE PROPERTY*/
@@ -75,6 +75,7 @@ namespace SortLib.Search
 
     public abstract class Tree : ITree
     {
+        protected StringBuilder OrderPath = new StringBuilder();
         protected Node Root { get; set; }
         protected int Index { get; set; }
 
@@ -90,7 +91,7 @@ namespace SortLib.Search
             if (node != null)
             {
                 InOrder(node.Left);
-                node.PrintNode();
+                OrderPath.Append(node.PrintNode());
                 InOrder(node.Right);
             }
         }
@@ -100,14 +101,14 @@ namespace SortLib.Search
             {
                 PosOrder(node.Left);
                 PosOrder(node.Right);
-                node.PrintNode();
+                OrderPath.Append(node.PrintNode());
             }
         }
         protected void PreOrder(Node node)
         {
             if (node != null)
             {
-                node.PrintNode();
+                OrderPath.Append(node.PrintNode());
                 PreOrder(node.Left);
                 PreOrder(node.Right);
             }
@@ -125,10 +126,10 @@ namespace SortLib.Search
 
         public abstract Node Search(string key);
         
-        public abstract void InOrder();
+        public abstract string InOrder();
 
-        public abstract void PreOrder();
+        public abstract string PreOrder();
 
-        public abstract void PosOrder();
+        public abstract string PosOrder();
     }    
 }

@@ -1,6 +1,7 @@
 ﻿
 
 using System;
+using System.Text;
 
 namespace SortLib.Search
 {
@@ -10,6 +11,7 @@ namespace SortLib.Search
         private readonly int Size;
         private int posix = 0;
         private int Index { get; set; }
+        private StringBuilder OrderPath = new StringBuilder();
 
         public HeapTree(int size)
         {
@@ -123,9 +125,10 @@ namespace SortLib.Search
         {
             if (node != null)
             {
-                if(Left(node.Index) < Size)
+                if (Left(node.Index) < Size)
                     InOrder(Heap[Left(node.Index)]);
-                node.PrintNode();
+                OrderPath.Append(node.PrintNode());
+
                 if(Right(node.Index) < Size)
                     InOrder(Heap[Right(node.Index)]);
             }
@@ -138,14 +141,14 @@ namespace SortLib.Search
                     PosOrder(Heap[Left(node.Index)]);
                 if (Right(node.Index) < Size)
                     PosOrder(Heap[Right(node.Index)]);
-                node.PrintNode();
+                OrderPath.Append(node.PrintNode());
             }
         }
         private void PreOrder(Node node)
         {
             if (node != null)
             {
-                node.PrintNode();
+                OrderPath.Append(node.PrintNode());
                 if (Left(node.Index) < Size)
                     PreOrder(Heap[Left(node.Index)]);
                 if (Right(node.Index) < Size)
@@ -153,9 +156,26 @@ namespace SortLib.Search
             }
         }
 
-        public void InOrder() => InOrder(Heap[0]);
-        public void PosOrder() => PosOrder(Heap[0]);
-        public void PreOrder() => PreOrder(Heap[0]);
-
+        public string InOrder()
+        {
+            InOrder(Heap[0]);
+            string aux = OrderPath.ToString();
+            OrderPath.Clear();
+            return aux;
+        }
+        public string PosOrder()
+        {
+            PosOrder(Heap[0]);
+            string aux = OrderPath.ToString();
+            OrderPath.Clear();
+            return aux;
+        }
+        public string PreOrder()
+        {
+            PreOrder(Heap[0]);
+            string aux = OrderPath.ToString();
+            OrderPath.Clear();
+            return aux;
+        }
     }
 }
