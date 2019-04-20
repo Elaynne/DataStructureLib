@@ -9,82 +9,52 @@ namespace SortLib.Search
         {
         }
 
+      
         #region INSERT
-        public override void Insert(int key, int value)
-        {
-            Node thisNode = new Node(Index, key.ToString(), value.ToString(), null);
-            Index++;
-            if (Root == null)
-            {
-                Root = thisNode;
-                return;
-            }
-            Node current = Root;
-            Node auxFather = null;
-            while (current != null)
-            {
-                auxFather = current;
-                current = (Convert.ToInt32(key) < Convert.ToInt32(current.Key)) ? current.Left : current.Right;
-            }
-            if (auxFather != null)
-            {
-                if (Convert.ToInt32(auxFather.Key) < key)
-                    auxFather.Right = thisNode;
-
-                else auxFather.Left = thisNode;
-            }
-            thisNode.Father = auxFather;
-        }
+        public override void Insert(object key, object value) => GenericInsert(key,value);
+        
         #endregion
 
         #region SEARCH
-        public override Node Search(int value)
-        {
-            return Search(value, Root);
-        }
-
-        private Node Search(int targetValue, Node current)
-        {
-            if (current == null) return null;
-
-            if (targetValue == Convert.ToInt32(current.Value)) return current;
-            
-            current = targetValue < Convert.ToInt32(current.Value) ? current.Left : current.Right;
-
-            if (current != null) return Search(targetValue, current);
-
-            return null;
-        }
+        public override Node Search(object key) => Search(key, Root);
         #endregion
 
         #region REMOVE
-        public override bool Remove(int value) => SearchRemove(value, Root) != null;
-        
-        private Node SearchRemove(int targetValue, Node current)
-        {
-            if (current == null) return null;
+        public override bool Remove(object key) => SearchRemove(key, Root);
 
-            if (targetValue == Convert.ToInt32(current.Value))
-            {
-                bool removed = Remove(current);
-                return removed ? null : current;
-            }
-            current = targetValue < Convert.ToInt32(current.Value) ? current.Left : current.Right;
+        private bool SearchRemove(object targetValue, Node current)
+        {
+            if (current == null) return true;
+
+            if (Util.ValidateEqual(targetValue, current.Key)) return Remove(current, targetValue);
+
+            current = Util.ValidateByType(targetValue, targetValue, current.Key) ? current.Left : current.Right;
 
             if (current != null) return SearchRemove(targetValue, current);
 
-            return null;
+            return true;
         }
-        private bool Remove(Node current)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="current"></param>
+        /// <param name="itemType">the searched object to evaluate the type and compare values</param>
+        /// <returns></returns>
+        private bool Remove(Node current, object itemType)
         {
             #region the target is a LEAF
             if (current.IsLeaf())
             {
-                //the target is left node
-                if (Convert.ToInt32(current.Value) < Convert.ToInt32(current.Father.Value))
-                    current.Father.Left = null;
-                else
-                    current.Father.Right = null;
+                if (current != Root)
+                {
+                    if (Util.ValidateByType(itemType, current.Key, current.Father.Key))
+                        current.Father.Left = null;
+                    else
+                        current.Father.Right = null;
+                }
+                else {
+                    current = null;
+                }
                 return true;
             }
             #endregion
@@ -92,27 +62,16 @@ namespace SortLib.Search
             #region target has 1 subtree
             else if ((current.Left != null && current.Right == null) || (current.Left == null && current.Right != null))
             {
-                //left subtree
-                if (current.Left != null)
-                {
-                    //the target is left node
-                    if (Convert.ToInt32(current.Value) < Convert.ToInt32(current.Father.Value))
-                        current.Father.Left = current.Left;
+                if (current.Father != null)
+                { 
+                    //left subtree
+                    if (Util.ValidateByType(itemType, current.Key, current.Father.Key))
+                        current.Father.Left = current.Left != null ? current.Left : current.Right;
                     else
-                        current.Father.Right = current.Left;
-
+                        current.Father.Right = current.Left != null ? current.Left : current.Right;
                     current.Left.Father = current.Father;
                 }
-                else
-                {
-                    //the target is right node
-                    if (Convert.ToInt32(current.Value) < Convert.ToInt32(current.Father.Value))
-                        current.Father.Left = current.Right;
-                    else 
-                        current.Father.Right = current.Right;
-                    
-                    current.Right.Father = current.Father;
-                }
+                current = current.Left != null ? current.Left : current.Right;
                 return true;
             }
             #endregion
@@ -123,38 +82,30 @@ namespace SortLib.Search
             //Predecessor = biggest value from the left subtree
             else if (current.Left != null && current.Right != null)
             {
-                //Search smallest element from the right
                 Node successor = GetSuccessor(current.Right);
-                successor.Left = current.Left;
-                successor.Right = current.Right;
-                successor.Father  = current.Father;
-                if (Convert.ToInt32(current.Father.Value) < Convert.ToInt32(current.Value))
-                    current.Father.Right = successor;
-                else
-                    current.Father.Left = successor;
-                current.Left.Father = current.Right.Father = successor;
-              
+
+                if (successor.Right != null)
+                {
+                    successor.Right.Father = successor.Father;
+                    successor.Father.Right = successor.Right;
+                }
+                else if (successor != current.Right)
+                {
+                    successor.Father.Left = null;
+                }
+                current.Value = successor.Value;
+                current.Key = successor.Key;
+                current.Index = successor.Index;
+                if (current.Right == successor)
+                {
+                    current.Right = null;
+                }
                 return true;
             }
             return false;
             #endregion
         }
       
-       /* //return de minimun element from the targetNode's right children
-        private Node GetSuccessor(Node successor)
-        {
-            if (successor.Left != null)
-                successor = GetSuccessor(successor.Left);
-            return successor;
-        }
-
-        //return de maximun element from the targetNode's left children
-        private Node GetPredecessor(Node predecessor)
-        {
-            if (predecessor.Right != null)
-                predecessor = GetPredecessor(predecessor.Right);
-            return predecessor;
-        }*/
         #endregion
         
         public override string InOrder()
@@ -178,21 +129,7 @@ namespace SortLib.Search
             OrderPath.Clear();
             return aux;
         }
-
-        public override void Insert(string key, string value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool Remove(string value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Node Search(string key)
-        {
-            throw new NotImplementedException();
-        }
+    
     }
 
 }

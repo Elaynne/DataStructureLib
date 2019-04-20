@@ -33,8 +33,8 @@ namespace Application
             string[] inputStr = input.Split("-");
             int[] bigArray = inputStr.Select(int.Parse).ToArray();
 
-            int[] smallArray = new int[] { 15, 18, 16, 14, 12, 12, 63, 58, 66, 26, 6, 65, 46, 11, 7 };
-
+            int[] smallArray = new int[] { 15, 18, 16, 14, 63, 12, 62 };// 58, 66, 26, 6, 65, 46, 11, 7 };
+            string[] strArray = new string[] {"mamão","arroz","muito","simples","nada", "arara", "matriz" };
             switch (algorith.Key)
             {
                 case ConsoleKey.A:
@@ -56,7 +56,7 @@ namespace Application
                     Menu();
                     break;
                 case ConsoleKey.D:
-                    TestBinaryTree(smallArray);
+                    TestBinaryTree(bigArray);
                     Console.ReadKey();
                     Console.Clear();
                     Menu();
@@ -68,7 +68,7 @@ namespace Application
                     Menu();
                     break;
                 case ConsoleKey.F:
-                    TestAVLTree();
+                    TestAVLTree(smallArray);
                     Console.ReadKey();
                     Console.Clear();
                     Menu();
@@ -82,7 +82,6 @@ namespace Application
                 case ConsoleKey.Escape:
                     break;
             }
-
         }
 
         static void Main(string[] args)
@@ -148,66 +147,76 @@ namespace Application
             Console.WriteLine(result);
         }
 
-        private static void TestBinaryTree(int[] myArray)
+        private static void TestBinaryTree<T>(T[] myArray)
         {
             Console.WriteLine("\n ======== B-I-N-A-R-Y-T-R-E-E ================== " +
                 "\n====Time complexity: \n   * best O(Log n) \n   * worst O(n) " +
                        "\n   * binary tree O(log h), where 'h' is height and logn <= h <= n" +
                        "\n====Space complexity O(n)\n\nSteps:\n");
-            //Complexity O(Log(n))
+   
             BinaryTree tree = new BinaryTree();
-           
+
             for (int i = 0; i < myArray.Length; i++)
-                tree.Insert(myArray[i], i);
+            {
+                object obj1 = myArray[i];
+                object obj2 = i;
+                tree.Insert(obj1, obj2);
+            }
 
             //DUMMY TEST
             Node node = null;
-            if ((node = tree.Search(2911)) != null)
-                Console.WriteLine("The key of 2911 element: " + node.Key);
+            object objInt = "beterraba";
+            if ((node = tree.Search(objInt)) != null)
+                Console.WriteLine("The Value of " + objInt + " key: " + node.Value);
             else
-                Console.WriteLine("It was not possible to find the 2911 element in the dataset.");
-
-            if ((node = tree.Search(12)) != null)
-                Console.WriteLine("The key of 12 element: " + node.Key);
-            else
-                Console.WriteLine("It was not possible to find the 12 element in the dataset.\n");
-
-            //NODE HAS 2 SUBTREE
-            if (!tree.Remove(63))
-                Console.WriteLine("Element 63 was successfully removed.");
-            else
-                Console.WriteLine("Element 63 was not found.");
-            if ((node = tree.Search(63)) != null)
-                Console.WriteLine("The key of 63 element: " + node.Key + " your remove has failed.");
-            else
-                Console.WriteLine("It was not possible to find the 63 element in the dataset. Did you remove it?\n");
+                Console.WriteLine("It was not possible to find the " + objInt + " key in the dataset.");
 
             //NODE IS A LEAF
-            if (!tree.Remove(46))
-                Console.WriteLine("Element 46 was successfully removed.");
+            objInt = 62; //"nada";// 
+            if (tree.Remove(objInt))
+                Console.WriteLine("key " + objInt + " was successfully removed.");
             else
-                Console.WriteLine("Element 46 was not found.");
-            if ((node = tree.Search(46)) != null)
-                Console.WriteLine("The key of 46 element: " + node.Key + " your remove has failed.");
+                Console.WriteLine("key " + objInt + " was not found.");
+            if ((node = tree.Search(objInt)) != null)
+                Console.WriteLine("The Value of " + objInt + " key: " + node.Value + " your remove has failed.");
             else
-                Console.WriteLine("It was not possible to find the 46 element in the dataset. Did you remove it?\n");
+                Console.WriteLine("It was not possible to find the " + objInt + " key in the dataset. Did you remove it?\n");
 
             //NODE HAS 1 SUBTREE
-            if (!tree.Remove(26))
-                Console.WriteLine("Element 26 was successfully removed.");
+            objInt = 14; //"arroz";// 
+            if (tree.Remove(objInt))
+                Console.WriteLine("key " + objInt + " was successfully removed.");
             else
-                Console.WriteLine("Element 26 was not found.");
-            if ((node = tree.Search(26)) != null)
-                Console.WriteLine("The key of 26 element: " + node.Key + " your remove has failed.");
+                Console.WriteLine("key " + objInt + " was not found.");
+            if ((node = tree.Search(objInt)) != null)
+                Console.WriteLine("The Value of " + objInt + " key: " + node.Value + " your remove has failed.");
             else
-                Console.WriteLine("It was not possible to find the 26 element in the dataset. Did you remove it?\n");
+                Console.WriteLine("It was not possible to find the " + objInt + " key in the dataset. Did you remove it?\n");
 
-            tree.Insert(850,63);
-            if ((node = tree.Search(63)) != null)
-                Console.WriteLine("The key of 63 element: " + node.Key);
+            //NODE HAS 2 SUBTREE
+            objInt = 18;// "muito";//
+            if (tree.Remove(objInt))
+                Console.WriteLine("key " + objInt + " was successfully removed.");
             else
-                Console.WriteLine("It was not possible to find the 63 element in the dataset.\n");
+                Console.WriteLine("key " + objInt + " was not found.");
 
+            if ((node = tree.Search(objInt)) != null)
+                Console.WriteLine("The Value of " + objInt + " key: " + node.Value + " your remove has failed.");
+            else
+                Console.WriteLine("It was not possible to find the " + objInt + " key in the dataset. Did you remove it?\n");
+
+            //NODE HAS 2 SUBTREE AND IS ROOT
+            objInt = 15; //"mamão";// 
+            if (tree.Remove(objInt))
+                Console.WriteLine("key " + objInt + " was successfully removed.");
+            else
+                Console.WriteLine("key " + objInt + " was not found.");
+
+            if ((node = tree.Search(objInt)) != null)
+                Console.WriteLine("The Value of " + objInt + " key: " + node.Value + " your remove has failed.");
+            else
+                Console.WriteLine("It was not possible to find the " + objInt + " key in the dataset. Did you remove it?\n");
+            
             Console.WriteLine("\nIn Order:\n" + tree.InOrder());
             Console.WriteLine("\nPos Order:\n" + tree.PosOrder());
             Console.WriteLine("\nPre Order:\n" + tree.PreOrder());
@@ -248,31 +257,78 @@ namespace Application
             Console.WriteLine("\nRemoved nodes:" + result + "\n");
         }
 
-        private static void TestAVLTree()
+        private static void TestAVLTree<T>(T[] myArray)
         {
             AvlTree avl = new AvlTree();
 
             Console.WriteLine("\nBALANCED! Time O(log n) Space O(n)");
 
-            avl.Insert("mamão", "fruta comida ");
-            avl.Insert("muito", "bastante numeroso abundante");
-            avl.Insert("simples", "natural descomplicado");
-            avl.Insert("nada", "zero vazio");
-            avl.Insert("trabalho", "tarefa");
-
+            for (int i = 0; i < myArray.Length; i++)
+            {
+                object obj1 = myArray[i];
+                object obj2 = i;
+                avl.Insert(obj1, obj2);
+            }
             Console.WriteLine(avl.Log.ToString());
 
             Console.WriteLine("\nIn Order:\n" + avl.InOrder());
             Console.WriteLine("\nPos Order:\n" + avl.PosOrder());
             Console.WriteLine("\nPre Order:\n" + avl.PreOrder());
-
-            Node node = null;
-            if ((node = avl.Search("nada")) != null)
-                Console.WriteLine("The key of nada element: " + node.Key + " synonymous of nada: " + node.Value
-                    + " index: " + node.Index);
-            else
-                Console.WriteLine("It was not possible to find the mamão element in the dataset.");
             
+            Node node = null;
+            object objInt = 0;// "nada";
+            if ((node = avl.Search(objInt)) != null)
+                Console.WriteLine("The Value of " + objInt + " key: " + node.Key + " synonymous of " + objInt + ": " + node.Value + " index: " + node.Index);
+            else
+                Console.WriteLine("It was not possible to find the " + objInt + " key in the dataset.");
+
+            //NODE IS A LEAF
+            objInt = 62;//"nada"; 
+            if (avl.Remove(objInt))
+                Console.WriteLine("key " + objInt + " was successfully removed.");
+            else
+                Console.WriteLine("key " + objInt + " was not found.");
+            if ((node = avl.Search(objInt)) != null)
+                Console.WriteLine("The Value of " + objInt + " key: " + node.Value + " your remove has failed.");
+            else
+                Console.WriteLine("It was not possible to find the " + objInt + " key in the dataset. Did you remove it?\n");
+
+            //NODE HAS 1 SUBTREE
+            objInt = 14; //"arroz";// 
+            if (avl.Remove(objInt))
+                Console.WriteLine("key " + objInt + " was successfully removed.");
+            else
+                Console.WriteLine("key " + objInt + " was not found.");
+            if ((node = avl.Search(objInt)) != null)
+                Console.WriteLine("The Value of " + objInt + " key: " + node.Value + " your remove has failed.");
+            else
+                Console.WriteLine("It was not possible to find the " + objInt + " key in the dataset. Did you remove it?\n");
+
+            //NODE HAS 2 SUBTREE
+            objInt = 18;// "muito";//
+            if (avl.Remove(objInt))
+                Console.WriteLine("key " + objInt + " was successfully removed.");
+            else
+                Console.WriteLine("key " + objInt + " was not found.");
+
+            if ((node = avl.Search(objInt)) != null)
+                Console.WriteLine("The Value of " + objInt + " key: " + node.Value + " your remove has failed.");
+            else
+                Console.WriteLine("It was not possible to find the " + objInt + " key in the dataset. Did you remove it?\n");
+
+            //NODE HAS 2 SUBTREE AND IS ROOT
+            objInt = 15; //"mamão";// 
+            if (avl.Remove(objInt))
+                Console.WriteLine("key " + objInt + " was successfully removed.");
+            else
+                Console.WriteLine("key " + objInt + " was not found.");
+
+            if ((node = avl.Search(objInt)) != null)
+                Console.WriteLine("The Value of " + objInt + " key: " + node.Value + " your remove has failed.");
+            else
+                Console.WriteLine("It was not possible to find the " + objInt + " key in the dataset. Did you remove it?\n");
+            
+            Console.WriteLine("\nIn Order:\n" + avl.InOrder());
         }
 
         private static void TestQueue(int[] myArray)

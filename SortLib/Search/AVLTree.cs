@@ -6,7 +6,7 @@ namespace SortLib.Search
 
     public class AvlTree : Tree 
     {
-        private StringBuilder log = new StringBuilder();
+        private readonly StringBuilder log = new StringBuilder();
         public StringBuilder Log { get => log; }
 
         public AvlTree() : base()
@@ -15,37 +15,14 @@ namespace SortLib.Search
 
         #region INSERT
         /// <summary>
-        /// Inserts a Key/key into the tree and keeps it balanced
+        /// Inserts a Key into the tree and keeps it balanced
         /// </summary>
         /// <param name="key">The Key of AVLNode</param>
         /// <param name="value"></param>
-        public override void Insert(string key, string value)
+        public override void Insert(object key, object value)
         {
-            Node thisNode = new Node(Index, key, value, null);
-            Index++;
-            if (Root == null)
-            {
-                Root = thisNode;
-                return;
-            }
-            Node current = Root;
-            Node currentFather = null;
-            while (current != null)
-            {
-                currentFather = current;
-                current = string.Compare(key, current.Key) < 0 ? current.Left : current.Right;
-            }
-            if (currentFather != null)
-            {
-                if (string.Compare(currentFather.Key, key) < 0)
-                    currentFather.Right = thisNode;
-                
-                else currentFather.Left = thisNode;
-            }
-            thisNode.Father = currentFather;
-
-            Node aux = thisNode;
-            log.Append("\nbalancing for insertion of: " + thisNode.Key);
+            Node aux = GenericInsert(key, value);
+            log.Append("\nbalancing for insertion of: " + aux.Key);
             BalancingSubtree(aux);
         }
         #endregion
@@ -83,61 +60,54 @@ namespace SortLib.Search
                 node = node.Father;
             }
         }
+
         #region SEARCH
-        public override Node Search(string key)
-        {
-            return Search(key, Root);
-        }
-
-        private Node Search(string targetValue, Node current)
-        {
-            if (current == null) return null;
-
-            if (string.Compare(targetValue, current.Key) == 0) return current;
-
-            current = string.Compare(targetValue, current.Key) < 0 ? current.Left : current.Right;
-
-            if (current != null) return Search(targetValue, current);
-
-            return null;
-        }
+        public override Node Search(object key) => Search(key, Root);
         #endregion
 
         #region REMOVE
         /// <summary>
-        /// Search the element, if the element was found: remove then performs balancing on the element's parent.
+        /// Search the element, if the element was found: remove, then performs balancing on the element's parent.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public override bool Remove(string value) => SearchRemove(value, Root) != null;
-        
-        private Node SearchRemove(string targetValue, Node current)
-        {
-            if (current == null) return null;
+        public override bool Remove(object key) => SearchRemove(key, Root);
 
-            if (targetValue == current.Key)
-            {
-                bool removed = Remove(current);
-                return removed ? null : current;
-            }
-            current =  string.Compare(targetValue, current.Key) < 0 ? current.Left : current.Right;
+        private bool SearchRemove(object targetValue, Node current)
+        {
+            if (current == null) return true;
+
+            if (Util.ValidateEqual(targetValue, current.Key)) return Remove(current, targetValue);
+
+            current = Util.ValidateByType(targetValue, targetValue, current.Key) ? current.Left : current.Right;
 
             if (current != null) return SearchRemove(targetValue, current);
 
-            return null;
+            return true;
         }
-        private bool Remove(Node current)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="current"></param>
+        /// <param name="itemType"></param>
+        /// <returns></returns>
+        private bool Remove(Node current, object itemType)
         {
             #region the target is a LEAF
             if (current.IsLeaf())
             {
-                //the target is left node
-                if (string.Compare(current.Key, current.Father.Key) < 0)
-                    current.Father.Left = null;
+                if (current != Root)
+                {
+                    if (Util.ValidateByType(itemType, current.Key, current.Father.Key))
+                        current.Father.Left = null;
+                    else
+                        current.Father.Right = null;
+                    BalancingSubtree(current.Father);
+                }
                 else
-                    current.Father.Right = null;
-
-                BalancingSubtree(current.Father);
+                {
+                    current = null;
+                }
                 return true;
             }
             #endregion
@@ -145,27 +115,18 @@ namespace SortLib.Search
             #region target has 1 subtree
             else if ((current.Left != null && current.Right == null) || (current.Left == null && current.Right != null))
             {
-                //left subtree
-                if (current.Left != null)
+                if (current.Father != null)
                 {
-                    //the target is left node
-                    if (string.Compare(current.Key, current.Father.Key) < 0)
-                        current.Father.Left = current.Left;
+                    //left subtree
+                    if (Util.ValidateByType(itemType, current.Key, current.Father.Key))
+                        current.Father.Left = current.Left != null ? current.Left : current.Right;
                     else
-                        current.Father.Right = current.Left;
+                        current.Father.Right = current.Left != null ? current.Left : current.Right;
                     current.Left.Father = current.Father;
                 }
-                else
-                {
-                    //the target is right node
-                    if (string.Compare(current.Key, current.Father.Key) < 0)
-                        current.Father.Left = current.Right;
-                    else
-                        current.Father.Right = current.Right;
-                    current.Right.Father = current.Father;
-                }
-
-                BalancingSubtree(current.Father);
+                current = current.Left != null ? current.Left : current.Right;
+                if(current.Father != null)
+                    BalancingSubtree(current.Father);
                 return true;
             }
             #endregion
@@ -176,18 +137,26 @@ namespace SortLib.Search
             //Predecessor = biggest value from the left subtree
             else if (current.Left != null && current.Right != null)
             {
-                //Search smallest element from the right
                 Node successor = GetSuccessor(current.Right);
-                successor.Left = current.Left;
-                successor.Right = current.Right;
-                successor.Father = current.Father;
-                if (string.Compare(current.Father.Key, current.Key) < 0)
-                    current.Father.Right = successor;
-                else
-                    current.Father.Left = successor;
-                current.Left.Father = current.Right.Father = successor;
 
-                BalancingSubtree(current.Father);
+                if (successor.Right != null)
+                {
+                    successor.Right.Father = successor.Father;
+                    successor.Father.Right = successor.Right;
+                }
+                else if (successor != current.Right)
+                {
+                    successor.Father.Left = null;
+                }
+                current.Value = successor.Value;
+                current.Key = successor.Key;
+                current.Index = successor.Index;
+                if (current.Right == successor)
+                {
+                    current.Right = null;
+                }
+                if (current.Father != null)
+                    BalancingSubtree(current.Father);
                 return true;
             }
             return false;
@@ -266,22 +235,5 @@ namespace SortLib.Search
             OrderPath.Clear();
             return aux;
         }
-
-        /*TO-DO*/
-        public override void Insert(int key, int value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool Remove(int value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Node Search(int key)
-        {
-            throw new NotImplementedException();
-        }
-        
     }
 }

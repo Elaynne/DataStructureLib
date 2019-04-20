@@ -76,6 +76,7 @@ namespace SortLib.Search
         protected StringBuilder OrderPath = new StringBuilder();
         protected Node Root { get; set; }
         protected int Index { get; set; }
+        protected SortUtil Util = new SortUtil();
 
         protected Tree()
         {
@@ -83,7 +84,8 @@ namespace SortLib.Search
             Index = 0;
         }
         public Node GetRoot() => Root;
-
+        
+        #region PROTECTED
         protected void InOrder(Node node)
         {
             if (node != null)
@@ -111,6 +113,50 @@ namespace SortLib.Search
                 PreOrder(node.Right);
             }
         }
+
+        protected Node GenericInsert(object key, object value)
+        {
+            Node thisNode = new Node(Index, key.ToString(), value.ToString(), null);
+            Index++;
+            if (Root == null)
+            {
+                Root = thisNode;
+                return Root;
+            }
+            Node current = Root;
+            Node auxFather = null;
+            object obj2 = null;
+
+            while (current != null)
+            {
+                auxFather = current;
+                obj2 = current.Key;
+                current = Util.ValidateByType(key, key, obj2) ? current.Left : current.Right;
+            }
+
+            if (auxFather != null)
+            {
+                obj2 = auxFather.Key;
+                if (Util.ValidateByType(key, obj2, key))
+                    auxFather.Right = thisNode;
+                else auxFather.Left = thisNode;
+            }
+            thisNode.Father = auxFather;
+            return thisNode;
+        }      
+        protected Node Search(object targetValue, Node current)
+        {
+            if (current == null) return null;
+
+            if (Util.ValidateEqual(targetValue, current.Key)) return current;
+
+            current = Util.ValidateByType(targetValue, targetValue, current.Key) ? current.Left : current.Right;
+
+            if (current != null) return Search(targetValue, current);
+
+            return null;
+        }
+
         //return de minimun element from the targetNode's right children
         protected Node GetSuccessor(Node successor)
         {
@@ -118,7 +164,6 @@ namespace SortLib.Search
                 successor = GetSuccessor(successor.Left);
             return successor;
         }
-
         //return de maximun element from the targetNode's left children
         protected Node GetPredecessor(Node predecessor)
         {
@@ -126,23 +171,20 @@ namespace SortLib.Search
                 predecessor = GetPredecessor(predecessor.Right);
             return predecessor;
         }
+        #endregion
 
-        public abstract void Insert(int key, int value);
+        #region PUBLIC
+        public abstract void Insert(object key, object value);
 
-        public abstract bool Remove(int value);
+        public abstract Node Search(object key);
 
-        public abstract Node Search(int key);
-
-        public abstract void Insert(string key, string value);
-
-        public abstract bool Remove(string value);
-
-        public abstract Node Search(string key);
+        public abstract bool Remove(object key);
         
         public abstract string InOrder();
 
         public abstract string PreOrder();
 
         public abstract string PosOrder();
-    }    
+        #endregion
+    }
 }
