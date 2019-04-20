@@ -16,7 +16,7 @@ I promise that I will write appropriate test cases.
 * [x] Quicksort
 
 ## Tree:
-* [ ] AVLtree: [x] Insert, [x] Search, [ ] Remove
+* [x] AVLtree: [x] Insert, [x] Search, [x] Remove
 * [x] BinaryTree: [x] Insert, [x] Search, [x] Remove
 * [x] HeapTree: [x] Insert, [x] Remove
 
