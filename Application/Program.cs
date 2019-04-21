@@ -82,7 +82,7 @@ namespace Application
                     Menu();
                     break;
                 case ConsoleKey.H:
-                    TestStack(smallArray);
+                    TestStack();
                     Console.ReadKey();
                     Console.Clear();
                     Menu();
@@ -125,7 +125,7 @@ namespace Application
             Console.WriteLine("\n====== STABILITY! Divide to conquer! ======" +
                           "\nTime complexity Ω(nLog n) and O(nLog n) - Space complexity O(n)" +
                           "\n\n======Steps:\n");
-            MergeSort mergesort = new MergeSort();
+            MergeSort<int> mergesort = new MergeSort<int>();
             mergesort.Mergesort(myArray, 0, myArray.Length - 1);
 
             Console.WriteLine("Execution time: " + mergesort.MSlog);
@@ -398,7 +398,7 @@ namespace Application
             Console.WriteLine(result);
         }
 
-        private static void TestStack(int[] myArray)
+        private static void TestStack()
         {
             Console.WriteLine("\n======== S-T-A-C-K ==================" +
                "\n======== Complexity: Push O(1) Pop O(1)\nSteps:\n");
@@ -448,8 +448,13 @@ namespace Application
             myList.Remove(58);
             Console.WriteLine("Remove 58 element: " + myList.PrintList());
 
-
+            myList.Clear();
+            Console.WriteLine("Clear list: " + myList.PrintList());
         }
+
+
+        /*TESTE REMOVE ALL*/
+        private static bool IsEven(int i) => ((i % 2) == 0);
         #endregion
 
     }

@@ -77,11 +77,11 @@ namespace SortLib.Search
         protected StringBuilder OrderPath = new StringBuilder();
         protected Node Root { get; set; }
         protected int Index { get; set; }
-        public SortUtil Util { get; set; }
+        public DSUtil Util { get; set; }
 
         protected Tree()
         {
-            Util = new SortUtil();
+            Util = new DSUtil();
             Root = null;
             Index = 0;
         }
@@ -133,13 +133,13 @@ namespace SortLib.Search
             {
                 auxFather = current;
                 obj2 = current.Key;
-                current = Util.ValidateByType(key, key, obj2) ? current.Left : current.Right;
+                current = Util.ValidateLess(key, key, obj2) ? current.Left : current.Right;
             }
 
             if (auxFather != null)
             {
                 obj2 = auxFather.Key;
-                if (Util.ValidateByType(key, obj2, key))
+                if (Util.ValidateLess(key, obj2, key))
                     auxFather.Right = thisNode;
                 else auxFather.Left = thisNode;
             }
@@ -152,7 +152,7 @@ namespace SortLib.Search
 
             if (Util.ValidateEqual(targetValue, current.Key)) return current;
 
-            current = Util.ValidateByType(targetValue, targetValue, current.Key) ? current.Left : current.Right;
+            current = Util.ValidateLess(targetValue, targetValue, current.Key) ? current.Left : current.Right;
 
             if (current != null) return Search(targetValue, current);
 

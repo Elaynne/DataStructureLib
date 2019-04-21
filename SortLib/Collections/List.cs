@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SortLib.Sort;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -24,6 +25,12 @@ namespace SortLib.Collections
         public int Count { get; set; } = 0;
         public NodeList<T> Head { get; set; }
         public NodeList<T> Tail { get; set; }
+        private DSUtil Util { get; set; }
+
+        public List()
+        {
+            Util = new DSUtil();
+        }
 
         public void Add(T element)
         {
@@ -40,29 +47,23 @@ namespace SortLib.Collections
             Tail = Tail.Next;
             Count++;
         }
-        /// <summary>
-        /// Add a collection to the end of the list
-        /// </summary>
-        public void AddRange()
-        {
-        }
-
-        public NodeList<T> Search(object element)
+        
+        public NodeList<T> Find(object element)
         {
             NodeList<T> auxIdx = Head;
-            object obj = auxIdx.Element;
+            T obj = auxIdx.Element;
 
-            while (obj != element && auxIdx != null)
+            while (!Util.ValidateEqual(obj, element) && auxIdx != null)
             {
                 auxIdx = auxIdx.Next;
                 obj = auxIdx.Element;
             }
-            return (obj == element) ? auxIdx : null;
+            return (Util.ValidateEqual(obj, element)) ? auxIdx : null;
         }
 
         public bool Remove(object element)
         {
-            NodeList<T> aux = Search(element);
+            NodeList<T> aux = Find(element);
             if (aux == null)
                 return false;
 
@@ -72,7 +73,7 @@ namespace SortLib.Collections
             return true;
         }
         
-        public NodeList<T> SearchAt(int index)
+        public NodeList<T> FindAt(int index)
         {
             NodeList<T> auxIdx = Head;
             while (auxIdx != null && auxIdx.Index != index)
@@ -84,7 +85,7 @@ namespace SortLib.Collections
         
         public bool RemoveAt(int index)
         {
-            NodeList<T> aux = SearchAt(index);
+            NodeList<T> aux = FindAt(index);
             if (aux == null)
                 return false;
 
@@ -93,19 +94,15 @@ namespace SortLib.Collections
             Count--;
             return true;
         }
+        
+        public void Clear() => Head = Tail = null;
 
-        public void RemoveAll()
+        public T[] Sort(T[] data)
         {
+            MergeSort<T> sort = new MergeSort<T>();
+            return sort.Mergesort(data, 0, data.Length);
         }
-        public void RemoveRange(int start, int end)
-        {
-        }
-        public void Clear()
-        {
-        }
-        public void Sort()
-        {
-        }
+
         public string PrintList()
         {
             StringBuilder result = new StringBuilder("My list: ");
@@ -117,5 +114,24 @@ namespace SortLib.Collections
             }
             return result.ToString();
         }
+
+        #region ////////////// TO - DO //////////////////////
+        /// <summary>
+        /// Add a collection to the end of the list
+        /// </summary>
+        private void AddRange()
+        {
+        }
+        private void FindAll(Predicate<T> match)
+        {
+        }
+        private void RemoveAll(Predicate<T> match)
+        {
+         
+        }
+        private void RemoveRange(int start, int end)
+        {
+        }  
+        #endregion
     }
 }

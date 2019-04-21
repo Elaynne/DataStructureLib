@@ -3,12 +3,13 @@ using System.Text;
 
 namespace SortLib.Sort
 {
-    public class MergeSort
+    public class MergeSort<T>
     {
         public string MSlog { get;set; }
         int cont = 0;
+        public DSUtil Util { get; set; }
 
-        public void Mergesort(int[] inputArgs, int init, int end)
+        public T[] Mergesort(T[] inputArgs, int init, int end)
         {
             DateTime startTime = DateTime.Now;
 
@@ -34,9 +35,10 @@ namespace SortLib.Sort
                 MSlog = (endTime - startTime).ToString();
                 Console.WriteLine(steps);
             }
+            return inputArgs;
         }
 
-        private static void Merge(int[] inputArgs, int init, int mid, int end)
+        private void Merge(T[] inputArgs, int init, int mid, int end)
         {
             //left side of the array
             int i = init;
@@ -44,11 +46,11 @@ namespace SortLib.Sort
             int j = mid + 1;
             //the output index
             int k = init;
-            int[] outputArgs = new int[inputArgs.Length];
+            T[] outputArgs = new T[inputArgs.Length];
 
             while (i <= mid && j <= end)
             {
-                if (inputArgs[i] <= inputArgs[j])
+                if (Util.ValidateLessEqual(inputArgs[i], inputArgs[j]))
                 {
                     outputArgs[k] = inputArgs[i];
                     i++;
@@ -60,23 +62,22 @@ namespace SortLib.Sort
                 }
                 k++;
             }
-
-            if (i <= mid) {
-                
+            if (i <= mid)
+            {
                 for (int i2 = i; i2 <= mid; i2++)
                 {
                     outputArgs[k] = inputArgs[i2];
                     k++;
                 }
             }
-            if (j <= end) { 
+            if (j <= end)
+            { 
                 for (int j2 = j; j2 <= end; j2++)
                 {
                     outputArgs[k] = inputArgs[j2];
                     k++;
                 }
             }
-
            for (int ij = init; ij <= end; ij++)
                inputArgs[ij] = outputArgs[ij];
         }

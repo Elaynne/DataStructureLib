@@ -85,7 +85,7 @@ namespace SortLib.Search
 
             if (Util.ValidateEqual(targetValue, current.Key)) return Remove(current, targetValue);
 
-            current = Util.ValidateByType(targetValue, targetValue, current.Key) ? current.Left : current.Right;
+            current = Util.ValidateLess(targetValue, targetValue, current.Key) ? current.Left : current.Right;
 
             if (current != null) return SearchRemove(targetValue, current);
 
@@ -104,7 +104,7 @@ namespace SortLib.Search
             {
                 if (current != Root)
                 {
-                    if (Util.ValidateByType(itemType, current.Key, current.Father.Key))
+                    if (Util.ValidateLess(itemType, current.Key, current.Father.Key))
                         current.Father.Left = null;
                     else
                         current.Father.Right = null;
@@ -124,7 +124,7 @@ namespace SortLib.Search
                 if (current.Father != null)
                 {
                     //left subtree
-                    if (Util.ValidateByType(itemType, current.Key, current.Father.Key))
+                    if (Util.ValidateLess(itemType, current.Key, current.Father.Key))
                         current.Father.Left = current.Left != null ? current.Left : current.Right;
                     else
                         current.Father.Right = current.Left != null ? current.Left : current.Right;
