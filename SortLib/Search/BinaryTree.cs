@@ -1,10 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Text;
 
 namespace SortLib.Search
 {
     public class BinaryTree : Tree
     {
+        public string BSLog { get; set; }
+
         public BinaryTree()
         {
         }
@@ -12,11 +14,18 @@ namespace SortLib.Search
       
         #region INSERT
         public override void Insert(object key, object value) => GenericInsert(key,value);
-        
+
         #endregion
 
         #region SEARCH
-        public override Node Search(object key) => Search(key, Root);
+        public override Node Search(object key)
+        {
+            DateTime start = DateTime.Now;
+            Node aux = Search(key, Root);
+            DateTime end = DateTime.Now;
+            BSLog = "Search time: " + (end - start).ToString();
+            return aux;
+        }
         #endregion
 
         #region REMOVE

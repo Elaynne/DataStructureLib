@@ -6,8 +6,7 @@ namespace SortLib.Search
 
     public class AvlTree : Tree 
     {
-        private readonly StringBuilder log = new StringBuilder();
-        public StringBuilder Log { get => log; }
+        public string AvlLog { get; set; }
 
         public AvlTree() : base()
         {
@@ -22,8 +21,7 @@ namespace SortLib.Search
         public override void Insert(object key, object value)
         {
             Node aux = GenericInsert(key, value);
-            log.Append("\nbalancing for insertion of: " + aux.Key);
-            BalancingSubtree(aux);
+            BalancingSubtree(aux);   
         }
         #endregion
 
@@ -32,10 +30,10 @@ namespace SortLib.Search
             while (node != null)
             {
                 int balancing = node.BalancingFactor();
-                log.Append("\nStarting balancing: " + node.Key + " balancing factor = " + balancing);
+                Util.Log = new StringBuilder("\nStarting balancing: " + node.Key + " balancing factor = " + balancing);
                 if (balancing == 2)
                 {
-                    log.Append("\nbalancing at: " + node.Key);
+                    Util.Log.Append("\nbalancing at: " + node.Key);
                     if (node.Right != null && node.Right.BalancingFactor() == 1)
                     {
                         LRotation(node);
@@ -47,12 +45,12 @@ namespace SortLib.Search
                 }
                 else if (balancing == -2)
                 {
-                    log.Append("\nbalancing at: " + node.Key);
-                    if (node.Left.BalancingFactor() == 1)
+                    Util.Log.Append("\nbalancing at: " + node.Key);
+                    if (node.Left != null && node.Left.BalancingFactor() == 1)
                     {
                         LRRotation(node);
                     }
-                    if (node.Left.BalancingFactor() == -1)
+                    if (node.Left != null && node.Left.BalancingFactor() == -1)
                     {
                         RRotation(node);
                     }
@@ -62,7 +60,15 @@ namespace SortLib.Search
         }
 
         #region SEARCH
-        public override Node Search(object key) => Search(key, Root);
+        public override Node Search(object key)
+        {
+            DateTime start = DateTime.Now;
+            Node aux = Search(key, Root);
+            DateTime end = DateTime.Now;
+            Util.Log = new StringBuilder();
+            AvlLog = "Search time: " + (end - start).ToString();
+            return aux;
+        }
         #endregion
 
         #region REMOVE
@@ -72,7 +78,7 @@ namespace SortLib.Search
         /// <param name="value"></param>
         /// <returns></returns>
         public override bool Remove(object key) => SearchRemove(key, Root);
-
+        
         private bool SearchRemove(object targetValue, Node current)
         {
             if (current == null) return true;

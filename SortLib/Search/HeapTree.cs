@@ -1,5 +1,4 @@
 ﻿
-
 using System;
 using System.Text;
 
@@ -12,6 +11,7 @@ namespace SortLib.Search
         private int posix = 0;
         private int Index { get; set; }
         private StringBuilder OrderPath = new StringBuilder();
+        public string HeapLog { get; set; }
 
         public HeapTree(int size)
         {
@@ -27,6 +27,7 @@ namespace SortLib.Search
         /// <param name="value"></param>
         public void Insert(int key, int value)
         {
+            DateTime start = DateTime.Now;
             if (posix < Size)
             {
                 Node node = new Node(Index, key.ToString(), value.ToString(), null);
@@ -38,6 +39,9 @@ namespace SortLib.Search
                     Heapify((posix - 1) / 2, false, false, Size);
                 posix++;
             }
+
+            DateTime end = DateTime.Now;
+            HeapLog = (end - start).ToString();
         }
 
         /// <summary>

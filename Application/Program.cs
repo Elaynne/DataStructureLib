@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using SortLib;
 using SortLib.Sort;
 using SortLib.Search;
 using SortLib.Collections;
-using System.Collections.Generic;
 
 namespace Application
 {
@@ -50,7 +50,7 @@ namespace Application
                     Menu();
                     break;
                 case ConsoleKey.C:
-                    TestQuickSort(smallArray);
+                    TestQuickSort(bigArray);
                     Console.ReadKey();
                     Console.Clear();
                     Menu();
@@ -62,13 +62,13 @@ namespace Application
                     Menu();
                     break;
                 case ConsoleKey.E:
-                    TestHeapTree(smallArray);
+                    TestHeapTree(bigArray);
                     Console.ReadKey();
                     Console.Clear();
                     Menu();
                     break;
                 case ConsoleKey.F:
-                    TestAVLTree(smallArray);
+                    TestAVLTree(bigArray);
                     Console.ReadKey();
                     Console.Clear();
                     Menu();
@@ -235,6 +235,7 @@ namespace Application
             for (int i = 0; i < myArray.Length; i++) {
                 tree.Insert(myArray[i], rnd.Next(1, myArray.Length * 100));
                 result.Append(myArray[i] + " ");
+                Console.WriteLine("Insert time: " + tree.HeapLog.ToString());
             }
 
             result.Append("\nMy heap result: ");
@@ -269,7 +270,6 @@ namespace Application
                 object obj2 = i;
                 avl.Insert(obj1, obj2);
             }
-            Console.WriteLine(avl.Log.ToString());
 
             Console.WriteLine("\nIn Order:\n" + avl.InOrder());
             Console.WriteLine("\nPos Order:\n" + avl.PosOrder());
@@ -278,55 +278,62 @@ namespace Application
             Node node = null;
             object objInt = 0;// "nada";
             if ((node = avl.Search(objInt)) != null)
-                Console.WriteLine("The Value of " + objInt + " key: " + node.Key + " synonymous of " + objInt + ": " + node.Value + " index: " + node.Index);
+                Console.WriteLine("\nThe Value of " + objInt + " key: " + node.Key + " synonymous of " + objInt + ": " + node.Value + " index: " + node.Index);
             else
-                Console.WriteLine("It was not possible to find the " + objInt + " key in the dataset.");
+                Console.WriteLine("\nIt was not possible to find the " + objInt + " key in the dataset.");
+
+            objInt = 9992;//"nada";
+            if ((node = avl.Search(objInt)) != null)
+                Console.WriteLine("\nThe Value of " + objInt + " key: " + node.Value);
+            else
+                Console.WriteLine("\nIt was not possible to find the " + objInt + " key in the dataset. Did you remove it?\n");
+
+            Console.WriteLine("\nkey " + objInt + ": " +avl.AvlLog.ToString());
 
             //NODE IS A LEAF
-            objInt = 62;//"nada"; 
             if (avl.Remove(objInt))
-                Console.WriteLine("key " + objInt + " was successfully removed.");
+                Console.WriteLine("\nkey " + objInt + " was successfully removed.");
             else
-                Console.WriteLine("key " + objInt + " was not found.");
+                Console.WriteLine("\nkey " + objInt + " was not found.");
             if ((node = avl.Search(objInt)) != null)
-                Console.WriteLine("The Value of " + objInt + " key: " + node.Value + " your remove has failed.");
+                Console.WriteLine("\nThe Value of " + objInt + " key: " + node.Value + " your remove has failed.");
             else
-                Console.WriteLine("It was not possible to find the " + objInt + " key in the dataset. Did you remove it?\n");
-
+                Console.WriteLine("\nIt was not possible to find the " + objInt + " key in the dataset. Did you remove it?\n");
+            
             //NODE HAS 1 SUBTREE
-            objInt = 14; //"arroz";// 
+            objInt = 9204; //"arroz";// 
             if (avl.Remove(objInt))
-                Console.WriteLine("key " + objInt + " was successfully removed.");
+                Console.WriteLine("\nkey " + objInt + " was successfully removed.");
             else
-                Console.WriteLine("key " + objInt + " was not found.");
+                Console.WriteLine("\nkey " + objInt + " was not found.");
             if ((node = avl.Search(objInt)) != null)
-                Console.WriteLine("The Value of " + objInt + " key: " + node.Value + " your remove has failed.");
+                Console.WriteLine("\nThe Value of " + objInt + " key: " + node.Value + " your remove has failed.");
             else
-                Console.WriteLine("It was not possible to find the " + objInt + " key in the dataset. Did you remove it?\n");
-
+                Console.WriteLine("\nIt was not possible to find the " + objInt + " key in the dataset. Did you remove it?\n");
+            
             //NODE HAS 2 SUBTREE
             objInt = 18;// "muito";//
             if (avl.Remove(objInt))
-                Console.WriteLine("key " + objInt + " was successfully removed.");
+                Console.WriteLine("\nkey " + objInt + " was successfully removed.");
             else
-                Console.WriteLine("key " + objInt + " was not found.");
+                Console.WriteLine("\nkey " + objInt + " was not found.");
 
             if ((node = avl.Search(objInt)) != null)
-                Console.WriteLine("The Value of " + objInt + " key: " + node.Value + " your remove has failed.");
+                Console.WriteLine("\nThe Value of " + objInt + " key: " + node.Value + " your remove has failed.");
             else
-                Console.WriteLine("It was not possible to find the " + objInt + " key in the dataset. Did you remove it?\n");
-
+                Console.WriteLine("\nIt was not possible to find the " + objInt + " key in the dataset. Did you remove it?\n");
+            
             //NODE HAS 2 SUBTREE AND IS ROOT
             objInt = 15; //"mamão";// 
             if (avl.Remove(objInt))
-                Console.WriteLine("key " + objInt + " was successfully removed.");
+                Console.WriteLine("\nkey " + objInt + " was successfully removed.");
             else
-                Console.WriteLine("key " + objInt + " was not found.");
+                Console.WriteLine("\nkey " + objInt + " was not found.");
 
             if ((node = avl.Search(objInt)) != null)
-                Console.WriteLine("The Value of " + objInt + " key: " + node.Value + " your remove has failed.");
+                Console.WriteLine("\nThe Value of " + objInt + " key: " + node.Value + " your remove has failed.");
             else
-                Console.WriteLine("It was not possible to find the " + objInt + " key in the dataset. Did you remove it?\n");
+                Console.WriteLine("\nIt was not possible to find the " + objInt + " key in the dataset. Did you remove it?\n");
             
             Console.WriteLine("\nIn Order:\n" + avl.InOrder());
         }

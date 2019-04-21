@@ -1,4 +1,5 @@
 ﻿using SortLib.Interface;
+using System;
 using System.Text;
 
 namespace SortLib.Search
@@ -76,10 +77,11 @@ namespace SortLib.Search
         protected StringBuilder OrderPath = new StringBuilder();
         protected Node Root { get; set; }
         protected int Index { get; set; }
-        protected SortUtil Util = new SortUtil();
+        public SortUtil Util { get; set; }
 
         protected Tree()
         {
+            Util = new SortUtil();
             Root = null;
             Index = 0;
         }

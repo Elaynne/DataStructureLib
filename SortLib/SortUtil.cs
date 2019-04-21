@@ -1,11 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace SortLib
 {
     public class SortUtil
     {
+        public StringBuilder Log { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+
         public bool ValidateByType(object item, object key, object current)
         {
             switch (item)
