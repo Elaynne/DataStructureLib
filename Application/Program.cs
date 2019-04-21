@@ -35,7 +35,7 @@ namespace Application
             string[] inputStr = input.Split("-");
             int[] bigArray = inputStr.Select(int.Parse).ToArray();
 
-            int[] smallArray = new int[] { 15, 18, 16, 14, 63, 12, 62 };// 58, 66, 26, 6, 65, 46, 11, 7 };
+            int[] smallArray = new int[] { 15, 18, 16, 14, 63, 12, 62, 58, 66, 26, 6, 65, 46, 11, 7 };
             string[] strArray = new string[] {"mamão","arroz","muito","simples","nada", "arara", "matriz" };
             switch (algorith.Key)
             {
@@ -83,6 +83,12 @@ namespace Application
                     break;
                 case ConsoleKey.H:
                     TestStack(smallArray);
+                    Console.ReadKey();
+                    Console.Clear();
+                    Menu();
+                    break;
+                case ConsoleKey.I:
+                    TestList(smallArray);
                     Console.ReadKey();
                     Console.Clear();
                     Menu();
@@ -421,6 +427,28 @@ namespace Application
             result.Append("\n\nCurrent stack: " + myStack.PrintStack() + " ");
 
             Console.WriteLine(result);
+        }
+
+        private static void TestList(int[] myArray)
+        {
+            Console.WriteLine("\n======== L-I-S-T ==================" +
+               "\n======== Complexity: Add O(1) Search/Remove O(n)\nSteps:\n");
+            
+            List<int> myList = new List<int>();
+            for (int i = 0; i < myArray.Length; i++)
+            {
+                myList.Add(myArray[i]);
+            }
+
+            Console.WriteLine("List size: " + myList.Count + " Elements: " + myList.PrintList());
+
+            myList.RemoveAt(3);
+            Console.WriteLine("Remove at 3 index: " + myList.PrintList());
+
+            myList.Remove(58);
+            Console.WriteLine("Remove 58 element: " + myList.PrintList());
+
+
         }
         #endregion
 
