@@ -7,8 +7,8 @@ I promise that I will write appropriate test cases.
 
 ## Collections:
 * [x] queue 
-* [ ] list
-* [ ] stack
+* [ ] list [WIP]
+* [x] stack
 
 ## Sort:
 * [x] Mergesort
