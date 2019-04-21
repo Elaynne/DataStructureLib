@@ -113,6 +113,8 @@ namespace Application
                           "\n\n======Steps:\n");
             MergeSort mergesort = new MergeSort();
             mergesort.Mergesort(myArray, 0, myArray.Length - 1);
+
+            Console.WriteLine("Execution time: " + mergesort.MSlog);
         }
 
         private static void TestHeapSort(Node[] myArray)
@@ -128,7 +130,8 @@ namespace Application
             {
                 result.Append(node.Key + " ");
             }
-            Console.WriteLine(result);   
+
+            Console.WriteLine("Execution time: " + sort.HSlog + "\n" +result);   
         }
 
         private static void TestQuickSort(int[] myArray)
@@ -144,7 +147,7 @@ namespace Application
             {
                 result.Append(item.ToString() + " ");
             }
-            Console.WriteLine(result);
+            Console.WriteLine("Execution time: " + quicksort.QSlog + "\n" + result);
         }
 
         private static void TestBinaryTree<T>(T[] myArray)
@@ -182,6 +185,7 @@ namespace Application
             else
                 Console.WriteLine("It was not possible to find the " + objInt + " key in the dataset. Did you remove it?\n");
 
+            Console.WriteLine("Search time for " + objInt + ": "+ tree.BSLog + "\n");
             //NODE HAS 1 SUBTREE
             objInt = 14; //"arroz";// 
             if (tree.Remove(objInt))

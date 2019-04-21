@@ -23,7 +23,7 @@ namespace SortLib.Search
             DateTime start = DateTime.Now;
             Node aux = Search(key, Root);
             DateTime end = DateTime.Now;
-            BSLog = "Search time: " + (end - start).ToString();
+            BSLog = (end - start).ToString();
             return aux;
         }
         #endregion

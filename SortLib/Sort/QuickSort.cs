@@ -1,11 +1,13 @@
-﻿
+﻿using System;
 
 namespace SortLib.Sort
 {
     public class QuickSort
     {
+        public string QSlog { get; set; }
         public void Quicksort(int[] data, int ini, int fim)
         {
+            DateTime startTime = DateTime.Now;
             if (ini < fim)
             {
                 int pivo = data[ini];
@@ -33,6 +35,8 @@ namespace SortLib.Sort
                 Quicksort(data, j + 1, fim);
             }
 
+            DateTime endTime = DateTime.Now;
+            QSlog = (endTime - startTime).ToString();
         }
     }
 }

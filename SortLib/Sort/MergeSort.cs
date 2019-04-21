@@ -5,10 +5,13 @@ namespace SortLib.Sort
 {
     public class MergeSort
     {
+        public string MSlog { get;set; }
         int cont = 0;
 
         public void Mergesort(int[] inputArgs, int init, int end)
         {
+            DateTime startTime = DateTime.Now;
+
             StringBuilder steps = new StringBuilder("");
 
             if (init < end)
@@ -27,6 +30,8 @@ namespace SortLib.Sort
                 }
 
                 cont++;
+                DateTime endTime = DateTime.Now;
+                MSlog = (endTime - startTime).ToString();
                 Console.WriteLine(steps);
             }
         }

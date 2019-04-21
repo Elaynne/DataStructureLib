@@ -9,6 +9,7 @@ namespace SortLib.Sort
     {
         private HeapTree Tree { get; set; }
         private List<Node> Sorted { get; set; }
+        public string HSlog { get; set; }
 
         public HeapSort()
         {
@@ -17,6 +18,7 @@ namespace SortLib.Sort
 
         public List<Node> Heapsort(Node[] myInput)
         {
+            DateTime start = DateTime.Now;
             BuildHeapTree(myInput);
             Tree.Sort();
             
@@ -24,6 +26,8 @@ namespace SortLib.Sort
             {
                 Sorted.Add(node);
             }
+            DateTime end = DateTime.Now;
+            HSlog = (end - start).ToString();
             return Sorted;
         }
 
