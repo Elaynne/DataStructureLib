@@ -2,57 +2,59 @@
 
 namespace SortLib.Collections
 {
-    public class StackNode
+    public class StackNode<T>
     {
-        public StackNode Next { get; set; }
-        public int Element { get; set; }
+        public StackNode<T> Next { get; set; }
+        public T Element { get; set; }
 
-        public StackNode(StackNode next, int element)
+        public StackNode(StackNode<T> next, T element)
         {
             Next = next;
             Element = element;
         }
     }
 
-    public class Stack
+    public class Stack<T>
     {
-        public StackNode Top { get; set; }
+        public StackNode<T> Top { get; set; }
+        private int lenght = 0;
+        public int Lenght { get => lenght; }
 
-        public StackNode GetTop() => Top;
-        
-        public void Push(int element)
+        public void Push(T element)
         {
             if (Top == null)
-                Top = new StackNode(null, element);
+                Top = new StackNode<T>(null, element);
             else
             {
-                StackNode aux = new StackNode(Top, element);
+                StackNode<T> aux = new StackNode<T>(Top, element);
                 Top = aux;
             }
+            lenght++;
         }
 
-        public StackNode Pop()
+        public T Pop()
         {
             if (Top != null)
             {
-                StackNode aux = Top;
+                StackNode<T> aux = Top;
                 Top = Top.Next;
                 aux.Next = null;
-                return aux;
+                lenght--;
+                return aux.Element;
             }
-            else
-                return null;
+            return default(T);
         }
 
-        public void PrintStack()
+        public string PrintStack()
         {
-            StackNode aux = Top;
+            StackNode<T> aux = Top;
             StringBuilder result = new StringBuilder();
             while (aux != null)
             {
-                result.Append((aux.Element).ToString() + "\n");
+                result.Append((aux.Element).ToString() + " ");
                 aux = aux.Next;
             }
+            return result.ToString();
         }
     }
 }
