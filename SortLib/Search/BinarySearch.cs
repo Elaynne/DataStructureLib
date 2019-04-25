@@ -4,6 +4,7 @@ using System.Text;
 
 namespace SortLib.Search
 {
+    //This algorithm assume that the input is already sorted
     public class BinarySearch<T>
     {
         private DSUtil Util { get; set; }

@@ -1,0 +1,4 @@
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\SortLib.Test\obj\Debug\netcoreapp2.1\SortLib.Test.csprojAssemblyReference.cache
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\SortLib.Test\obj\Debug\netcoreapp2.1\SortLib.Test.csproj.CoreCompileInputs.cache
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\SortLib.Test\obj\Debug\netcoreapp2.1\SortLib.Test.AssemblyInfoInputs.cache
+C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\SortLib.Test\obj\Debug\netcoreapp2.1\SortLib.Test.AssemblyInfo.cs

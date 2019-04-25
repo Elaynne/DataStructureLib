@@ -2,27 +2,42 @@
 
 namespace SortLib.Sort
 {
-    public class QuickSort
+    public class QuickSort<T>
     {
-        public string QSlog { get; set; }
-        public void Quicksort(int[] data, int ini, int fim)
+        private DSUtil Util { get; set; }
+        public string QSLog { get; private set; }
+
+        public QuickSort()
         {
-            DateTime startTime = DateTime.Now;
+            Util = new DSUtil();
+        }
+
+        public string QuickSortTime(T[] data, int ini, int fim)
+        {
+            DateTime start = DateTime.Now;
+            Quicksort(data, ini, fim);
+            DateTime end = DateTime.Now;
+            QSLog = (end - start).ToString();
+            return QSLog;
+        }
+
+        public void Quicksort(T[] data, int ini, int fim)
+        {
             if (ini < fim)
             {
-                int pivo = data[ini];
+                T pivo = data[ini];
                 int i = ini + 1;
                 int j = fim;
 
                 while (i <= j)
                 {
-                    if (data[i] <= pivo) i++;
+                    if (Util.ValidateLessEqual(data[i], pivo)) i++;
                     
-                    else if (pivo < data[j]) j--;
+                    else if (Util.ValidateLess( pivo, pivo, data[j])) j--;
                     
                     else
                     {
-                        int troca = data[i];
+                        T troca = data[i];
                         data[i] = data[j];
                         data[j] = troca;
                         i++;
@@ -34,9 +49,6 @@ namespace SortLib.Sort
                 Quicksort(data, ini, j - 1);
                 Quicksort(data, j + 1, fim);
             }
-
-            DateTime endTime = DateTime.Now;
-            QSlog = (endTime - startTime).ToString();
         }
     }
 }

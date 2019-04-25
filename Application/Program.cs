@@ -52,7 +52,7 @@ namespace Application
                     Menu();
                     break;
                 case ConsoleKey.C:
-                    TestQuickSort(bigArray);
+                    TestQuickSort(smallArray);
                     Console.ReadKey();
                     Console.Clear();
                     Menu();
@@ -153,15 +153,15 @@ namespace Application
             Console.WriteLine("\n====== ECONOMIC (space), but beware...time is money too! Divide to conquer! ======" +
                         "\nTime complexity Ω(nLog n) and O(n²) - Space complexity O(Log n)" +
                        "\n\n");
-            QuickSort quicksort = new QuickSort();
-            quicksort.Quicksort(myArray, 0, myArray.Length - 1);
+            QuickSort<int> quicksort = new QuickSort<int>();
+            quicksort.QuickSortTime(myArray, 0, myArray.Length - 1);
 
             StringBuilder result = new StringBuilder();
             foreach (int item in myArray)
             {
                 result.Append(item.ToString() + " ");
             }
-            Console.WriteLine("Execution time: " + quicksort.QSlog + "\n" + result);
+            Console.WriteLine("Execution time: " + quicksort.QSLog + "\n" + result);
         }
 
         private static void TestBinaryTree<T>(T[] myArray)
