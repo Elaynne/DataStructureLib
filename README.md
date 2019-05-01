@@ -1,5 +1,5 @@
 # DataStructureLib
-This library has my implementations of basic data structures using C# and .net core for studies purposes.
+This library has my implementations of basic data structures using C# 7.1 and .net core 2.1 for studies purposes.
 
 ## TO-DO
 * [ ] Unit test
