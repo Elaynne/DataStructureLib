@@ -100,7 +100,8 @@ namespace SortLib.Collections
         public T[] Sort(T[] data)
         {
             MergeSort<T> sort = new MergeSort<T>();
-            return sort.Mergesort(data, 0, data.Length);
+            sort.Mergesort(data, 0, data.Length);
+            return data;
         }
 
         public string PrintList()

@@ -126,7 +126,7 @@ namespace Application
                           "\nTime complexity Ω(nLog n) and O(nLog n) - Space complexity O(n)" +
                           "\n\n======Steps:\n");
             MergeSort<int> mergesort = new MergeSort<int>();
-            mergesort.Mergesort(myArray, 0, myArray.Length - 1);
+            mergesort.MergesortTime(myArray, 0, myArray.Length - 1);
 
             Console.WriteLine("Execution time: " + mergesort.MSlog);
         }

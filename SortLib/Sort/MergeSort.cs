@@ -9,10 +9,21 @@ namespace SortLib.Sort
         int cont = 0;
         public DSUtil Util { get; set; }
 
-        public T[] Mergesort(T[] inputArgs, int init, int end)
+        public MergeSort()
+        {
+            Util = new DSUtil();
+        }
+
+        public void MergesortTime(T[] inputArgs, int init, int end)
         {
             DateTime startTime = DateTime.Now;
+            Mergesort(inputArgs, init, end);
+            DateTime endtime = DateTime.Now;
+            MSlog = (endtime - startTime).ToString();
+        }
 
+        public void Mergesort(T[] inputArgs, int init, int end)
+        {
             StringBuilder steps = new StringBuilder("");
 
             if (init < end)
@@ -31,11 +42,8 @@ namespace SortLib.Sort
                 }
 
                 cont++;
-                DateTime endTime = DateTime.Now;
-                MSlog = (endTime - startTime).ToString();
                 Console.WriteLine(steps);
             }
-            return inputArgs;
         }
 
         private void Merge(T[] inputArgs, int init, int mid, int end)
