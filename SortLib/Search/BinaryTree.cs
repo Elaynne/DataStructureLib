@@ -3,7 +3,7 @@ using System.Text;
 
 namespace SortLib.Search
 {
-    public class BinaryTree : Tree
+    public class BinaryTree<T, G> : Tree<T, G>
     {
         public string BSLog { get; set; }
 
@@ -13,15 +13,15 @@ namespace SortLib.Search
 
       
         #region INSERT
-        public override void Insert(object key, object value) => GenericInsert(key,value);
+        public override void Insert(T key, G value) => GenericInsert(key,value);
 
         #endregion
 
         #region SEARCH
-        public override Node Search(object key)
+        public override Node<T, G> Search(T key)
         {
             DateTime start = DateTime.Now;
-            Node aux = Search(key, Root);
+            Node<T, G> aux = Search(key, Root);
             DateTime end = DateTime.Now;
             BSLog = (end - start).ToString();
             return aux;
@@ -29,9 +29,9 @@ namespace SortLib.Search
         #endregion
 
         #region REMOVE
-        public override bool Remove(object key) => SearchRemove(key, Root);
+        public override bool Remove(T key) => SearchRemove(key, Root);
 
-        private bool SearchRemove(object targetValue, Node current)
+        private bool SearchRemove(T targetValue, Node<T, G> current)
         {
             if (current == null) return true;
 
@@ -49,7 +49,7 @@ namespace SortLib.Search
         /// <param name="current"></param>
         /// <param name="itemType">the searched object to evaluate the type and compare values</param>
         /// <returns></returns>
-        private bool Remove(Node current, object itemType)
+        private bool Remove(Node<T, G> current, T itemType)
         {
             #region the target is a LEAF
             if (current.IsLeaf())
@@ -91,7 +91,7 @@ namespace SortLib.Search
             //Predecessor = biggest value from the left subtree
             else if (current.Left != null && current.Right != null)
             {
-                Node successor = GetSuccessor(current.Right);
+                Node<T, G> successor = GetSuccessor(current.Right);
 
                 if (successor.Right != null)
                 {

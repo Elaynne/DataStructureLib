@@ -3,27 +3,27 @@ using System.Collections.Generic;
 
 namespace SortLib.Interface
 {
-    public interface ITree
+    public interface ITree<T, G>
     {
         /// <summary>
         /// Insert a value and salve the key for search
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        void Insert(object key, object value);
+        void Insert(T key, G value);
 
         /// <summary>
         /// Search the given value to remove
         /// </summary>
         /// <param name="value"></param>
-        bool Remove(object key);
+        bool Remove(T key);
 
         /// <summary>
         /// Search the value on a given key
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        Node Search(object key);
+        Node<T, G> Search(T key);
 
         /// <summary>
         /// Display the route in order

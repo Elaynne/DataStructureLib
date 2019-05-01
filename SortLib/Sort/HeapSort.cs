@@ -5,24 +5,24 @@ using System.Text;
 
 namespace SortLib.Sort
 {
-    public class HeapSort
+    public class HeapSort<T,G>
     {
-        private HeapTree Tree { get; set; }
-        private List<Node> Sorted { get; set; }
+        private HeapTree<T,G> Tree { get; set; }
+        private List<Node<T, G>> Sorted { get; set; }
         public string HSlog { get; set; }
 
         public HeapSort()
         {
-            Sorted = new List<Node>();
+            Sorted = new List<Node<T, G>>();
         }
 
-        public List<Node> Heapsort(Node[] myInput)
+        public List<Node<T, G>> Heapsort(Node<T, G>[] myInput)
         {
             DateTime start = DateTime.Now;
             BuildHeapTree(myInput);
             Tree.Sort();
             
-            foreach (Node node in Tree.Heap)
+            foreach (Node<T, G> node in Tree.Heap)
             {
                 Sorted.Add(node);
             }
@@ -31,13 +31,13 @@ namespace SortLib.Sort
             return Sorted;
         }
 
-        private void BuildHeapTree(Node[] myInput)
+        private void BuildHeapTree(Node<T, G>[] myInput)
         {
-            Tree = new HeapTree(myInput.Length);
+            Tree = new HeapTree<T,G>(myInput.Length);
 
             for (int i = 0; i < myInput.Length; i++)
             {
-                Tree.Insert(Convert.ToInt32(myInput[i].Key), Convert.ToInt32(myInput[i].Value));
+                Tree.Insert(myInput[i].Key, myInput[i].Value);
             }
         }
         

@@ -1,20 +1,19 @@
 ﻿using SortLib.Interface;
-using System;
 using System.Text;
 
 namespace SortLib.Search
 {
 
-    public class Node
+    public class Node<T,G>
     {
-        public Node Father { get; set; }
-        public Node Left { get; set; }
-        public Node Right { get; set; }
-        public string Value { get; set; }
-        public string Key { get; set; }
+        public Node<T,G> Father { get; set; }
+        public Node<T,G> Left { get; set; }
+        public Node<T,G> Right { get; set; }
+        public G Value { get; set; }
+        public T Key { get; set; }
         public int Index { get; set; }
 
-        public Node(int index ,string key, string value, Node father)
+        public Node(int index ,T key, G value, Node<T,G> father)
         {
             Index = index;
             Key = key;
@@ -72,10 +71,10 @@ namespace SortLib.Search
         }
     }
 
-    public abstract class Tree : ITree
+    public abstract class Tree<T,G> : ITree<T, G>
     {
         protected StringBuilder OrderPath = new StringBuilder();
-        protected Node Root { get; set; }
+        protected Node<T,G> Root { get; set; }
         protected int Index { get; set; }
         public DSUtil Util { get; set; }
 
@@ -85,10 +84,10 @@ namespace SortLib.Search
             Root = null;
             Index = 0;
         }
-        public Node GetRoot() => Root;
+        public Node<T,G> GetRoot() => Root;
         
         #region PROTECTED
-        protected void InOrder(Node node)
+        protected void InOrder(Node<T,G> node)
         {
             if (node != null)
             {
@@ -97,7 +96,7 @@ namespace SortLib.Search
                 InOrder(node.Right);
             }
         }
-        protected void PosOrder(Node node)
+        protected void PosOrder(Node<T,G> node)
         {
             if (node != null)
             {
@@ -106,7 +105,7 @@ namespace SortLib.Search
                 OrderPath.Append(node.PrintNode());
             }
         }
-        protected void PreOrder(Node node)
+        protected void PreOrder(Node<T,G> node)
         {
             if (node != null)
             {
@@ -116,37 +115,34 @@ namespace SortLib.Search
             }
         }
 
-        protected Node GenericInsert(object key, object value)
+        protected Node<T, G> GenericInsert(T key, G value)
         {
-            Node thisNode = new Node(Index, key.ToString(), value.ToString(), null);
+            Node<T, G> thisNode = new Node<T, G>(Index, key, value, null);
             Index++;
             if (Root == null)
             {
                 Root = thisNode;
                 return Root;
             }
-            Node current = Root;
-            Node auxFather = null;
-            object obj2 = null;
+            Node<T, G> current = Root;
+            Node<T, G> auxFather = null;
 
             while (current != null)
             {
                 auxFather = current;
-                obj2 = current.Key;
-                current = Util.ValidateLess(key, key, obj2) ? current.Left : current.Right;
+                current = Util.ValidateLess(key, key, current.Key) ? current.Left : current.Right;
             }
 
             if (auxFather != null)
             {
-                obj2 = auxFather.Key;
-                if (Util.ValidateLess(key, obj2, key))
+                if (Util.ValidateLess(key, auxFather.Key, key))
                     auxFather.Right = thisNode;
                 else auxFather.Left = thisNode;
             }
             thisNode.Father = auxFather;
             return thisNode;
         }      
-        protected Node Search(object targetValue, Node current)
+        protected Node<T,G> Search(object targetValue, Node<T,G> current)
         {
             if (current == null) return null;
 
@@ -160,14 +156,14 @@ namespace SortLib.Search
         }
 
         //return de minimun element from the targetNode's right children
-        protected Node GetSuccessor(Node successor)
+        protected Node<T, G> GetSuccessor(Node<T, G> successor)
         {
             if (successor.Left != null)
                 successor = GetSuccessor(successor.Left);
             return successor;
         }
         //return de maximun element from the targetNode's left children
-        protected Node GetPredecessor(Node predecessor)
+        protected Node<T, G> GetPredecessor(Node<T, G> predecessor)
         {
             if (predecessor.Right != null)
                 predecessor = GetPredecessor(predecessor.Right);
@@ -176,11 +172,11 @@ namespace SortLib.Search
         #endregion
 
         #region PUBLIC
-        public abstract void Insert(object key, object value);
+        public abstract void Insert(T key, G value);
 
-        public abstract Node Search(object key);
+        public abstract Node<T, G> Search(T key);
 
-        public abstract bool Remove(object key);
+        public abstract bool Remove(T key);
         
         public abstract string InOrder();
 

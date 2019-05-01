@@ -4,20 +4,22 @@ using System.Text;
 
 namespace SortLib.Search
 {
-    public class HeapTree 
+    public class HeapTree<T,G> 
     {
-        public readonly Node[] Heap;
+        public readonly Node<T, G>[] Heap;
         private readonly int Size;
         private int posix = 0;
         private int Index { get; set; }
         private StringBuilder OrderPath = new StringBuilder();
         public string HeapLog { get; set; }
+        private DSUtil Util { get; set; }
 
         public HeapTree(int size)
         {
             Size = size;
-            Heap = new Node[size];
+            Heap = new Node<T, G>[size];
             Index = 0;
+            Util = new DSUtil();
         }
 
         /// <summary>
@@ -25,12 +27,12 @@ namespace SortLib.Search
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public void Insert(int key, int value)
+        public void Insert(T key, G value)
         {
             DateTime start = DateTime.Now;
             if (posix < Size)
             {
-                Node node = new Node(Index, key.ToString(), value.ToString(), null);
+                Node<T, G> node = new Node<T, G>(Index, key, value, null);
                 Index++;
 
                 Heap[posix] = node;
@@ -49,9 +51,9 @@ namespace SortLib.Search
         /// aply heapify on last node with children
         /// </summary>
         /// <returns></returns>
-        public Node Remove()
+        public Node<T, G> Remove()
         {
-            Node aux = Heap[0];
+            Node<T, G> aux = Heap[0];
             Heap[0] = Heap[posix - 1];
             Heapify(0, true, false , Size);
             Heap[posix - 1] = null;
@@ -73,7 +75,7 @@ namespace SortLib.Search
 
         private void Swap(int fatherIdx, int i)
         {
-            Node aux = Heap[i];
+            Node<T, G> aux = Heap[i];
             //atualization of index to display in order, pos order and pre order
             int fIdx = Heap[fatherIdx].Index;
             int auxIdx = aux.Index;
@@ -97,11 +99,12 @@ namespace SortLib.Search
             int leftIdx = Left(i);
             int rightIdx = Right(i);
             
-            if (leftIdx < myLenght && Heap[leftIdx] != null && Convert.ToInt32(Heap[leftIdx].Key) > Convert.ToInt32(Heap[fatherIdx].Key))
+            if (leftIdx < myLenght && Heap[leftIdx] != null && Util.ValidateLess(Heap[fatherIdx].Key, Heap[fatherIdx].Key, Heap[leftIdx].Key))
             {
                 fatherIdx = leftIdx;
             }
-            if (rightIdx < myLenght && Heap[rightIdx] != null && Convert.ToInt32(Heap[rightIdx].Key) > Convert.ToInt32(Heap[fatherIdx].Key))
+            
+            if (rightIdx < myLenght && Heap[rightIdx] != null && Util.ValidateLess(Heap[fatherIdx].Key, Heap[fatherIdx].Key, Heap[rightIdx].Key))
             {
                 fatherIdx = rightIdx;
             }
@@ -125,7 +128,7 @@ namespace SortLib.Search
         }
 
         //custom for vector aproach
-        private void InOrder(Node node)
+        private void InOrder(Node<T, G> node)
         {
             if (node != null)
             {
@@ -137,7 +140,7 @@ namespace SortLib.Search
                     InOrder(Heap[Right(node.Index)]);
             }
         }
-        private void PosOrder(Node node)
+        private void PosOrder(Node<T, G> node)
         {
             if (node != null)
             {
@@ -148,7 +151,7 @@ namespace SortLib.Search
                 OrderPath.Append(node.PrintNode());
             }
         }
-        private void PreOrder(Node node)
+        private void PreOrder(Node<T, G> node)
         {
             if (node != null)
             {

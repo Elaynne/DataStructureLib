@@ -4,7 +4,7 @@ using System.Text;
 namespace SortLib.Search
 {
 
-    public class AvlTree : Tree 
+    public class AvlTree<T,G> : Tree<T,G> 
     {
         public string AvlLog { get; set; }
 
@@ -18,14 +18,14 @@ namespace SortLib.Search
         /// </summary>
         /// <param name="key">The Key of AVLNode</param>
         /// <param name="value"></param>
-        public override void Insert(object key, object value)
+        public override void Insert(T key, G value)
         {
-            Node aux = GenericInsert(key, value);
+            Node<T,G> aux = GenericInsert(key, value);
             BalancingSubtree(aux);   
         }
         #endregion
 
-        private void BalancingSubtree(Node node)
+        private void BalancingSubtree(Node<T,G> node)
         {
             while (node != null)
             {
@@ -60,10 +60,10 @@ namespace SortLib.Search
         }
 
         #region SEARCH
-        public override Node Search(object key)
+        public override Node<T, G> Search(T key)
         {
             DateTime start = DateTime.Now;
-            Node aux = Search(key, Root);
+            Node<T, G> aux = Search(key, Root);
             DateTime end = DateTime.Now;
             Util.Log = new StringBuilder();
             AvlLog = "Search time: " + (end - start).ToString();
@@ -77,9 +77,9 @@ namespace SortLib.Search
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public override bool Remove(object key) => SearchRemove(key, Root);
+        public override bool Remove(T key) => SearchRemove(key, Root);
         
-        private bool SearchRemove(object targetValue, Node current)
+        private bool SearchRemove(T targetValue, Node<T, G> current)
         {
             if (current == null) return true;
 
@@ -97,7 +97,7 @@ namespace SortLib.Search
         /// <param name="current"></param>
         /// <param name="itemType"></param>
         /// <returns></returns>
-        private bool Remove(Node current, object itemType)
+        private bool Remove(Node<T, G> current, object itemType)
         {
             #region the target is a LEAF
             if (current.IsLeaf())
@@ -143,7 +143,7 @@ namespace SortLib.Search
             //Predecessor = biggest value from the left subtree
             else if (current.Left != null && current.Right != null)
             {
-                Node successor = GetSuccessor(current.Right);
+                Node<T, G> successor = GetSuccessor(current.Right);
 
                 if (successor.Right != null)
                 {
@@ -171,9 +171,9 @@ namespace SortLib.Search
         #endregion
 
         #region ROTATIONS
-        private void LRotation(Node node)
+        private void LRotation(Node<T,G> node)
         {
-            Node axis = node.Right;
+            Node<T, G> axis = node.Right;
             if (node.Father == null)
             {
                 Root = axis;
@@ -189,9 +189,9 @@ namespace SortLib.Search
             node.Right = null;
         }
 
-        private void RRotation(Node node)
+        private void RRotation(Node<T, G> node)
         {
-            Node axis = node.Left;
+            Node<T, G> axis = node.Left;
             if (node.Father == null)
             {
                 Root = axis;
@@ -207,13 +207,13 @@ namespace SortLib.Search
             node.Left = null;
         }
 
-        private void LRRotation(Node node)
+        private void LRRotation(Node<T, G> node)
         {
             LRotation(node.Left);
             RRotation(node);
         }
 
-        private void RLRotation(Node node)
+        private void RLRotation(Node<T, G> node)
         {
             RRotation(node.Right);
             LRotation(node);

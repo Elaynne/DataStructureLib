@@ -7,7 +7,7 @@ namespace SortLib
     {
         public StringBuilder Log { get; set; }
 
-        public bool ValidateLess(object item, object obj1, object obj2)
+        public bool ValidateLess<T>(T item, T obj1, T obj2)
         {
             switch (item)
             {
@@ -20,7 +20,7 @@ namespace SortLib
             }
         }
         
-        public bool ValidateLessEqual( object obj1, object obj2)
+        public bool ValidateLessEqual<T>(T obj1, T obj2)
         {
             switch (obj1)
             {
@@ -33,7 +33,7 @@ namespace SortLib
             }
         }
 
-        public bool ValidateEqual(object obj1, object obj2)
+        public bool ValidateEqual<T>(T obj1, T obj2)
         {
             switch (obj1)
             {

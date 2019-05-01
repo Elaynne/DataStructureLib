@@ -5,10 +5,11 @@ using SortLib;
 using SortLib.Sort;
 using SortLib.Search;
 using SortLib.Collections;
+using System.Collections.Generic;
 
 namespace Application
 {
-    static class Program
+     static class Program
     {
 
         private static void Menu()
@@ -35,6 +36,25 @@ namespace Application
             string[] inputStr = input.Split("-");
             int[] bigArray = inputStr.Select(int.Parse).ToArray();
 
+            Dictionary<int, int> intTree = new Dictionary<int, int>
+            {
+                [15] = 200,
+                [18] = 230,
+                [16] = 210,
+                [14] = 190,
+                [63] = 680,
+                [12] = 170,
+                [62] = 670,
+                [58] = 630,
+                [66] = 710,
+                [26] = 310,
+                [6] = 110,
+                [65] = 700,
+                [46] = 510,
+                [11] = 160,
+                [7] = 120
+            };
+
             int[] smallArray = new int[] { 15, 18, 16, 14, 63, 12, 62, 58, 66, 26, 6, 65, 46, 11, 7 };
             string[] strArray = new string[] {"mamão","arroz","muito","simples","nada", "arara", "matriz" };
             switch (algorith.Key)
@@ -46,7 +66,7 @@ namespace Application
                     Menu();
                     break;
                 case ConsoleKey.B:
-                    TestHeapSort(BuildNodeArray(smallArray));
+                    TestHeapSort(BuildNodeArray<int,int>(intTree));
                     Console.ReadKey();
                     Console.Clear();
                     Menu();
@@ -58,7 +78,7 @@ namespace Application
                     Menu();
                     break;
                 case ConsoleKey.D:
-                    TestBinaryTree(bigArray);
+                    TestBinaryTree(strArray);
                     Console.ReadKey();
                     Console.Clear();
                     Menu();
@@ -106,15 +126,14 @@ namespace Application
             Console.ReadKey();
         }
         
-        private static Node[] BuildNodeArray(int[] myArray)
+        private static Node<T, G>[] BuildNodeArray<T, G>(Dictionary<T, G> data)
         {
             int index = 0;
-            Node[] nodes = new Node[myArray.Length];
-            Random value = new Random();
+            Node<T, G>[] nodes = new Node<T, G>[data.Count];
 
-            foreach (int item in myArray)
+            foreach (KeyValuePair<T, G> item in data)
             {
-                nodes[index] = new Node(index, myArray[index].ToString(), (index * value.Next(1,100)).ToString(), null);
+                nodes[index] = new Node<T, G>(index, item.Key, item.Value, null);
                 index++;
             }
             return nodes;
@@ -131,16 +150,16 @@ namespace Application
             Console.WriteLine("Execution time: " + mergesort.MSlog);
         }
 
-        private static void TestHeapSort(Node[] myArray)
+        private static void TestHeapSort(Node<int, int>[] myArray)
         {
             Console.WriteLine("\n====== SURVIVOR! Transform in-place to conquer! Choice for real-time! ======" +
                           "\nComplexity Time O(nLog n) and Space O(n)" +
                           "\n\n======Steps:\n");
-            HeapSort sort = new HeapSort();
+            HeapSort<int, int> sort = new HeapSort<int, int>();
 
             StringBuilder result = new StringBuilder("Sorted array by heapsort ");
 
-            foreach (Node node in sort.Heapsort(myArray))
+            foreach (Node<int, int> node in sort.Heapsort(myArray))
             {
                 result.Append(node.Key + " ");
             }
@@ -164,32 +183,30 @@ namespace Application
             Console.WriteLine("Execution time: " + quicksort.QSLog + "\n" + result);
         }
 
-        private static void TestBinaryTree<T>(T[] myArray)
+        private static void TestBinaryTree(string[] myArray)
         {
             Console.WriteLine("\n ======== B-I-N-A-R-Y-T-R-E-E ================== " +
                 "\n====Time complexity: \n   * best O(Log n) \n   * worst O(n) " +
                        "\n   * binary tree O(log h), where 'h' is height and logn <= h <= n" +
                        "\n====Space complexity O(n)\n\nSteps:\n");
    
-            BinaryTree tree = new BinaryTree();
+            BinaryTree<string, int> tree = new BinaryTree<string, int>();
 
             for (int i = 0; i < myArray.Length; i++)
             {
-                object obj1 = myArray[i];
-                object obj2 = i;
-                tree.Insert(obj1, obj2);
+                tree.Insert(myArray[i], i);
             }
 
             //DUMMY TEST
-            Node node = null;
-            object objInt = "beterraba";
+            Node<string, int> node = null;
+            string objInt = "beterraba";
             if ((node = tree.Search(objInt)) != null)
                 Console.WriteLine("The Value of " + objInt + " key: " + node.Value);
             else
                 Console.WriteLine("It was not possible to find the " + objInt + " key in the dataset.");
 
             //NODE IS A LEAF
-            objInt = 62; //"nada";// 
+            objInt = "nada";
             if (tree.Remove(objInt))
                 Console.WriteLine("key " + objInt + " was successfully removed.");
             else
@@ -201,7 +218,7 @@ namespace Application
 
             Console.WriteLine("Search time for " + objInt + ": "+ tree.BSLog + "\n");
             //NODE HAS 1 SUBTREE
-            objInt = 14; //"arroz";// 
+            objInt = "arroz"; 
             if (tree.Remove(objInt))
                 Console.WriteLine("key " + objInt + " was successfully removed.");
             else
@@ -212,7 +229,7 @@ namespace Application
                 Console.WriteLine("It was not possible to find the " + objInt + " key in the dataset. Did you remove it?\n");
 
             //NODE HAS 2 SUBTREE
-            objInt = 18;// "muito";//
+            objInt = "muito";
             if (tree.Remove(objInt))
                 Console.WriteLine("key " + objInt + " was successfully removed.");
             else
@@ -224,7 +241,7 @@ namespace Application
                 Console.WriteLine("It was not possible to find the " + objInt + " key in the dataset. Did you remove it?\n");
 
             //NODE HAS 2 SUBTREE AND IS ROOT
-            objInt = 15; //"mamão";// 
+            objInt = "mamão"; 
             if (tree.Remove(objInt))
                 Console.WriteLine("key " + objInt + " was successfully removed.");
             else
@@ -247,7 +264,7 @@ namespace Application
 
             StringBuilder result = new StringBuilder("Inserting keys ");
 
-            HeapTree tree = new HeapTree(myArray.Length);
+            HeapTree<int,int> tree = new HeapTree<int, int>(myArray.Length);
             Random rnd = new Random();
 
             for (int i = 0; i < myArray.Length; i++) {
@@ -276,25 +293,23 @@ namespace Application
             Console.WriteLine("\nRemoved nodes:" + result + "\n");
         }
 
-        private static void TestAVLTree<T>(T[] myArray)
+        private static void TestAVLTree(int[] myArray)
         {
-            AvlTree avl = new AvlTree();
+            AvlTree<int, int> avl = new AvlTree<int, int>();
 
             Console.WriteLine("\nBALANCED! Time O(log n) Space O(n)");
 
             for (int i = 0; i < myArray.Length; i++)
             {
-                object obj1 = myArray[i];
-                object obj2 = i;
-                avl.Insert(obj1, obj2);
+                avl.Insert(myArray[i], i);
             }
 
             Console.WriteLine("\nIn Order:\n" + avl.InOrder());
             Console.WriteLine("\nPos Order:\n" + avl.PosOrder());
             Console.WriteLine("\nPre Order:\n" + avl.PreOrder());
             
-            Node node = null;
-            object objInt = 0;// "nada";
+            Node<int,int> node = null;
+            int objInt = 0;// "nada";
             if ((node = avl.Search(objInt)) != null)
                 Console.WriteLine("\nThe Value of " + objInt + " key: " + node.Key + " synonymous of " + objInt + ": " + node.Value + " index: " + node.Index);
             else
@@ -364,7 +379,7 @@ namespace Application
             StringBuilder result = new StringBuilder("Inserting value ");
             StringBuilder aux = new StringBuilder();
 
-            Queue<object> myQueue = new Queue<object>(myArray.Length);
+            SortLib.Collections.Queue<object> myQueue = new SortLib.Collections.Queue<object>(myArray.Length);
             myQueue.Enqueue("String");
             myQueue.Enqueue(103);
             myQueue.Enqueue(DateTime.Now);
@@ -405,7 +420,7 @@ namespace Application
             
             StringBuilder result = new StringBuilder();
 
-            Stack<object> myStack = new Stack<object>();
+            SortLib.Collections.Stack<object> myStack = new SortLib.Collections.Stack<object>();
             myStack.Push("String");
             myStack.Push(103);
             myStack.Push(DateTime.Now);
@@ -434,7 +449,7 @@ namespace Application
             Console.WriteLine("\n======== L-I-S-T ==================" +
                "\n======== Complexity: Add O(1) Search/Remove O(n)\nSteps:\n");
             
-            List<int> myList = new List<int>();
+            SortLib.Collections.List<int> myList = new SortLib.Collections.List<int>();
             for (int i = 0; i < myArray.Length; i++)
             {
                 myList.Add(myArray[i]);
