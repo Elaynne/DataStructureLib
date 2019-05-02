@@ -48,7 +48,7 @@ namespace SortLib.Collections
             Count++;
         }
         
-        public NodeList<T> Find(object element)
+        public NodeList<T> Find(T element)
         {
             NodeList<T> auxIdx = Head;
             T obj = auxIdx.Element;
@@ -61,7 +61,7 @@ namespace SortLib.Collections
             return (Util.ValidateEqual(obj, element)) ? auxIdx : null;
         }
 
-        public bool Remove(object element)
+        public bool Remove(T element)
         {
             NodeList<T> aux = Find(element);
             if (aux == null)
@@ -94,19 +94,24 @@ namespace SortLib.Collections
             Count--;
             return true;
         }
-        
-        public void Clear() => Head = Tail = null;
 
-        public T[] Sort(T[] data)
+        public void Clear()
+        {
+            Head = Tail = null;
+            Count = 0;
+        }
+
+        public T[] Sort()
         {
             MergeSort<T> sort = new MergeSort<T>();
-            sort.Mergesort(data, 0, data.Length);
-            return data;
+            T[] sorted = GetListElements();
+            sort.Mergesort(sorted, 0, sorted.Length - 1);
+            return sorted;
         }
 
         public string PrintList()
         {
-            StringBuilder result = new StringBuilder("My list: ");
+            StringBuilder result = new StringBuilder();
             NodeList<T> aux = Head;
             while (aux != null)
             {
@@ -114,6 +119,19 @@ namespace SortLib.Collections
                 aux = aux.Next;
             }
             return result.ToString();
+        }
+        public T[] GetListElements()
+        {
+            NodeList<T> aux = Head;
+            T[] result = new T[Count];
+            int idx = 0;
+            while (aux != null)
+            {
+                result[idx] = aux.Element;
+                aux = aux.Next;
+                idx++;
+            }
+            return result;
         }
 
         #region ////////////// TO - DO //////////////////////

@@ -17,17 +17,13 @@ namespace SortLibTest
         };
         private readonly int[] expectedInt = new int[] { 6, 7, 11, 12, 14, 15, 16, 18, 26, 46, 58, 62, 63, 65, 66 };
       
-        private readonly string[] strInput = new string[] {
-            "mamão", "arroz", "muito", "simples", "nada", "arara", "matriz"
-        };
+        private readonly string[] strInput = new string[] {"mamão", "arroz", "muito", "simples", "nada", "arara", "matriz"};
         private readonly Dictionary<string, string> strTree = new Dictionary<string, string>
         {
               ["mamão"] = "110", ["arroz"] = "120", ["muito"] = "160", ["simples"] = "170",
               ["nada"] = "190", ["arara"] = "200", ["matriz"] = "210"
         };
-        private readonly string[] expectedStr = new string[] {
-           "arara", "arroz", "mamão", "matriz", "muito", "nada", "simples"
-        };
+        private readonly string[] expectedStr = new string[] { "arara", "arroz", "mamão", "matriz", "muito", "nada", "simples" };
 
 
         #region integers

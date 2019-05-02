@@ -6,6 +6,8 @@ namespace SortLib.Interface
 {
     public interface IBalancedTree
     {
+
+        //TODO
         /*  /// <summary>
           /// Get the height of the tree
           /// balanced  return (int)Math.Log(tree.Count() - 1, 2);
