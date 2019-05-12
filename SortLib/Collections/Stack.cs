@@ -56,5 +56,20 @@ namespace SortLib.Collections
             }
             return result.ToString();
         }
+
+        public T[] GetStack()
+        {
+            StackNode<T> aux = Top;
+            T[] result = new T[Lenght];
+            int idx = 0;
+
+            while (aux != null)
+            {
+                result[idx] = aux.Element;
+                aux = aux.Next;
+                idx++;
+            }
+            return result;
+        }
     }
 }

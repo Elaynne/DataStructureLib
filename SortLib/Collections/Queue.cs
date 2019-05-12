@@ -45,7 +45,17 @@ namespace SortLib.Collections
         public bool IsEmpty() => Lenght == 0;
 
         public int GetStartIdx() => Start;
-        
-        public T[] GetQueue()=> QueueData;
+
+        public T[] GetQueue()
+        {
+            T[] data = new T[lenght];
+            int idx = 0;
+            for (int i = Start; i <= lenght; i++)
+            {
+                data[idx] = QueueData[i];
+                idx++;
+            }
+            return data;
+        }
     }
 }
