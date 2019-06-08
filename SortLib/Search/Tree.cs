@@ -27,7 +27,7 @@ namespace SortLib.Search
 
         public string PrintNode()
         {
-            return "Index: " + Index + " key: " + Key + "\n";
+            return Key.ToString() + " ";//"Index: " + Index + " key: " + Key + "\n";
         }
 
         /*AVL NODE PROPERTY*/

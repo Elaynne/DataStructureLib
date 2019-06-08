@@ -50,7 +50,7 @@ namespace SortLib.Collections
         {
             T[] data = new T[lenght];
             int idx = 0;
-            for (int i = Start; i <= lenght; i++)
+            for (int i = Start; i < Capacity; i++)
             {
                 data[idx] = QueueData[i];
                 idx++;
