@@ -12,16 +12,15 @@ namespace SortLib.Sort
             Util = new DSUtil();
         }
 
-        public string QuickSortTime(T[] data, int ini, int end)
+        public void SortTime(T[] data, int ini, int end)
         {
             DateTime start = DateTime.Now;
-            Quicksort(data, ini, end);
+            Sort(data, ini, end);
             DateTime endTime = DateTime.Now;
             QSLog = (endTime - start).ToString();
-            return QSLog;
         }
 
-        public void Quicksort(T[] data, int ini, int end)
+        public void Sort(T[] data, int ini, int end)
         {
             if (ini < end)
             {
@@ -46,8 +45,8 @@ namespace SortLib.Sort
                 }
                 data[ini] = data[j];
                 data[j] = pivo;
-                Quicksort(data, ini, j - 1);
-                Quicksort(data, j + 1, end);
+                Sort(data, ini, j - 1);
+                Sort(data, j + 1, end);
             }
         }
     }

@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using SortLib.Search;
 using SortLib.Sort;
 using System;
@@ -8,6 +9,12 @@ namespace SortLibTest
 {
     public class SortTest
     {
+        private IConfiguration _configuration { get; set; }
+
+        public SortTest(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         private readonly int[] intInput = new int[] { 15, 18, 16, 14, 63, 12, 62, 58, 66, 26, 6, 65, 46, 11, 7 };
         private readonly Dictionary<int, int> intTree = new Dictionary<int, int> {
             [15] = 200, [18] = 230, [16] = 210, [14] = 190,
@@ -31,9 +38,9 @@ namespace SortLibTest
         public void Quicksort_IntegerTest()
         {
             //arrange
-            QuickSort<int> sort = new QuickSort<int>();
+            QuickSort<int> quicksort = new QuickSort<int>();
             //act
-            sort.Quicksort(intInput, 0, intInput.Length - 1);
+            quicksort.Sort(intInput, 0, intInput.Length - 1);
             int[] result = intInput;
             //assert
             Assert.Equal(expectedInt, result);
@@ -43,9 +50,9 @@ namespace SortLibTest
         public void Mergesort_IntegerTest()
         {
             //arrange
-            MergeSort<int> sort = new MergeSort<int>();
+            MergeSort<int> mergesort = new MergeSort<int>();
             //act
-            sort.Mergesort(intInput, 0, intInput.Length - 1);
+            mergesort.Sort(intInput, 0, intInput.Length - 1);
             int[] result = intInput;
             //assert
             Assert.Equal(expectedInt, result);
@@ -55,15 +62,16 @@ namespace SortLibTest
         public void Heapsort_IntegerTest()
         {
             //arrange
-            HeapSort<int,int> sort = new HeapSort<int,int>();
+            HeapSort<int,int> heapsort = new HeapSort<int,int>(_configuration);
             int[] result = new int[intTree.Count];
             int index = 0;
+            heapsort.Sort(BuildNodeArray<int, int>(intTree));
             //act
-            foreach (Node<int,int> node in sort.Heapsort(BuildNodeArray<int,int>(intTree)))
+            foreach (Node<int,int> node in heapsort.Sorted)
             {
                 result[index] = Convert.ToInt32(node.Key);
                 index++;
-            }
+            };
             //assert
             Assert.Equal(expectedInt, result);
         }
@@ -74,9 +82,9 @@ namespace SortLibTest
         public void Quicksort_StringTest()
         {
             //arrange
-            QuickSort<string> sort = new QuickSort<string>();
+            QuickSort<string> quicksort = new QuickSort<string>();
             //act
-            sort.Quicksort(strInput, 0, strInput.Length - 1);
+            quicksort.Sort(strInput, 0, strInput.Length - 1);
             string[] result = strInput;
             //assert
             Assert.Equal(expectedStr, result);
@@ -86,9 +94,9 @@ namespace SortLibTest
         public void Mergesort_StringTest()
         {
             //arrange
-            MergeSort<string> sort = new MergeSort<string>();
+            MergeSort<string> mergesort = new MergeSort<string>();
             //act
-            sort.Mergesort(strInput, 0, strInput.Length - 1);
+            mergesort.Sort(strInput, 0, strInput.Length - 1);
             string[] result = strInput;
             //assert
             Assert.Equal(expectedStr, result);
@@ -98,12 +106,12 @@ namespace SortLibTest
         public void Heapsort_StringTest()
         {
             //arrange
-            HeapSort<string, string> sort = new HeapSort<string, string>();
+            HeapSort<string, string> heapsort = new HeapSort<string, string>(_configuration);
             string[] result = new string[strTree.Count];
             int index = 0;
-           
+            heapsort.Sort(BuildNodeArray<string, string>(strTree));
             //act
-            foreach (Node<string, string> node in sort.Heapsort(BuildNodeArray<string,string>(strTree)))
+            foreach (Node<string, string> node in heapsort.Sorted)
             {
                 result[index] = node.Key;
                 index++;

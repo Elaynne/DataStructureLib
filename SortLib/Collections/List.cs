@@ -105,7 +105,7 @@ namespace SortLib.Collections
         {
             MergeSort<T> sort = new MergeSort<T>();
             T[] sorted = GetListElements();
-            sort.Mergesort(sorted, 0, sorted.Length - 1);
+            sort.Sort(sorted, 0, sorted.Length - 1);
             return sorted;
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SortLib.Interface;
+using System;
 using System.Text;
 
 namespace SortLib.Sort
@@ -7,22 +8,22 @@ namespace SortLib.Sort
     {
         public string MSlog { get;set; }
         int cont = 0;
-        public DSUtil Util { get; set; }
+        private DSUtil Util { get; set; }
 
         public MergeSort()
         {
             Util = new DSUtil();
         }
 
-        public void MergesortTime(T[] inputArgs, int init, int end)
+        public void SortTime(T[] inputArgs, int init, int end)
         {
             DateTime startTime = DateTime.Now;
-            Mergesort(inputArgs, init, end);
+            Sort(inputArgs, init, end);
             DateTime endtime = DateTime.Now;
             MSlog = (endtime - startTime).ToString();
         }
 
-        public void Mergesort(T[] inputArgs, int init, int end)
+        public void Sort(T[] inputArgs, int init, int end)
         {
             StringBuilder steps = new StringBuilder("");
 
@@ -30,8 +31,8 @@ namespace SortLib.Sort
             {
                 int mid = init + ((end - init) / 2);
 
-                Mergesort(inputArgs, init, mid);
-                Mergesort(inputArgs, mid + 1, end);
+                Sort(inputArgs, init, mid);
+                Sort(inputArgs, mid + 1, end);
                 Merge(inputArgs, init, mid, end);
                 
                 steps.Append(cont + ": ");

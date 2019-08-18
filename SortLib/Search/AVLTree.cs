@@ -81,7 +81,7 @@ namespace SortLib.Search
         
         private bool SearchRemove(T targetValue, Node<T, G> current)
         {
-            if (current == null) return true;
+            if (current == null) return false;
 
             if (Util.ValidateEqual(targetValue, current.Key)) return Remove(current, targetValue);
 
@@ -89,7 +89,7 @@ namespace SortLib.Search
 
             if (current != null) return SearchRemove(targetValue, current);
 
-            return true;
+            return false;
         }
         /// <summary>
         /// 
@@ -128,7 +128,14 @@ namespace SortLib.Search
                         current.Father.Left = current.Left != null ? current.Left : current.Right;
                     else
                         current.Father.Right = current.Left != null ? current.Left : current.Right;
-                    current.Left.Father = current.Father;
+                    if (current.Left != null)
+                    {
+                        current.Left.Father = current.Father;
+                    }
+                    else
+                    {
+                        current.Right.Father = current.Father;
+                    }
                 }
                 current = current.Left != null ? current.Left : current.Right;
                 if(current.Father != null)

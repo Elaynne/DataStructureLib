@@ -82,7 +82,8 @@ namespace SortLib.Search
                     {
                         current.Left.Father = current.Father;
                     }
-                    else { 
+                    else
+                    { 
                         current.Right.Father = current.Father;
                     }
                 }
