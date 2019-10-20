@@ -65,7 +65,7 @@ namespace SortLibTest
             {
                 result[index] = Convert.ToInt32(node.Key);
                 index++;
-            };
+            }
             //assert
             Assert.Equal(expectedInt, result);
         }

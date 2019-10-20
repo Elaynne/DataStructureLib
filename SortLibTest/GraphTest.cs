@@ -37,5 +37,19 @@ namespace SortLibTest
             // Assert
             Assert.Equal("1, 2, 3, 4, 5, 6, 7, 8, 9, 10", result);
         }
+
+        [Fact]
+        public void ShortestPath()
+        {
+            //Arrange
+            var graph = new Graph<int>(vertices, edges);
+            var search = new GraphSearch();
+            //Act
+            var result = search.ShortestPath(graph, 1);
+            string shortestPath = string.Empty;
+            // Assert 
+            shortestPath = (string.Join(", ", result(7)));
+            Assert.Equal("1, 2, 4, 7", shortestPath);
+        }
     }
 }

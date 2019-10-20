@@ -10,17 +10,22 @@ namespace SortLib.Search
     public class Graph<T>
     {
         public Dictionary<T, HashSet<T>> AdjacencyList { get; } = new Dictionary<T, HashSet<T>>();
+        public IEnumerable<T> Vertices { get; set; }
+        public IEnumerable<Tuple<T,T>> Edges { get; set; }
 
         public Graph()
         { }
         public Graph(IEnumerable<T> vertices, IEnumerable<Tuple<T,T>> edges)
         {
-            foreach (var vertex in vertices)
+            Vertices = vertices;
+            Edges = edges;
+
+            foreach (var vertex in Vertices)
             {
                 AddVertex(vertex);
             }
 
-            foreach (var edge in edges)
+            foreach (var edge in Edges)
             {
                 AddEdges(edge);
             }
@@ -38,7 +43,6 @@ namespace SortLib.Search
                 AdjacencyList[edge.Item2].Add(edge.Item1);
             }
         }
-
     }
 
     public class GraphSearch
@@ -77,7 +81,7 @@ namespace SortLib.Search
             if (!graph.AdjacencyList.ContainsKey(initialVertex))
                 return visited;
 
-            var queue = new Queue<T>();
+            var queue = new SortLib.Collections.Queue<T>(graph.AdjacencyList.Count);
             queue.Enqueue(initialVertex);
 
             while (queue.Count > 0)
@@ -95,6 +99,44 @@ namespace SortLib.Search
                 }
             }
             return visited;
+        }
+
+        public Func<T, IEnumerable<T>> ShortestPath<T>(Graph<T> graph, T initialVertex)
+        {
+            var previous = new Dictionary<T, T>();
+
+            var queue = new Queue<T>();
+            queue.Enqueue(initialVertex);
+
+            while (queue.Count > 0)
+            {
+                var vertex = queue.Dequeue();
+                foreach (var neighbor in graph.AdjacencyList[vertex])
+                {
+                    if (previous.ContainsKey(neighbor))
+                        continue;
+
+                    previous[neighbor] = vertex;
+                    queue.Enqueue(neighbor);
+                }
+            }
+
+            Func<T, IEnumerable<T>> shortestPath = v => {
+                var path = new List<T> { };
+
+                var current = v;
+                while (!current.Equals(initialVertex))
+                {
+                    path.Add(current);
+                    current = previous[current];
+                };
+
+                path.Add(initialVertex);
+                path.Reverse();
+
+                return path;
+            };
+            return shortestPath;
         }
     }
 }

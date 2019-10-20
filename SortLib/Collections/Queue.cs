@@ -7,7 +7,7 @@ namespace SortLib.Collections
         private int Capacity { get; set; }
         private int Start { get; set; }
         private int lenght = 0;
-        public int Lenght { get => lenght;  }
+        public int Count { get => lenght;  }
         private T[] QueueData { get; set; }
 
         public Queue(int capacity)
@@ -21,7 +21,7 @@ namespace SortLib.Collections
         public void Enqueue(T data)
         {
 
-            int index = (Start + Lenght) % Capacity;
+            int index = (Start + Count) % Capacity;
             if (index <= Capacity - 1)
                 QueueData[index] = data;
             lenght++;
@@ -40,9 +40,9 @@ namespace SortLib.Collections
 
         public T GetFirst() => QueueData[Start];
 
-        public T GetLast() => QueueData[Lenght-1];
+        public T GetLast() => QueueData[Count - 1];
 
-        public bool IsEmpty() => Lenght == 0;
+        public bool IsEmpty() => Count == 0;
 
         public int GetStartIdx() => Start;
 
