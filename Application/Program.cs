@@ -50,7 +50,8 @@ namespace Application
             Console.WriteLine("[F] - AVLtree");
             Console.WriteLine("[G] - Queue");
             Console.WriteLine("[H] - Stack");
-            Console.WriteLine("[I] - List /*Not implemented yet.*/");
+            Console.WriteLine("[I] - List");
+            Console.WriteLine("[J] - Graph - Deep-First Search");
             Console.WriteLine("[Esc] - Close\n");
             var algorith = Console.ReadKey();
 
@@ -81,6 +82,8 @@ namespace Application
 
             int[] smallArray = new int[] { 15, 18, 16, 14, 63, 12, 62, 58, 66, 26, 6, 65, 46, 11, 7 };
             string[] strArray = new string[] { "mamão", "arroz", "muito", "simples", "nada", "arara", "matriz" };
+
+           
             switch (algorith.Key)
             {
                 case ConsoleKey.A:
@@ -172,7 +175,7 @@ namespace Application
             Console.WriteLine("\n====== SURVIVOR! Transform in-place to conquer! Choice for real-time! ======" +
                           "\nComplexity Time O(nLog n) and Space O(n)" +
                           "\n\n======Steps:\n");
-            HeapSort<int, int> sort = new HeapSort<int, int>(_configuration);
+            HeapSort<int, int> sort = new HeapSort<int, int>();
 
             StringBuilder result = new StringBuilder("Sorted array by heapsort ");
             sort.Sort(myArray);
@@ -483,8 +486,7 @@ namespace Application
             myList.Clear();
             Console.WriteLine("Clear list: " + myList.PrintList());
         }
-
-
+        
         /*TESTE REMOVE ALL*/
         private static bool IsEven(int i) => ((i % 2) == 0);
         #endregion

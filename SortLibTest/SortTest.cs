@@ -9,12 +9,6 @@ namespace SortLibTest
 {
     public class SortTest
     {
-        private IConfiguration _configuration { get; set; }
-
-        public SortTest(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
         private readonly int[] intInput = new int[] { 15, 18, 16, 14, 63, 12, 62, 58, 66, 26, 6, 65, 46, 11, 7 };
         private readonly Dictionary<int, int> intTree = new Dictionary<int, int> {
             [15] = 200, [18] = 230, [16] = 210, [14] = 190,
@@ -62,7 +56,7 @@ namespace SortLibTest
         public void Heapsort_IntegerTest()
         {
             //arrange
-            HeapSort<int,int> heapsort = new HeapSort<int,int>(_configuration);
+            HeapSort<int,int> heapsort = new HeapSort<int,int>();
             int[] result = new int[intTree.Count];
             int index = 0;
             heapsort.Sort(BuildNodeArray<int, int>(intTree));
@@ -106,7 +100,7 @@ namespace SortLibTest
         public void Heapsort_StringTest()
         {
             //arrange
-            HeapSort<string, string> heapsort = new HeapSort<string, string>(_configuration);
+            HeapSort<string, string> heapsort = new HeapSort<string, string>();
             string[] result = new string[strTree.Count];
             int index = 0;
             heapsort.Sort(BuildNodeArray<string, string>(strTree));

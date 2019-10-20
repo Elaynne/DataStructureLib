@@ -18,7 +18,7 @@ namespace SortLib.Collections
     {
         public StackNode<T> Top { get; set; }
         private int lenght = 0;
-        public int Lenght { get => lenght; }
+        public int Count { get => lenght; }
 
         public void Push(T element)
         {
@@ -60,7 +60,7 @@ namespace SortLib.Collections
         public T[] GetStack()
         {
             StackNode<T> aux = Top;
-            T[] result = new T[Lenght];
+            T[] result = new T[Count];
             int idx = 0;
 
             while (aux != null)

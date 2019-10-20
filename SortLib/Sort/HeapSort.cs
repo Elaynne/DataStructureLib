@@ -17,9 +17,8 @@ namespace SortLib.Sort
 
         private IConfiguration _configuration { get; set; }
 
-        public HeapSort(IConfiguration confTeste)
+        public HeapSort()
         {
-            _configuration = confTeste;
             sorted = new List<Node<T, G>>();
         }
 
@@ -32,8 +31,6 @@ namespace SortLib.Sort
         }
         public void Sort(Node<T, G>[] myInput)
         {
-            var name = _configuration.GetValue<string>("ApplicationName");
-            var odl = _configuration.GetValue<string>("OldName");
             BuildHeapTree(myInput);
             Tree.Sort();
             
