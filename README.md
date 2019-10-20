@@ -16,10 +16,11 @@ This library has my implementations of basic data structures using C# 7.1 and .n
 * [x] Quicksort
 * [x] Unit test - XUnit
 
-## Tree/Search:
+## Search:
 * [x] AVLtree: [x] Insert, [x] Search, [x] Remove
 * [x] BinaryTree: [x] Insert, [x] Search, [x] Remove
 * [x] HeapTree: [x] Insert, [x] Remove
 * [x] BinarySearch (remember that it assumes that the entry is already ordered)
+* [x] Graph: [x] DeepFirstSearch, [x] BreadFirstSearch
 * [ ] Unit test - XUnit [WIP]
 
