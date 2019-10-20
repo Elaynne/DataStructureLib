@@ -10,22 +10,17 @@ namespace SortLib.Search
     public class Graph<T>
     {
         public Dictionary<T, HashSet<T>> AdjacencyList { get; } = new Dictionary<T, HashSet<T>>();
-        public IEnumerable<T> Vertices { get; set; }
-        public IEnumerable<Tuple<T,T>> Edges { get; set; }
-
+       
         public Graph()
         { }
         public Graph(IEnumerable<T> vertices, IEnumerable<Tuple<T,T>> edges)
         {
-            Vertices = vertices;
-            Edges = edges;
-
-            foreach (var vertex in Vertices)
+            foreach (var vertex in vertices)
             {
                 AddVertex(vertex);
             }
 
-            foreach (var edge in Edges)
+            foreach (var edge in edges)
             {
                 AddEdges(edge);
             }
@@ -123,17 +118,14 @@ namespace SortLib.Search
 
             Func<T, IEnumerable<T>> shortestPath = v => {
                 var path = new List<T> { };
-
                 var current = v;
                 while (!current.Equals(initialVertex))
                 {
                     path.Add(current);
                     current = previous[current];
-                };
-
+                }
                 path.Add(initialVertex);
                 path.Reverse();
-
                 return path;
             };
             return shortestPath;
