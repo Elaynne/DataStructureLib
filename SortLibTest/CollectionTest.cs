@@ -10,7 +10,8 @@ namespace SortLibTest
     {
         private readonly int[] intInput = new int[] { 15, 18, 16, 14, 63, 12, 62, 58, 66, 26, 6, 65, 46, 11, 7 };
         private readonly int[] expectedInt = new int[] { 6, 7, 11, 12, 14, 15, 16, 18, 26, 46, 58, 62, 63, 65, 66 };
-      
+        private readonly int[] expectedReverse = new int[] { 7, 11, 46, 65, 6, 26, 66, 58, 62, 12, 63, 14, 16, 18, 15 };
+
         private readonly string[] strInput = new string[] {"mamão", "arroz", "muito", "simples", "nada", "arara", "matriz"};
         private readonly string[] expectedStr = new string[] { "arara", "arroz", "mamão", "matriz", "muito", "nada", "simples" };
 
@@ -188,6 +189,20 @@ namespace SortLibTest
             string[] result = BuildList(collection, strInput).Sort();
             //assert
             Assert.Equal(expectedStr, result);
+        }
+
+        [Fact]public void ListReverte()
+        { 
+            List<int> collection = new List<int>();
+            collection = BuildList(collection, intInput);
+            collection.Reverse();
+            int[] result = new int[collection.Count];
+
+            for (int i = 0; i < collection.Count; ++i)
+            {
+                result[i] = collection.FindAt(i).Element;
+            }
+            Assert.Equal(expectedReverse, result);
         }
         #endregion
 

@@ -1,5 +1,7 @@
-﻿using SortLib.Sort;
+﻿using SortLib.Collections;
+using SortLib.Sort;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -20,12 +22,13 @@ namespace SortLib.Collections
             Index = index;
         }
     }
-    public class List<T>
+    public class List<T> 
     {
         public int Count { get; set; } = 0;
-        public NodeList<T> Head { get; set; }
-        public NodeList<T> Tail { get; set; }
+        private NodeList<T> Head { get; set; }
+        private NodeList<T> Tail { get; set; }
         private DSUtil Util { get; set; }
+        private NodeList<T>[] nodeArray { get; set; }
 
         public List()
         {
@@ -47,7 +50,8 @@ namespace SortLib.Collections
             Tail = Tail.Next;
             Count++;
         }
-        
+        public NodeList<T> First() => Head;
+        public NodeList<T> Last() => Tail;
         public NodeList<T> Find(T element)
         {
             NodeList<T> auxIdx = Head;
@@ -133,8 +137,21 @@ namespace SortLib.Collections
             }
             return result;
         }
-
-        #region ////////////// TO - DO //////////////////////
+        public void Reverse()
+        {
+            NodeList<T> aux = Tail;
+            int size = Count;
+            Clear();
+            for (int i = 0; i < size; ++i)
+            {
+                if (aux != null)
+                {
+                    Add(aux.Element);
+                    aux = aux.Previous;
+                }
+            }
+        }
+        //TODO
         /// <summary>
         /// Add a collection to the end of the list
         /// </summary>
@@ -150,7 +167,7 @@ namespace SortLib.Collections
         }
         private void RemoveRange(int start, int end)
         {
-        }  
-        #endregion
+        }
     }
 }
+

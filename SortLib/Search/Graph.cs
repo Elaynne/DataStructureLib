@@ -10,7 +10,7 @@ namespace SortLib.Search
     public class Graph<T>
     {
         public Dictionary<T, HashSet<T>> AdjacencyList { get; } = new Dictionary<T, HashSet<T>>();
-       
+
         public Graph()
         { }
         public Graph(IEnumerable<T> vertices, IEnumerable<Tuple<T,T>> edges)
@@ -100,7 +100,7 @@ namespace SortLib.Search
         {
             var previous = new Dictionary<T, T>();
 
-            var queue = new Queue<T>();
+            var queue = new SortLib.Collections.Queue<T>(graph.AdjacencyList.Count);
             queue.Enqueue(initialVertex);
 
             while (queue.Count > 0)

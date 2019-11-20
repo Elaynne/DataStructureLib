@@ -20,18 +20,7 @@ namespace Application
 
         static void Main(string[] args)
         {
-            string dir = @"C:\Users\Elaynne\source\repos\SortLib\DataStructureLib\Application\Config";
-            _configuration = new ConfigurationBuilder()
-                 .SetBasePath(dir)
-                 .AddJsonFile("appSettings.json", optional: false)
-                 .AddXmlFile("oldSettings.xml", optional: true).Build();
-
             Menu();
-
-            // configHost.AddEnvironmentVariables(prefix: "PREFIX_");
-            // configHost.AddCommandLine(args);
-
-            
 
             Console.WriteLine("Press any key to finish.");
             Console.ReadKey();
@@ -406,7 +395,7 @@ namespace Application
             myQueue.Enqueue(5547.90);
 
             aux.Append("Testing generic queue: ");
-            for (int i = 0; i < myQueue.Lenght; i++)
+            for (int i = 0; i < myQueue.Count; i++)
             {
                 aux.Append(myQueue.GetQueue()[i] + " ");
             }
@@ -424,7 +413,7 @@ namespace Application
             result.Append("\n\nElement removed: " + element.ToString());
 
             aux.Clear();
-            for (int i = myQueue.GetStartIdx(); i <= myQueue.Lenght; i++)
+            for (int i = myQueue.GetStartIdx(); i <= myQueue.Count; i++)
             {
                 aux.Append(myQueue.GetQueue()[i] + " ");
             }
