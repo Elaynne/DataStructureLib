@@ -73,11 +73,8 @@ namespace SortLibTest
         [Fact]
         public void Bubblesort_IntegerTest()
         {
-            //arrange
             BubbleSort<int> bubblesort = new BubbleSort<int>();
-            //act
             int[] result = bubblesort.Sort(intInput);
-            //assert
             Assert.Equal(expectedInt, result);
         }
         #endregion

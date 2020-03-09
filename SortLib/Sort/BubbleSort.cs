@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SortLib.Sort
 {
-    public class BubbleSort<T>
+    public class BubbleSort<T> where T: IComparable
     {
         public string Duration { get; private set; }
         public void SortTime(T[] myInput)
@@ -15,34 +15,21 @@ namespace SortLib.Sort
             DateTime end = DateTime.Now;
             Duration = (end - start).ToString();
         }
-        public T[] Sort(T[] elements)
-        {
-            switch (elements)
-            {
-                case int[] i:
-                    return BubbleInteger(elements.Select(x => Convert.ToInt32(x)).ToArray()) as T[];
-                case string[] str:
-                    //todo
-                    throw new NotImplementedException("TODO");
-                default:
-                    throw new ArgumentException("I can't handle the type of your values.");
-            }
-        }
-
-        private int[] BubbleInteger(int[] elements)
+        public T[] Sort(T[] elements) 
         {
             for (int i = 0; i < elements.Length; i++)
             {
                 for (int j = 0; j < elements.Length - 1; j++)
                 {
-                    if (elements[j] > elements[j + 1])
+                    if (elements[j].CompareTo(elements[j + 1]) > 0)
                     {
-                        int buffer = elements[j + 1];
+                        T buffer = elements[j + 1];
                         elements[j + 1] = elements[j];
                         elements[j] = buffer;
                     }
                 }
             }
+
             return elements;
         }
     }
