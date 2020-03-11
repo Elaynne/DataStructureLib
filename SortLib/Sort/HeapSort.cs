@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SortLib.Sort
 {
-    public class HeapSort<T,G>
+    public class HeapSort<T,G> where T : IComparable
     {
         private List<Node<T, G>> sorted { get; set; }
         private string duration { get; set; }

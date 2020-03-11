@@ -4,15 +4,13 @@ using System.Text;
 
 namespace SortLib.Sort
 {
-    public class MergeSort<T>
+    public class MergeSort<T> where T : IComparable
     {
         public string MSlog { get;set; }
         int cont = 0;
-        private DSUtil Util { get; set; }
 
         public MergeSort()
         {
-            Util = new DSUtil();
         }
 
         public void SortTime(T[] inputArgs, int init, int end)
@@ -59,7 +57,7 @@ namespace SortLib.Sort
 
             while (i <= mid && j <= end)
             {
-                if (Util.ValidateLessEqual(inputArgs[i], inputArgs[j]))
+                if (inputArgs[i].CompareTo(inputArgs[j]) == 0 || inputArgs[i].CompareTo(inputArgs[j]) < 0)
                 {
                     outputArgs[k] = inputArgs[i];
                     i++;

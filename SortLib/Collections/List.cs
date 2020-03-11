@@ -22,17 +22,15 @@ namespace SortLib.Collections
             Index = index;
         }
     }
-    public class List<T> 
+    public class List<T> where T : IComparable
     {
         public int Count { get; set; } = 0;
         private NodeList<T> Head { get; set; }
         private NodeList<T> Tail { get; set; }
-        private DSUtil Util { get; set; }
         private NodeList<T>[] nodeArray { get; set; }
 
         public List()
         {
-            Util = new DSUtil();
         }
 
         public void Add(T element)
@@ -57,12 +55,12 @@ namespace SortLib.Collections
             NodeList<T> auxIdx = Head;
             T obj = auxIdx.Element;
 
-            while (!Util.ValidateEqual(obj, element) && auxIdx != null)
+            while (!(obj.CompareTo(element) == 0) && auxIdx != null)
             {
                 auxIdx = auxIdx.Next;
                 obj = auxIdx.Element;
             }
-            return (Util.ValidateEqual(obj, element)) ? auxIdx : null;
+            return (obj.CompareTo(element) == 0) ? auxIdx : null;
         }
 
         public bool Remove(T element)

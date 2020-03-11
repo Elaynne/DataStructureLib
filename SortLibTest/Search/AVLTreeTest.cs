@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Xunit;
 
-namespace SortLibTest.TreeTest
+namespace SortLibTest.Search
 {
     public class AVLTreeTest
     {

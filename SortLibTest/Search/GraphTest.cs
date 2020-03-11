@@ -3,7 +3,7 @@ using SortLib.Search;
 using System;
 using System.Text;
 
-namespace SortLibTest
+namespace SortLibTest.Search
 {
     public class GraphTest
     {

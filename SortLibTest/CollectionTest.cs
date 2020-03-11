@@ -6,7 +6,7 @@ using SortLib.Collections;
 
 namespace SortLibTest
 {
-    public class CollectionTest
+    public class CollectionTest 
     {
         private readonly int[] intInput = new int[] { 15, 18, 16, 14, 63, 12, 62, 58, 66, 26, 6, 65, 46, 11, 7 };
         private readonly int[] expectedInt = new int[] { 6, 7, 11, 12, 14, 15, 16, 18, 26, 46, 58, 62, 63, 65, 66 };
@@ -63,7 +63,7 @@ namespace SortLibTest
 
         }
         #endregion
-        private List<T> BuildList<T>(List<T> collection, T[] data)
+        private List<T> BuildList<T>(List<T> collection, T[] data) where T : IComparable
         {
             for (int i = 0; i < data.Length; i++)
             {

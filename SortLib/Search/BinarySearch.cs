@@ -5,32 +5,47 @@ using System.Text;
 namespace SortLib.Search
 {
     //This algorithm assume that the input is already sorted
-    public class BinarySearch<T>
+    public class BinarySearch<T> where T : IComparable
     {
-        private DSUtil Util { get; set; }
 
         public BinarySearch()
         {
-            Util = new DSUtil(); 
         }
 
         //O(1) O(log n)
-        public int Search(T[] sortedData, int start, int  end, T element)
+        public int Search(T[] sortedData, T element)
         {
-            object obj2 = element;
+            int start = 0;
+            int end = sortedData.Length;
+            end -= 1;
 
-            int i = (end - start) / 2;
-            object currentElement = sortedData[i];
+            while (start != end)
+            {
+                var middle = Convert.ToInt32(Math.Ceiling((start + end) / Convert.ToDecimal(2)));
+                if (sortedData[middle].CompareTo(element) > 0)
+                {
+                    end = middle - 1;
+                }
+                else {
+                    start = middle;
+                }
+            }
 
-            if (Util.ValidateEqual(currentElement, obj2)) return i;
+            if (sortedData[start].CompareTo(element) == 0)
+                return start;
+            return -1;
+            /*decimal index = ((end - start) / Convert.ToDecimal(2));
+            var i = Convert.ToInt32(Math.Ceiling(index) + start);
+           
+            if (sortedData[i].CompareTo(element) == 0)
+                return i;
 
             if (start == end) return -1;
 
-            if (Util.ValidateLess(currentElement, currentElement, obj2)) Search(sortedData, start, i, element);
-            
-            else Search(sortedData, i, end, element);
-            
-            return -1;
+            if (element.CompareTo(sortedData[i]) < 0)
+                return Search(sortedData, start, i, element);
+            else
+                return Search(sortedData, i, end, element);*/
         }
     }
 }
